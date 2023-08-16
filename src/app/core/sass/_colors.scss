@@ -1,0 +1,34 @@
+// Primary Colors
+$white: #FFF;
+$black: #000;
+$green: #00E741;
+$red: #E3000B;
+$line: #D5DDE0;
+$yellow: #FAFF00;
+
+$scheme: (
+    biiz-green: (
+        default: #00E741
+    ),
+    firm-gray: (
+        default: #CFCFCF,
+        0: #CFCFCF,
+        10:#f7f8f9,
+        50: #AFAFAF,
+        100: #AEAEAE,
+        200: #97ADB6,
+        300: #3E4958
+    )
+);
+//
+// @param $hue The color
+// @param $shade - optional, defaults to default shade.
+//
+// @example
+//     color:setColor(athletic-red);
+//     background: setColor(firm-gray, 500);
+//
+
+@function setColor($hue, $shade: default) {
+    @return map-get(map-get($scheme, $hue), $shade);
+}
