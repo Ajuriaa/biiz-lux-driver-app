@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { IonPage } from "@ionic/vue";
-import { useRouter } from "vue-router";
+import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from 'zod';
+import { useMutation } from "@vue/apollo-composable";
+import { loginQuery, setCookie } from "@/services/auth/auth.mutations";
 
 const schema = z.object({
       username: z.string({
@@ -27,15 +30,39 @@ const { handleSubmit, isSubmitting, resetForm, defineInputBinds } = useForm({
 const username = defineInputBinds("username");
 const password = defineInputBinds("password");
 
+const { query } = useRoute();
 const router = useRouter();
 
+const error = ref(false);
+const loading = ref(false);
+
+const { mutate: login, onDone, onError } = useMutation(loginQuery);
+
 const onSubmit = handleSubmit(async (values) => {
-  // the values callback has the updated values
-  if (values.username === '12' && values.password === '12') {
-    await router.push('/success');
-    resetForm();
+  loading.value = true;
+  await login({
+    attributes: {
+      username: values.username,
+      password: values.password,
+    }
+  });
+});
+
+onDone(async ({ data }: any) => {
+  if (data) {
+    const token = data.login.token;
+    const role = data.login.role;
+    setCookie(token, role);
+    // TODO: Replace hardcode `driver`
+    await router.push((query.returnUrl as string || '') || `/driver/home`);
   }
-})
+  loading.value = false;
+});
+
+onError((err) => {
+  error.value = true;
+  // TODO: Further handle logic
+});
 </script>
 
 <template>
