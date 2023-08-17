@@ -35,4 +35,4 @@ export const apolloClient = new ApolloClient({
     link,
     cache,
     connectToDevTools: true
-})
+});
