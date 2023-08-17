@@ -21,6 +21,7 @@
     "@ionic/vue": "^7.0.0",
     "@ionic/vue-router": "^7.0.0",
     "@vee-validate/zod": "^4.11.1",
+    "@vue/apollo-composable": "^4.0.0-beta.8",
     "graphql": "^16.8.0",
     "graphql-tag": "^2.12.6",
     "ionicons": "^7.0.0",
