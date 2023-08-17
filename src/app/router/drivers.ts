@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
-import { findToken } from "@/core/guards/auth.guard";
+import { findToken } from "@/core/helpers/auth-helper";
 import PassengerRouter from "@/components/passenger/PassengerRouter.vue";
 import HomePage from '@/views/HomePage.vue';
 import { Role } from "@/core/enums";

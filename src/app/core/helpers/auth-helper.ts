@@ -1,6 +1,3 @@
-
-
-
 export function findToken(): boolean {
     const cookies = document.cookie.split('; ');
     for (const c of cookies) {

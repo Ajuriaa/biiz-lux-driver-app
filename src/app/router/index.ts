@@ -3,7 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 import { driverRoutes } from "@/router/drivers";
 import LoginPage from '@/views/LoginPage.vue';
 import SuccessPage from "@/views/SuccessPage.vue";
-import { findToken } from "@/core/guards/auth.guard";
+import { findToken } from "@/core/helpers/auth-helper";
 // import { getRole } from "@/core/helpers/role-helper";
 
 const routes: Array<RouteRecordRaw> = [
