@@ -3,6 +3,7 @@ import { findToken } from "@/core/helpers/auth-helper";
 import PassengerRouter from "@/components/passenger/PassengerRouter.vue";
 import HomePage from '@/views/HomePage.vue';
 import { Role } from "@/core/enums";
+import {getRole} from "@/core/helpers/role-helper";
 // import { getRole } from "@/core/helpers/role-helper";
 
 export const driverRoutes: Array<RouteRecordRaw> = [
@@ -16,8 +17,7 @@ export const driverRoutes: Array<RouteRecordRaw> = [
             }
 
             // when the role is invalid
-            // TODO: Replace with real role
-            const currentRole = 'driver';
+            const currentRole = getRole();
             const urlRole = to.meta.role as string;
             const roleIsAllowed = currentRole.includes(urlRole);
 

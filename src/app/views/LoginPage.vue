@@ -7,6 +7,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { z } from 'zod';
 import { useMutation } from "@vue/apollo-composable";
 import { loginQuery, setCookie } from "@/services/auth/auth.mutations";
+import { getRole } from "@/core/helpers/role-helper";
 
 const schema = z.object({
       username: z.string({
@@ -53,8 +54,7 @@ onDone(async ({ data }: any) => {
     const token = data.login.token;
     const role = data.login.role;
     setCookie(token, role);
-    // TODO: Replace hardcode `driver`
-    await router.push((query.returnUrl as string || '') || `/driver/home`);
+    await router.push((query.returnUrl as string || '') || `/${getRole()}/home`);
   }
   loading.value = false;
 });
