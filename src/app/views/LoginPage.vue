@@ -1,20 +1,41 @@
 <script setup lang="ts">
 import { IonPage } from "@ionic/vue";
-import { reactive } from 'vue';
 import { useRouter } from "vue-router";
+import { useForm } from "vee-validate";
+import { toTypedSchema } from "@vee-validate/zod";
+import { z } from 'zod';
+
+const schema = z.object({
+      username: z.string({
+          required_error: "Username is required",
+          invalid_type_error: "Username must be a string",
+        })
+        .nonempty({ message: "Can't be empty" })
+        .min(2, { message: "Too short" }),
+      password: z.string({
+          required_error: "Password is required",
+          invalid_type_error: "Name must be a string",
+        })
+        .nonempty({ message: "Can't be empty" })
+        .min(2, { message: "Too short" }),
+    });
+
+const { handleSubmit, isSubmitting, resetForm, defineInputBinds } = useForm({
+  validationSchema: toTypedSchema(schema)
+});
+
+const username = defineInputBinds("username");
+const password = defineInputBinds("password");
 
 const router = useRouter();
-// TODO: Add validation
-const loginForm = reactive({ username: '', password: '' });
 
-async function onSubmit() {
-  // TODO: To be replaced with real logic
-  if (loginForm.username === '12' && loginForm.password === '12') {
+const onSubmit = handleSubmit(async (values) => {
+  // the values callback has the updated values
+  if (values.username === '12' && values.password === '12') {
     await router.push('/success');
-    loginForm.username = '';
-    loginForm.password = '';
+    resetForm();
   }
-}
+})
 </script>
 
 <template>
@@ -36,7 +57,7 @@ async function onSubmit() {
         </div>
         <form @submit.prevent="onSubmit()" class="form-field">
           <input
-              v-model="loginForm.username"
+              v-bind="username"
               class="input"
               placeholder="Ingresa tu email"
               maxlength="50"
@@ -44,7 +65,7 @@ async function onSubmit() {
               required
           >
           <input
-              v-model="loginForm.password"
+              v-bind="password"
               class="input"
               placeholder="Ingresa tu contraseña"
               maxlength="50"
