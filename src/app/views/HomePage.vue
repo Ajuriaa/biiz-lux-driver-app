@@ -9,7 +9,7 @@ const router = useRouter();
   <IonPage>
     <IonHeader :translucent="true">
       <IonToolbar>
-        <IonTitle>Blank</IonTitle>
+        <IonTitle>Driver Home Page</IonTitle>
       </IonToolbar>
     </IonHeader>
 
@@ -21,12 +21,8 @@ const router = useRouter();
       </IonHeader>
 
       <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-        <ion-button @click="() => router.push('/login')">
-          Go to Login
-        </ion-button>
-      </div>
+        <strong>This will be the Driver Home Page</strong>
+     </div>
     </IonContent>
   </IonPage>
 </template>
