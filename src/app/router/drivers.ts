@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
 import { findToken } from "@/core/helpers/auth-helper";
-import PassengerRouter from "@/components/passenger/PassengerRouter.vue";
+import DriverMainRouter from "@/components/driver/DriverMainRouter.vue";
 import HomePage from '@/views/HomePage.vue';
 import { Role } from "@/core/enums";
 import { getRole } from "@/core/helpers/role-helper";
@@ -24,7 +24,7 @@ export const driverRoutes: Array<RouteRecordRaw> = [
 
             return true;
         },
-        component: PassengerRouter,
+        component: DriverMainRouter,
         children: [
             {
                 path: 'home',

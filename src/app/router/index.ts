@@ -3,6 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 import { driverRoutes } from "@/router/drivers";
 import LoginPage from '@/views/LoginPage.vue';
 import SuccessPage from "@/views/SuccessPage.vue";
+import ProfilePage from "@/views/ProfilePage.vue";
 import { findToken } from "@/core/helpers/auth-helper";
 import { getRole } from "@/core/helpers/role-helper";
 
@@ -17,6 +18,11 @@ const routes: Array<RouteRecordRaw> = [
         return { path: homePathname };
       }
     }
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: ProfilePage
   },
   {
     path: '/success',

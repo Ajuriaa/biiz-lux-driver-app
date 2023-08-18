@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import { useRouter } from 'vue-router';
+import { IonPage, IonContent } from "@ionic/vue";
 import AppHeader from "@/components/AppHeader.vue";
-
-const router = useRouter();
 </script>
 
 <template>
