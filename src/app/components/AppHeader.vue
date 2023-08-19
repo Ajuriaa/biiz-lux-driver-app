@@ -1,18 +1,40 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router';
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
+import { useQuery } from '@vue/apollo-composable';
+import { weatherQuery } from '@/services/weather/weather.queries';
+import { getToken } from '@/core/helpers/token-helper';
+import weatherSvg from '@/assets/images/weather.svg';
 
 const router = useRouter();
 const route = useRoute();
 
+// TODO: fix weird flickering of icons when switching
+const weatherImage = ref(weatherSvg);
 const isProfileRoute = computed(() => route.path.includes('profile'));
 
-function goToProfile() {
-  router.push('/profile')
+const { onResult } = useQuery(weatherQuery, null, {
+  context: { headers:  { Authorization: getToken() } },
+  notifyOnNetworkStatusChange: true,
+  fetchPolicy: 'cache-and-network'
+});
+
+onResult(({ data }): void => {
+  if (data) {
+    weatherImage.value = setWeatherImage(data.weather.weather[0].icon);
+  }
+});
+
+function setWeatherImage(icon: string): string {
+  return `https://openweathermap.org/img/wn/${icon}@2x.png`;
 }
 
-function goToHome() {
-  router.push('/driver/home')
+function goToProfile(): void {
+  router.push('/profile');
+}
+
+function goToHome(): void {
+  router.push('/driver/home');
 }
 </script>
 
@@ -34,7 +56,7 @@ function goToHome() {
       />
 
       <div class="d-flex">
-        <img class="weather" src="../assets/images/weather.svg" alt="weather" />
+        <img class="weather" :src="weatherImage" alt="weather" />
         <img
             class="translate"
             src="../assets/images/translate.svg"
