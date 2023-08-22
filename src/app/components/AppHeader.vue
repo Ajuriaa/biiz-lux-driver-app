@@ -4,7 +4,7 @@ import { ref, computed } from 'vue';
 import { useQuery } from '@vue/apollo-composable';
 import { weatherQuery } from '@/services/weather/weather.queries';
 import { getToken } from '@/core/helpers/token-helper';
-import { IonHeader } from "@ionic/vue";
+import { IonHeader, IonToolbar } from "@ionic/vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -39,38 +39,40 @@ function goToHome(): void {
 
 <template>
   <IonHeader class="container ion-no-border" collapse="fade">
-    <div class="header">
-      <section class="header-wrapper">
-        <img
-            class="profile"
-            v-if="!isProfileRoute"
-            src="../assets/images/profile.svg"
-            @click="goToProfile()"
-            alt="profile"
-        />
-        <img
-            class="logo"
-            @click="goToHome()"
-            src="../assets/images/logo.svg"
-            alt="Logo"
-        />
-
-        <div class="d-flex">
-          <div class="icon-container">
-            <Transition name="fade" mode="out-in">
-              <img v-if="!weatherImage" class="weather-base" src="@/assets/images/weather.svg" alt="base weather" />
-              <img v-else class="weather" :src="weatherImage" alt="weather" />
-            </Transition>
-          </div>
-
+    <IonToolbar>
+      <div class="header">
+        <section class="header-wrapper">
           <img
-              class="translate"
-              src="../assets/images/translate.svg"
-              alt="translate"
+              class="profile"
+              v-if="!isProfileRoute"
+              src="../assets/images/profile.svg"
+              @click="goToProfile()"
+              alt="profile"
           />
-        </div>
-      </section>
-    </div>
+          <img
+              class="logo"
+              @click="goToHome()"
+              src="../assets/images/logo.svg"
+              alt="Logo"
+          />
+
+          <div class="d-flex">
+            <div class="icon-container">
+              <Transition name="fade" mode="out-in">
+                <img v-if="!weatherImage" class="weather-base" src="@/assets/images/weather.svg" alt="base weather" />
+                <img v-else class="weather" :src="weatherImage" alt="weather" />
+              </Transition>
+            </div>
+
+            <img
+                class="translate"
+                src="../assets/images/translate.svg"
+                alt="translate"
+            />
+          </div>
+        </section>
+      </div>
+    </IonToolbar>
   </IonHeader>
 </template>
 
