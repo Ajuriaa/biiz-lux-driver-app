@@ -141,21 +141,16 @@ function generateMonthCalendar(year: number, month: number): number[][] {
 </script>
 
 <template>
-  <!--  To be deleted, just shows reactivity -->
-  <pre>{{ JSON.stringify({ selectedDate, inputHour, inputMinutes, timePeriod, month }, null, 2) }}</pre>
   <div class="calendar-container">
     <section class="arrow-label">
       <img class="logo" :src="imageUrl" alt="logo" />
       <div class="label">
-    <FluentIosArrowLtr24Regular
-        v-if="!isCurrentMonth()"
-        @click="changeMonth(-1)"
-    >
-      arrow_back_ios
-    </FluentIosArrowLtr24Regular>
-        {{ month }}
-        <FluentIosArrow24Regular @click="changeMonth(1)">
-    </FluentIosArrow24Regular>
+        <FluentIosArrowLtr24Regular
+          v-if="!isCurrentMonth()"
+          @click="changeMonth(-1)"
+        />
+        <span>{{ month }}</span>
+        <FluentIosArrow24Regular @click="changeMonth(1)" />
       </div>
     </section>
     <section class="date">
@@ -164,10 +159,10 @@ function generateMonthCalendar(year: number, month: number): number[][] {
       </div>
       <div class="weeks" v-for="week in weeks">
         <div
-            class="day"
-            v-for="date in week"
-            :class="{ 'selected': isDateSelected(date) }"
-            @click="selectDate(date)"
+          class="day"
+          v-for="date in week"
+          :class="{ 'selected': isDateSelected(date) }"
+          @click="selectDate(date)"
         >
           {{ date ? date : '' }}
         </div>
@@ -179,24 +174,24 @@ function generateMonthCalendar(year: number, month: number): number[][] {
         <div v-if="!isHourInputVisible" class="label" @click="toggleHourInput()">{{ hour }}</div>
         <div v-if="isHourInputVisible" class="input-wrapper">
           <input
-              type="number"
-              :value="inputHour"
-              @input="onHourInputChange($event)"
-              min="1"
-              max="12"
-              class="custom-input"
+            type="number"
+            :value="inputHour"
+            @input="onHourInputChange($event)"
+            min="1"
+            max="12"
+            class="custom-input"
           />
         </div>
         <p class="dots">:</p>
         <div v-if="!isMinutesInputVisible" class="label" @click="toggleMinutesInput()">{{ minutes }}</div>
         <div v-if="isMinutesInputVisible" class="input-wrapper">
           <input
-              type="number"
-              :value="inputMinutes"
-              @input="onMinutesInputChange($event)"
-              min="0"
-              max="59"
-              class="custom-input"
+            type="number"
+            :value="inputMinutes"
+            @input="onMinutesInputChange($event)"
+            min="0"
+            max="59"
+            class="custom-input"
           />
         </div>
       </div>
