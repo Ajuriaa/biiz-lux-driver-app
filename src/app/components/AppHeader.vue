@@ -4,13 +4,12 @@ import { ref, computed } from 'vue';
 import { useQuery } from '@vue/apollo-composable';
 import { weatherQuery } from '@/services/weather/weather.queries';
 import { getToken } from '@/core/helpers/token-helper';
-import weatherSvg from '@/assets/images/weather.svg';
+import { IonHeader, IonToolbar } from "@ionic/vue";
 
 const router = useRouter();
 const route = useRoute();
 
-// TODO: fix weird flickering of icons when switching
-const weatherImage = ref(weatherSvg);
+const weatherImage = ref();
 const isProfileRoute = computed(() => route.path.includes('profile'));
 
 const { onResult } = useQuery(weatherQuery, null, {
@@ -39,36 +38,47 @@ function goToHome(): void {
 </script>
 
 <template>
-  <div class="header">
-    <section class="header-wrapper">
-      <img
-          class="profile"
-          v-if="!isProfileRoute"
-          src="../assets/images/profile.svg"
-          @click="goToProfile()"
-          alt="profile"
-      />
-      <img
-          class="logo"
-          @click="goToHome()"
-          src="../assets/images/logo.svg"
-          alt="Logo"
-      />
+  <IonHeader class="container ion-no-border" collapse="fade">
+    <IonToolbar>
+      <div class="header">
+        <section class="header-wrapper">
+          <img
+              class="profile"
+              v-if="!isProfileRoute"
+              src="../assets/images/profile.svg"
+              @click="goToProfile()"
+              alt="profile"
+          />
+          <img
+              class="logo"
+              @click="goToHome()"
+              src="../assets/images/logo.svg"
+              alt="Logo"
+          />
 
-      <div class="d-flex">
-        <img class="weather" :src="weatherImage" alt="weather" />
-        <img
-            class="translate"
-            src="../assets/images/translate.svg"
-            alt="translate"
-        />
+          <div class="d-flex">
+            <div class="icon-container">
+              <Transition name="fade" mode="out-in">
+                <img v-if="!weatherImage" class="weather-base" src="@/assets/images/weather.svg" alt="base weather" />
+                <img v-else class="weather" :src="weatherImage" alt="weather" />
+              </Transition>
+            </div>
+
+            <img
+                class="translate"
+                src="../assets/images/translate.svg"
+                alt="translate"
+            />
+          </div>
+        </section>
       </div>
-    </section>
-  </div>
+    </IonToolbar>
+  </IonHeader>
 </template>
 
 <style scoped lang="scss">
 @import '@/core/sass/colors';
+@import '@/core/sass/global';
 
 .back-arrow {
   display: flex;
@@ -119,6 +129,13 @@ function goToHome(): void {
 
   .d-flex {
     align-items: center;
+
+    .icon-container {
+      @include flex-center;
+      height: 3rem;
+      width: 3rem;
+      margin-right: 0.5rem;
+    }
   }
 
   .profile {
@@ -126,12 +143,17 @@ function goToHome(): void {
   }
 
   .weather {
-    height: 4rem;
+    height: 3rem;
+  }
+
+  .weather-base {
+    height: 3rem;
   }
 
   .translate {
     background-color: $green;
     height: 3.5rem;
+    width: 3.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -140,4 +162,13 @@ function goToHome(): void {
   }
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>
