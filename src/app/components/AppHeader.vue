@@ -106,7 +106,6 @@ function goToHome(): void {
   gap: 0.5rem;
   align-content: center;
   flex-wrap: wrap;
-  margin: 2rem 0;
 
   .header {
     display: flex;

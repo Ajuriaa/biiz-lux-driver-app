@@ -5,8 +5,8 @@ import AppHeader from "@/components/AppHeader.vue";
 
 <template>
   <IonApp>
+    <AppHeader />
     <IonContent>
-      <AppHeader />
       <IonRouterOutlet />
     </IonContent>
   </IonApp>

@@ -7,7 +7,10 @@ const router = useRouter();
 
 <template>
   <IonPage>
-    <IonContent :fullscreen="true">
+    <IonContent>
+      <div class="container">
+        <h1>This is home</h1>
+      </div>
     </IonContent>
   </IonPage>
 </template>
