@@ -24,7 +24,7 @@ const schema = z.object({
         .min(2, { message: "Too short" }),
     });
 
-const { handleSubmit, isSubmitting, resetForm, defineInputBinds } = useForm({
+const { handleSubmit, defineInputBinds } = useForm({
   validationSchema: toTypedSchema(schema)
 });
 
@@ -61,6 +61,7 @@ onDone(async ({ data }: any) => {
 
 onError((err) => {
   error.value = true;
+  err
   // TODO: Further handle logic
 });
 </script>
@@ -69,43 +70,62 @@ onError((err) => {
   <IonPage>
     <div class="container">
       <div class="login-header">
-        <div class="translate-box" >
+        <div class="translate-box">
           <div class="translate">
-            <img class="icon" src="../assets/images/translate.svg" alt="translate">
+            <img
+              class="icon"
+              src="../assets/images/translate.svg"
+              alt="translate"
+            >
           </div>
         </div>
-        <img class="logo" src="../assets/images/logo.svg">
-        <p class="version">ALFA</p>
+        <img
+          class="logo"
+          src="../assets/images/logo.svg"
+        >
+        <p class="version">
+          ALFA
+        </p>
       </div>
       <div class="login-footer">
         <div class="terms">
-          <div class="green"></div>
-          <p class="text">TERMINOS Y CONDICIONES</p>
+          <div class="green" />
+          <p class="text">
+            TERMINOS Y CONDICIONES
+          </p>
         </div>
-        <form @submit.prevent="onSubmit()" class="form-field">
+        <form
+          class="form-field"
+          @submit.prevent="onSubmit()"
+        >
           <input
-              v-bind="username"
-              class="input"
-              placeholder="Ingresa tu email"
-              maxlength="50"
-              minlength="1"
-              required
+            v-bind="username"
+            class="input"
+            placeholder="Ingresa tu email"
+            maxlength="50"
+            minlength="1"
+            required
           >
           <input
-              v-bind="password"
-              class="input"
-              placeholder="Ingresa tu contraseña"
-              maxlength="50"
-              minlength="1"
-              required
+            v-bind="password"
+            class="input"
+            placeholder="Ingresa tu contraseña"
+            maxlength="50"
+            minlength="1"
+            required
           >
         </form>
-        <div class="login" @click="onSubmit()">
-          <img class="button-image" src="https://biz-app-bucket.s3.us-east-2.amazonaws.com/iiz.png">
+        <div
+          class="login"
+          @click="onSubmit()"
+        >
+          <img
+            class="button-image"
+            src="https://biz-app-bucket.s3.us-east-2.amazonaws.com/iiz.png"
+          >
         </div>
       </div>
     </div>
-
   </IonPage>
 </template>
 

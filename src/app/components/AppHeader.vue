@@ -38,37 +38,53 @@ function goToHome(): void {
 </script>
 
 <template>
-  <IonHeader class="container ion-no-border" collapse="fade">
+  <IonHeader
+    class="container ion-no-border"
+    collapse="fade"
+  >
     <IonToolbar>
       <div class="header">
         <section class="header-wrapper">
           <img
-              class="profile"
-              v-if="!isProfileRoute"
-              src="../assets/images/profile.svg"
-              @click="goToProfile()"
-              alt="profile"
-          />
+            v-if="!isProfileRoute"
+            class="profile"
+            src="../assets/images/profile.svg"
+            alt="profile"
+            @click="goToProfile()"
+          >
           <img
-              class="logo"
-              @click="goToHome()"
-              src="../assets/images/logo.svg"
-              alt="Logo"
-          />
+            class="logo"
+            src="../assets/images/logo.svg"
+            alt="Logo"
+            @click="goToHome()"
+          >
 
           <div class="d-flex">
             <div class="icon-container">
-              <Transition name="fade" mode="out-in">
-                <img v-if="!weatherImage" class="weather-base" src="@/assets/images/weather.svg" alt="base weather" />
-                <img v-else class="weather" :src="weatherImage" alt="weather" />
+              <Transition
+                name="fade"
+                mode="out-in"
+              >
+                <img
+                  v-if="!weatherImage"
+                  class="weather-base"
+                  src="@/assets/images/weather.svg"
+                  alt="base weather"
+                >
+                <img
+                  v-else
+                  class="weather"
+                  :src="weatherImage"
+                  alt="weather"
+                >
               </Transition>
             </div>
 
             <img
-                class="translate"
-                src="../assets/images/translate.svg"
-                alt="translate"
-            />
+              class="translate"
+              src="../assets/images/translate.svg"
+              alt="translate"
+            >
           </div>
         </section>
       </div>

@@ -4,8 +4,7 @@ import { IonPage, IonContent } from "@ionic/vue";
 
 <template>
   <IonPage>
-    <IonContent>
-    </IonContent>
+    <IonContent />
   </IonPage>
 </template>
 
