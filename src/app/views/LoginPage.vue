@@ -8,6 +8,8 @@ import { z } from 'zod';
 import { useMutation } from '@vue/apollo-composable';
 import { loginQuery, setCookie } from '@/services/auth/auth.mutations';
 import { getRole } from '@/core/helpers/role-helper';
+import { usePush } from 'notivue';
+import type { PushPromiseReturn } from 'notivue';
 
 const schema = z.object({
   username: z
@@ -35,14 +37,18 @@ const password = defineInputBinds('password');
 
 const { query } = useRoute();
 const router = useRouter();
+const toast = usePush();
 
 const error = ref(false);
 const loading = ref(false);
 
 const { mutate: login, onDone, onError } = useMutation(loginQuery);
 
+let promise: PushPromiseReturn;
+
 const onSubmit = handleSubmit(async (values) => {
   loading.value = true;
+  promise = toast.promise('Iniciando sesion...');
   await login({
     attributes: {
       username: values.username,
@@ -59,14 +65,14 @@ onDone(async ({ data }: any) => {
     await router.push(
       (query.returnUrl as string) || '' || `/${getRole()}/home`,
     );
+    promise.resolve({ title: '¡Éxito!', message: 'Sesion iniciada correctamente' })
   }
   loading.value = false;
 });
 
-onError((err) => {
+onError(() => {
   error.value = true;
-  err;
-  // TODO: Further handle logic
+  promise.reject({ title: '¡Error!', message: 'Credenciales incorrectas' });
 });
 </script>
 

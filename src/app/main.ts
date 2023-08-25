@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
+import { notivue } from 'notivue'
 
 /* Apollo Client for the whole App */
 import { DefaultApolloClient } from '@vue/apollo-composable';
@@ -27,7 +28,21 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 // import '@/theme/variables.css';
 
+/* Notivue animations */
+import 'notivue/notifications.css';
+import 'notivue/animations.css';
+
 const app = createApp(App).use(IonicVue).use(router);
+
+app.use(notivue, {
+  position: 'bottom-center',
+  teleportTo: 'body',
+  notifications: {
+    global: {
+      duration: 3000
+    }
+  }
+});
 
 app.provide(DefaultApolloClient, apolloClient);
 router.isReady().then(() => {
