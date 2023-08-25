@@ -19,13 +19,17 @@ const selectedOption = ref(options.value[0]);
       <div class="container">
         <!-- White Buttons -->
         <section class="trip-container">
-          <div class="label">7 MIN.</div>
+          <div class="label">
+            7 MIN.
+          </div>
           <WhiteButton message="SOLICITAR UNIDAD" />
         </section>
 
         <section class="experience-container">
           <div class="button-container">
-            <div class="label">SOON</div>
+            <div class="label">
+              SOON
+            </div>
             <WhiteButton message="EXPERIENCIAS" />
           </div>
         </section>
@@ -48,14 +52,18 @@ const selectedOption = ref(options.value[0]);
         <PrimaryButton :show-notification="true">
           PRIMARY WITH NOTIFICATION
         </PrimaryButton>
-        <PrimaryButton :disable-button="true">PRIMARY DISABLED</PrimaryButton>
+        <PrimaryButton :disable-button="true">
+          PRIMARY DISABLED
+        </PrimaryButton>
         <PrimaryButton>
           <div class="confirm">
-            <div class="text">CONFIRMAR DESTINO</div>
+            <div class="text">
+              CONFIRMAR DESTINO
+            </div>
             <img
               class="button-image"
               src="https://biz-app-bucket.s3.us-east-2.amazonaws.com/iiz-green.png"
-            />
+            >
           </div>
         </PrimaryButton>
 

@@ -39,7 +39,11 @@ function goToHome(): void {
 </script>
 
 <template>
-  <IonHeader v-if="isAuthed" class="container ion-no-border" collapse="fade">
+  <IonHeader
+    v-if="isAuthed"
+    class="container ion-no-border"
+    collapse="fade"
+  >
     <IonToolbar>
       <div class="header">
         <section class="header-wrapper">
@@ -49,24 +53,32 @@ function goToHome(): void {
             src="../assets/images/profile.svg"
             alt="profile"
             @click="goToProfile()"
-          />
+          >
           <img
             class="logo"
             src="../assets/images/logo.svg"
             alt="Logo"
             @click="goToHome()"
-          />
+          >
 
           <div class="d-flex">
             <div class="icon-container">
-              <Transition name="fade" mode="out-in">
+              <Transition
+                name="fade"
+                mode="out-in"
+              >
                 <img
                   v-if="!weatherImage"
                   class="weather-base"
                   src="@/assets/images/weather.svg"
                   alt="base weather"
-                />
-                <img v-else class="weather" :src="weatherImage" alt="weather" />
+                >
+                <img
+                  v-else
+                  class="weather"
+                  :src="weatherImage"
+                  alt="weather"
+                >
               </Transition>
             </div>
 
@@ -74,7 +86,7 @@ function goToHome(): void {
               class="translate"
               src="../assets/images/translate.svg"
               alt="translate"
-            />
+            >
           </div>
         </section>
       </div>

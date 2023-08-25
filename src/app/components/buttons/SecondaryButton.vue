@@ -22,7 +22,10 @@ const emit = defineEmits(['btnClick']);
   >
     <div class="button-content">
       <slot />
-      <div v-if="props.showNotification" class="icon-container">
+      <div
+        v-if="props.showNotification"
+        class="icon-container"
+      >
         <NotificationsIcon class="material-icons-round icon" />
       </div>
     </div>

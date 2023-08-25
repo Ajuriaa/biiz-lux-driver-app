@@ -143,7 +143,11 @@ function generateMonthCalendar(year: number, month: number): number[][] {
 <template>
   <div class="calendar-container">
     <section class="arrow-label">
-      <img class="logo" :src="imageUrl" alt="logo" />
+      <img
+        class="logo"
+        :src="imageUrl"
+        alt="logo"
+      >
       <div class="label">
         <FluentIosArrowLtr24Regular
           v-if="!isCurrentMonth()"
@@ -155,11 +159,17 @@ function generateMonthCalendar(year: number, month: number): number[][] {
     </section>
     <section class="date">
       <div class="weeks">
-        <div v-for="day in weekdays" class="day header">
+        <div
+          v-for="day in weekdays"
+          class="day header"
+        >
           {{ day }}
         </div>
       </div>
-      <div v-for="week in weeks" class="weeks">
+      <div
+        v-for="week in weeks"
+        class="weeks"
+      >
         <div
           v-for="date in week"
           class="day"
@@ -180,7 +190,10 @@ function generateMonthCalendar(year: number, month: number): number[][] {
         >
           {{ hour }}
         </div>
-        <div v-if="isHourInputVisible" class="input-wrapper">
+        <div
+          v-if="isHourInputVisible"
+          class="input-wrapper"
+        >
           <input
             type="number"
             :value="inputHour"
@@ -188,9 +201,11 @@ function generateMonthCalendar(year: number, month: number): number[][] {
             max="12"
             class="custom-input"
             @input="onHourInputChange($event)"
-          />
+          >
         </div>
-        <p class="dots">:</p>
+        <p class="dots">
+          :
+        </p>
         <div
           v-if="!isMinutesInputVisible"
           class="label"
@@ -198,7 +213,10 @@ function generateMonthCalendar(year: number, month: number): number[][] {
         >
           {{ minutes }}
         </div>
-        <div v-if="isMinutesInputVisible" class="input-wrapper">
+        <div
+          v-if="isMinutesInputVisible"
+          class="input-wrapper"
+        >
           <input
             type="number"
             :value="inputMinutes"
@@ -206,10 +224,13 @@ function generateMonthCalendar(year: number, month: number): number[][] {
             max="59"
             class="custom-input"
             @input="onMinutesInputChange($event)"
-          />
+          >
         </div>
       </div>
-      <div class="label" @click="toggleTimePeriod()">
+      <div
+        class="label"
+        @click="toggleTimePeriod()"
+      >
         {{ timePeriod }}
       </div>
     </section>

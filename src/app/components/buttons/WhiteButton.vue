@@ -9,7 +9,10 @@ const props = defineProps<{
 
 <template>
   <div class="button-container">
-    <div v-if="props.showNotification" class="icon-container">
+    <div
+      v-if="props.showNotification"
+      class="icon-container"
+    >
       <NotificationsIcon class="material-icons-round icon" />
     </div>
     <div class="button">

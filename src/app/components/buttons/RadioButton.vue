@@ -18,7 +18,7 @@ const emit = defineEmits<{
       :checked="option === selectedOption"
       class="green-radio"
       @change="emit('changeSelected', option)"
-    />
+    >
     <label :for="option">{{ option }}</label>
   </div>
 </template>
