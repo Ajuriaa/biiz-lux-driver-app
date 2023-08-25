@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { IonApp, IonRouterOutlet, IonContent } from '@ionic/vue';
+import { Notivue, Notifications } from 'notivue'
 import AppHeader from '@/components/AppHeader.vue';
 </script>
 
@@ -9,6 +10,10 @@ import AppHeader from '@/components/AppHeader.vue';
     <IonContent>
       <IonRouterOutlet />
     </IonContent>
+    <!-- Toaster Component -->
+    <Notivue v-slot="item">
+      <Notifications :item="item" />
+    </Notivue>
   </IonApp>
 </template>
 
