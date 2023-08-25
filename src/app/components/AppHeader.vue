@@ -4,6 +4,7 @@ import { ref, computed } from 'vue';
 import { useQuery } from '@vue/apollo-composable';
 import { weatherQuery } from '@/services/weather/weather.queries';
 import { getToken } from '@/core/helpers/token-helper';
+import { isAuthed } from "@/core/helpers/auth-helper";
 import { IonHeader, IonToolbar } from "@ionic/vue";
 
 const router = useRouter();
@@ -38,10 +39,7 @@ function goToHome(): void {
 </script>
 
 <template>
-  <IonHeader
-    class="container ion-no-border"
-    collapse="fade"
-  >
+  <IonHeader v-if="isAuthed" class="container ion-no-border" collapse="fade">
     <IonToolbar>
       <div class="header">
         <section class="header-wrapper">
@@ -121,7 +119,6 @@ function goToHome(): void {
   gap: 0.5rem;
   align-content: center;
   flex-wrap: wrap;
-  margin: 2rem 0;
 
   .header {
     display: flex;
