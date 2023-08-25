@@ -34,7 +34,15 @@ import 'notivue/animations.css';
 
 const app = createApp(App).use(IonicVue).use(router);
 
-app.use(notivue);
+app.use(notivue, {
+  position: 'bottom-center',
+  teleportTo: 'body',
+  notifications: {
+    global: {
+      duration: 3000
+    }
+  }
+});
 
 app.provide(DefaultApolloClient, apolloClient);
 router.isReady().then(() => {
