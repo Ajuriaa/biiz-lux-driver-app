@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NotificationsIcon from '~icons/fluent/alert-32-filled'
+import NotificationsIcon from '~icons/fluent/alert-32-filled';
 
 const props = defineProps<{
   message?: string;
@@ -9,10 +9,12 @@ const props = defineProps<{
 
 <template>
   <div class="button-container">
-    <div class="icon-container" v-if="props.showNotification">
-    <NotificationsIcon class="material-icons-round icon" />
+    <div v-if="props.showNotification" class="icon-container">
+      <NotificationsIcon class="material-icons-round icon" />
     </div>
-    <div class="button">{{ props.message }}</div>
+    <div class="button">
+      {{ props.message }}
+    </div>
   </div>
 </template>
 
@@ -55,5 +57,4 @@ const props = defineProps<{
     font-size: 1.2rem;
   }
 }
-
 </style>

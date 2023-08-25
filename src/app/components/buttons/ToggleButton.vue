@@ -15,14 +15,15 @@ function toggle() {
 
 <template>
   <div class="toggle" :class="{ checked: isChecked }" @click="toggle()">
-    <div class="toggle-label">{{ props.label }}</div>
+    <div class="toggle-label">
+      {{ props.label }}
+    </div>
     <div class="toggle-switch">
-      <div class="toggle-ball"></div>
+      <div class="toggle-ball" />
     </div>
     <!-- Just to show reactivity, will be deleted -->
-    <span style="margin-left: 1rem;">{{ isChecked }}</span>
+    <span style="margin-left: 1rem">{{ isChecked }}</span>
   </div>
-
 </template>
 
 <style scoped lang="scss">
@@ -61,5 +62,4 @@ function toggle() {
     font-weight: bold;
   }
 }
-
 </style>

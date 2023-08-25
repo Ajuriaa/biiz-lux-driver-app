@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Months } from "@/core/enums";
+import { Months } from '@/core/enums';
 import FluentIosArrowLtr24Regular from '~icons/fluent/ios-arrow-ltr-24-regular';
 import FluentIosArrow24Regular from '~icons/fluent/ios-arrow-24-regular';
 
@@ -104,10 +104,10 @@ function onMinutesInputChange(event: Event): void {
   const inputNumber = parseInt(inputElement.value, 10);
 
   if (!isNaN(inputNumber) && inputNumber >= 0 && inputNumber <= 59) {
-  inputMinutes.value = inputNumber.toString().padStart(2, '0');
-} else {
-  inputMinutes.value = '00';
-}
+    inputMinutes.value = inputNumber.toString().padStart(2, '0');
+  } else {
+    inputMinutes.value = '00';
+  }
 }
 
 function getMonthIndex(month: string): number {
@@ -143,11 +143,7 @@ function generateMonthCalendar(year: number, month: number): number[][] {
 <template>
   <div class="calendar-container">
     <section class="arrow-label">
-      <img
-        class="logo"
-        :src="imageUrl"
-        alt="logo"
-      >
+      <img class="logo" :src="imageUrl" alt="logo" />
       <div class="label">
         <FluentIosArrowLtr24Regular
           v-if="!isCurrentMonth()"
@@ -159,21 +155,15 @@ function generateMonthCalendar(year: number, month: number): number[][] {
     </section>
     <section class="date">
       <div class="weeks">
-        <div
-          v-for="day in weekdays"
-          class="day header"
-        >
+        <div v-for="day in weekdays" class="day header">
           {{ day }}
         </div>
       </div>
-      <div
-        v-for="week in weeks"
-        class="weeks"
-      >
+      <div v-for="week in weeks" class="weeks">
         <div
           v-for="date in week"
           class="day"
-          :class="{ 'selected': isDateSelected(date) }"
+          :class="{ selected: isDateSelected(date) }"
           @click="selectDate(date)"
         >
           {{ date ? date : '' }}
@@ -190,10 +180,7 @@ function generateMonthCalendar(year: number, month: number): number[][] {
         >
           {{ hour }}
         </div>
-        <div
-          v-if="isHourInputVisible"
-          class="input-wrapper"
-        >
+        <div v-if="isHourInputVisible" class="input-wrapper">
           <input
             type="number"
             :value="inputHour"
@@ -201,11 +188,9 @@ function generateMonthCalendar(year: number, month: number): number[][] {
             max="12"
             class="custom-input"
             @input="onHourInputChange($event)"
-          >
+          />
         </div>
-        <p class="dots">
-          :
-        </p>
+        <p class="dots">:</p>
         <div
           v-if="!isMinutesInputVisible"
           class="label"
@@ -213,10 +198,7 @@ function generateMonthCalendar(year: number, month: number): number[][] {
         >
           {{ minutes }}
         </div>
-        <div
-          v-if="isMinutesInputVisible"
-          class="input-wrapper"
-        >
+        <div v-if="isMinutesInputVisible" class="input-wrapper">
           <input
             type="number"
             :value="inputMinutes"
@@ -224,13 +206,10 @@ function generateMonthCalendar(year: number, month: number): number[][] {
             max="59"
             class="custom-input"
             @input="onMinutesInputChange($event)"
-          >
+          />
         </div>
       </div>
-      <div
-        class="label"
-        @click="toggleTimePeriod()"
-      >
+      <div class="label" @click="toggleTimePeriod()">
         {{ timePeriod }}
       </div>
     </section>
@@ -371,7 +350,7 @@ function generateMonthCalendar(year: number, month: number): number[][] {
   display: flex;
   gap: 0.2rem;
 
-  .dots{
+  .dots {
     font-size: 1rem;
     font-weight: bold;
     margin: 0;
@@ -392,7 +371,7 @@ function generateMonthCalendar(year: number, month: number): number[][] {
   font-weight: bold;
   border-radius: 0.5rem;
   background-color: $green;
-  color: $black
+  color: $black;
 }
 
 .custom-input {
@@ -407,5 +386,4 @@ function generateMonthCalendar(year: number, month: number): number[][] {
   text-align: center;
   outline: none;
 }
-
 </style>

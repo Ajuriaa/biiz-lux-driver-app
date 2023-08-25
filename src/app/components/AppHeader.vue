@@ -4,8 +4,8 @@ import { ref, computed } from 'vue';
 import { useQuery } from '@vue/apollo-composable';
 import { weatherQuery } from '@/services/weather/weather.queries';
 import { getToken } from '@/core/helpers/token-helper';
-import { isAuthed } from "@/core/helpers/auth-helper";
-import { IonHeader, IonToolbar } from "@ionic/vue";
+import { isAuthed } from '@/core/helpers/auth-helper';
+import { IonHeader, IonToolbar } from '@ionic/vue';
 
 const router = useRouter();
 const route = useRoute();
@@ -14,9 +14,9 @@ const weatherImage = ref();
 const isProfileRoute = computed(() => route.path.includes('profile'));
 
 const { onResult } = useQuery(weatherQuery, null, {
-  context: { headers:  { Authorization: getToken() } },
+  context: { headers: { Authorization: getToken() } },
   notifyOnNetworkStatusChange: true,
-  fetchPolicy: 'cache-and-network'
+  fetchPolicy: 'cache-and-network',
 });
 
 onResult(({ data }): void => {
@@ -49,32 +49,24 @@ function goToHome(): void {
             src="../assets/images/profile.svg"
             alt="profile"
             @click="goToProfile()"
-          >
+          />
           <img
             class="logo"
             src="../assets/images/logo.svg"
             alt="Logo"
             @click="goToHome()"
-          >
+          />
 
           <div class="d-flex">
             <div class="icon-container">
-              <Transition
-                name="fade"
-                mode="out-in"
-              >
+              <Transition name="fade" mode="out-in">
                 <img
                   v-if="!weatherImage"
                   class="weather-base"
                   src="@/assets/images/weather.svg"
                   alt="base weather"
-                >
-                <img
-                  v-else
-                  class="weather"
-                  :src="weatherImage"
-                  alt="weather"
-                >
+                />
+                <img v-else class="weather" :src="weatherImage" alt="weather" />
               </Transition>
             </div>
 
@@ -82,7 +74,7 @@ function goToHome(): void {
               class="translate"
               src="../assets/images/translate.svg"
               alt="translate"
-            >
+            />
           </div>
         </section>
       </div>

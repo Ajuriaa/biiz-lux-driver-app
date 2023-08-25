@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useRouter } from "vue-router";
-import WhiteButton from "@/components/buttons/WhiteButton.vue";
+import { useRouter } from 'vue-router';
+import WhiteButton from '@/components/buttons/WhiteButton.vue';
 
 const props = defineProps<{
   message?: string;
@@ -11,15 +11,16 @@ const props = defineProps<{
 const router = useRouter();
 
 async function goToLink() {
-  if (props.link !== '') await router.push(props.link);
+  if (props.link) await router.push(props.link);
 }
 </script>
 
-
 <template>
   <section class="display-container" @click="goToLink()">
-    <div class="title">{{ title }}</div>
-    <WhiteButton :message="message"></WhiteButton>
+    <div class="title">
+      {{ title }}
+    </div>
+    <WhiteButton :message="message" />
   </section>
 </template>
 
@@ -44,5 +45,4 @@ async function goToLink() {
     margin-left: 3rem;
   }
 }
-
 </style>
