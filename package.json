@@ -26,6 +26,7 @@
     "graphql": "^16.8.0",
     "graphql-tag": "^2.12.6",
     "ionicons": "^7.0.0",
+    "notivue": "^1.2.4",
     "sass": "^1.65.1",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
