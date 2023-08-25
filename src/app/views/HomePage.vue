@@ -8,7 +8,7 @@ const router = useRouter();
 <template>
   <IonPage>
     <IonContent>
-      <div class="container">
+      <div class="home-container">
         <h1>This is home</h1>
       </div>
     </IonContent>
@@ -16,5 +16,10 @@ const router = useRouter();
 </template>
 
 <style scoped lang="scss">
+@import '@/core/sass/global';
 
+.home-container {
+  @include flex-center;
+  min-width: 34rem;
+}
 </style>
