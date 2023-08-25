@@ -1,24 +1,24 @@
 // Primary Colors
-$white: #FFF;
+$white: #fff;
 $black: #000;
-$green: #00E741;
-$red: #E3000B;
-$line: #D5DDE0;
-$yellow: #FAFF00;
+$green: #00e741;
+$red: #e3000b;
+$line: #d5dde0;
+$yellow: #faff00;
 
 $scheme: (
-    biiz-green: (
-        default: #00E741
-    ),
-    firm-gray: (
-        default: #CFCFCF,
-        0: #CFCFCF,
-        10:#f7f8f9,
-        50: #AFAFAF,
-        100: #AEAEAE,
-        200: #97ADB6,
-        300: #3E4958
-    )
+  biiz-green: (
+    default: #00e741,
+  ),
+  firm-gray: (
+    default: #cfcfcf,
+    0: #cfcfcf,
+    10: #f7f8f9,
+    50: #afafaf,
+    100: #aeaeae,
+    200: #97adb6,
+    300: #3e4958,
+  ),
 );
 //
 // @param $hue The color
@@ -30,5 +30,5 @@ $scheme: (
 //
 
 @function setColor($hue, $shade: default) {
-    @return map-get(map-get($scheme, $hue), $shade);
+  @return map-get(map-get($scheme, $hue), $shade);
 }

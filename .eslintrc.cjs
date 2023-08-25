@@ -1,17 +1,19 @@
 /* eslint-env node */
-require('@rushstack/eslint-patch/modern-module-resolution')
+require('@rushstack/eslint-patch/modern-module-resolution');
 
 module.exports = {
   root: true,
-  'extends': [
+  extends: [
     'plugin:vue/vue3-recommended',
     'eslint:recommended',
-    '@vue/eslint-config-typescript'
+    '@vue/eslint-config-typescript',
   ],
-  'rules': {
-    'vue/require-v-for-key': 'off'
+  rules: {
+    'no-console': 'warn',
+    'vue/require-v-for-key': 'off',
+    'vue/v-on-event-hyphenation': 'off',
   },
   parserOptions: {
-    ecmaVersion: 'latest'
-  }
-}
+    ecmaVersion: 'latest',
+  },
+};

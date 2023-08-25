@@ -3,8 +3,9 @@
 
 @font-face {
   font-family: 'Gotham';
-  src: url('@/assets/fonts/GothamBold.ttf') format('truetype'),
-  url('@/assets/fonts/Gotham-Bold.otf') format('opentype');
+  src:
+    url('@/assets/fonts/GothamBold.ttf') format('truetype'),
+    url('@/assets/fonts/Gotham-Bold.otf') format('opentype');
 }
 
 :root,
@@ -37,9 +38,13 @@ a {
   margin-bottom: 1rem;
 }
 
-.d-flex { display: flex; }
+.d-flex {
+  display: flex;
+}
 
-.pointer { cursor: pointer; }
+.pointer {
+  cursor: pointer;
+}
 
 .inter {
   font-family: 'Inter', sans-serif;

@@ -1,24 +1,24 @@
 <script setup lang="ts">
-const props = defineProps<{
-  option?: string;
+defineProps<{
+  option: string;
   selectedOption?: string;
 }>();
 
 const emit = defineEmits<{
-  changeSelected: [newOption: string]
-}>()
+  changeSelected: [newOption: string];
+}>();
 </script>
 
 <template>
   <div class="radio-label">
     <input
-      type="radio"
       :id="option"
+      type="radio"
       :value="option"
       :checked="option === selectedOption"
-      @change="emit('changeSelected', option)"
       class="green-radio"
-    />
+      @change="emit('changeSelected', option)"
+    >
     <label :for="option">{{ option }}</label>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { IonApp, IonRouterOutlet, IonContent } from '@ionic/vue';
-import AppHeader from "@/components/AppHeader.vue";
+import AppHeader from '@/components/AppHeader.vue';
 </script>
 
 <template>

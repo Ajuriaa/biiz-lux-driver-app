@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import { driverRoutes } from "@/router/drivers";
+import { driverRoutes } from '@/router/drivers';
 import LoginPage from '@/views/LoginPage.vue';
-import SuccessPage from "@/views/SuccessPage.vue";
-import ProfilePage from "@/views/ProfilePage.vue";
-import { findToken } from "@/core/helpers/auth-helper";
-import { getRole } from "@/core/helpers/role-helper";
+import SuccessPage from '@/views/SuccessPage.vue';
+import ProfilePage from '@/views/ProfilePage.vue';
+import { findToken } from '@/core/helpers/auth-helper';
+import { getRole } from '@/core/helpers/role-helper';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -17,24 +17,24 @@ const routes: Array<RouteRecordRaw> = [
         const homePathname = `/${getRole()}/home`;
         return { path: homePathname };
       }
-    }
+    },
   },
   {
     path: '/profile',
     name: 'Profile',
-    component: ProfilePage
+    component: ProfilePage,
   },
   {
     path: '/success',
     name: 'Success',
-    component: SuccessPage
+    component: SuccessPage,
   },
   ...driverRoutes,
-]
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

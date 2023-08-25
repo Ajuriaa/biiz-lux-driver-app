@@ -4,8 +4,8 @@ import { ref, computed } from 'vue';
 import { useQuery } from '@vue/apollo-composable';
 import { weatherQuery } from '@/services/weather/weather.queries';
 import { getToken } from '@/core/helpers/token-helper';
-import { isAuthed } from "@/core/helpers/auth-helper";
-import { IonHeader, IonToolbar } from "@ionic/vue";
+import { isAuthed } from '@/core/helpers/auth-helper';
+import { IonHeader, IonToolbar } from '@ionic/vue';
 
 const router = useRouter();
 const route = useRoute();
@@ -14,9 +14,9 @@ const weatherImage = ref();
 const isProfileRoute = computed(() => route.path.includes('profile'));
 
 const { onResult } = useQuery(weatherQuery, null, {
-  context: { headers:  { Authorization: getToken() } },
+  context: { headers: { Authorization: getToken() } },
   notifyOnNetworkStatusChange: true,
-  fetchPolicy: 'cache-and-network'
+  fetchPolicy: 'cache-and-network',
 });
 
 onResult(({ data }): void => {
@@ -39,7 +39,11 @@ function goToHome(): void {
 </script>
 
 <template>
-  <IonHeader v-if="isAuthed" class="container ion-no-border" collapse="fade">
+  <IonHeader
+    v-if="isAuthed"
+    class="container ion-no-border"
+    collapse="fade"
+  >
     <IonToolbar>
       <div class="header">
         <section class="header-wrapper">

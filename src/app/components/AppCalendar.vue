@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Months } from "@/core/enums";
+import { Months } from '@/core/enums';
 import FluentIosArrowLtr24Regular from '~icons/fluent/ios-arrow-ltr-24-regular';
 import FluentIosArrow24Regular from '~icons/fluent/ios-arrow-24-regular';
 
@@ -104,10 +104,10 @@ function onMinutesInputChange(event: Event): void {
   const inputNumber = parseInt(inputElement.value, 10);
 
   if (!isNaN(inputNumber) && inputNumber >= 0 && inputNumber <= 59) {
-  inputMinutes.value = inputNumber.toString().padStart(2, '0');
-} else {
-  inputMinutes.value = '00';
-}
+    inputMinutes.value = inputNumber.toString().padStart(2, '0');
+  } else {
+    inputMinutes.value = '00';
+  }
 }
 
 function getMonthIndex(month: string): number {
@@ -173,7 +173,7 @@ function generateMonthCalendar(year: number, month: number): number[][] {
         <div
           v-for="date in week"
           class="day"
-          :class="{ 'selected': isDateSelected(date) }"
+          :class="{ selected: isDateSelected(date) }"
           @click="selectDate(date)"
         >
           {{ date ? date : '' }}
@@ -371,7 +371,7 @@ function generateMonthCalendar(year: number, month: number): number[][] {
   display: flex;
   gap: 0.2rem;
 
-  .dots{
+  .dots {
     font-size: 1rem;
     font-weight: bold;
     margin: 0;
@@ -392,7 +392,7 @@ function generateMonthCalendar(year: number, month: number): number[][] {
   font-weight: bold;
   border-radius: 0.5rem;
   background-color: $green;
-  color: $black
+  color: $black;
 }
 
 .custom-input {
@@ -407,5 +407,4 @@ function generateMonthCalendar(year: number, month: number): number[][] {
   text-align: center;
   outline: none;
 }
-
 </style>

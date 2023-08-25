@@ -1,5 +1,5 @@
-import gql from "graphql-tag";
-import { DocumentNode } from "graphql/language";
+import gql from 'graphql-tag';
+import { DocumentNode } from 'graphql/language';
 
 export const weatherQuery: DocumentNode = gql`
   query weatherQuery {
@@ -10,5 +10,3 @@ export const weatherQuery: DocumentNode = gql`
     }
   }
 `;
-
-

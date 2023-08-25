@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import NotificationsIcon from '~icons/fluent/alert-32-filled'
+import NotificationsIcon from '~icons/fluent/alert-32-filled';
 
-const props = withDefaults(defineProps<{
-  styleClass?: string,
-  disableButton?: boolean,
-  showNotification?: boolean
-}>(), { styleClass: 'btn-black' });
+const props = withDefaults(
+  defineProps<{
+    styleClass?: string;
+    disableButton?: boolean;
+    showNotification?: boolean;
+  }>(),
+  { styleClass: 'btn-black' },
+);
 
 const emit = defineEmits(['btnClick']);
 </script>
@@ -19,7 +22,10 @@ const emit = defineEmits(['btnClick']);
   >
     <div class="button-content">
       <slot />
-      <div class="icon-container" v-if="props.showNotification">
+      <div
+        v-if="props.showNotification"
+        class="icon-container"
+      >
         <NotificationsIcon class="material-icons-round icon" />
       </div>
     </div>
@@ -62,5 +68,4 @@ const emit = defineEmits(['btnClick']);
     color: $black;
   }
 }
-
 </style>

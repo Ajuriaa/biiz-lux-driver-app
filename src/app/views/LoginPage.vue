@@ -1,35 +1,37 @@
 <script setup lang="ts">
-import { IonPage } from "@ionic/vue";
-import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
+import { IonPage } from '@ionic/vue';
+import { ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useForm } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/zod';
 import { z } from 'zod';
-import { useMutation } from "@vue/apollo-composable";
-import { loginQuery, setCookie } from "@/services/auth/auth.mutations";
-import { getRole } from "@/core/helpers/role-helper";
+import { useMutation } from '@vue/apollo-composable';
+import { loginQuery, setCookie } from '@/services/auth/auth.mutations';
+import { getRole } from '@/core/helpers/role-helper';
 
 const schema = z.object({
-      username: z.string({
-          required_error: "Username is required",
-          invalid_type_error: "Username must be a string",
-        })
-        .nonempty({ message: "Can't be empty" })
-        .min(2, { message: "Too short" }),
-      password: z.string({
-          required_error: "Password is required",
-          invalid_type_error: "Name must be a string",
-        })
-        .nonempty({ message: "Can't be empty" })
-        .min(2, { message: "Too short" }),
-    });
-
-const { handleSubmit, defineInputBinds } = useForm({
-  validationSchema: toTypedSchema(schema)
+  username: z
+    .string({
+      required_error: 'Username is required',
+      invalid_type_error: 'Username must be a string',
+    })
+    .nonempty({ message: "Can't be empty" })
+    .min(2, { message: 'Too short' }),
+  password: z
+    .string({
+      required_error: 'Password is required',
+      invalid_type_error: 'Name must be a string',
+    })
+    .nonempty({ message: "Can't be empty" })
+    .min(2, { message: 'Too short' }),
 });
 
-const username = defineInputBinds("username");
-const password = defineInputBinds("password");
+const { handleSubmit, defineInputBinds } = useForm({
+  validationSchema: toTypedSchema(schema),
+});
+
+const username = defineInputBinds('username');
+const password = defineInputBinds('password');
 
 const { query } = useRoute();
 const router = useRouter();
@@ -45,7 +47,7 @@ const onSubmit = handleSubmit(async (values) => {
     attributes: {
       username: values.username,
       password: values.password,
-    }
+    },
   });
 });
 
@@ -54,14 +56,16 @@ onDone(async ({ data }: any) => {
     const token = data.login.token;
     const role = data.login.role;
     setCookie(token, role);
-    await router.push((query.returnUrl as string || '') || `/${getRole()}/home`);
+    await router.push(
+      (query.returnUrl as string) || '' || `/${getRole()}/home`,
+    );
   }
   loading.value = false;
 });
 
 onError((err) => {
   error.value = true;
-  err
+  err;
   // TODO: Further handle logic
 });
 </script>
@@ -258,5 +262,4 @@ onError((err) => {
   line-height: 5rem;
   opacity: 50%;
 }
-
 </style>
