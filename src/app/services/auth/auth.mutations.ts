@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { DocumentNode } from 'graphql/language';
+import { setCapacitorCookie } from '@/core/helpers/cookie-helper';
 
 export const loginQuery: DocumentNode = gql`
   mutation login($attributes: LoginInput!) {
@@ -12,9 +13,6 @@ export const loginQuery: DocumentNode = gql`
 `;
 
 export function setCookie(token: string, role: string): void {
-  const date = new Date();
-  date.setTime(date.getTime() + 30 * 24 * 60 * 60 * 1000);
-  const expires = 'expires=' + date.toUTCString();
-  document.cookie = `BZ-TOKEN=${token};${expires};path=/`;
-  document.cookie = `BZ-ROLE=${role};${expires};path=/`;
+  setCapacitorCookie('BZ-TOKEN', token);
+  setCapacitorCookie('BZ-ROLE', role);
 }
