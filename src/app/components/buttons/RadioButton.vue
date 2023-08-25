@@ -12,16 +12,15 @@ const emit = defineEmits<{
 <template>
   <div class="radio-label">
     <input
-        type="radio"
-        :id="option"
-        :value="option"
-        :checked="option === selectedOption"
-        @change="emit('changeSelected', option)"
-        class="green-radio"
+      type="radio"
+      :id="option"
+      :value="option"
+      :checked="option === selectedOption"
+      @change="emit('changeSelected', option)"
+      class="green-radio"
     />
     <label :for="option">{{ option }}</label>
   </div>
-
 </template>
 
 <style scoped lang="scss">

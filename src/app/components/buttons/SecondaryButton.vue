@@ -12,10 +12,10 @@ const emit = defineEmits(['btnClick']);
 
 <template>
   <button
-      class="btn"
-      :class="props.styleClass"
-      :disabled="disableButton"
-      @click="emit('btnClick')"
+    class="btn"
+    :class="props.styleClass"
+    :disabled="disableButton"
+    @click="emit('btnClick')"
   >
     <div class="button-content">
       <slot />
