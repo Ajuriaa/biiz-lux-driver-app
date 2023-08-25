@@ -21,7 +21,9 @@ const emit = defineEmits(['btnClick']);
     @click="emit('btnClick')"
   >
     <div class="button-content">
-      <slot />
+      <main class="slot-content">
+        <slot />
+      </main>
       <div
         v-if="props.showNotification"
         class="icon-container"
@@ -41,7 +43,7 @@ const emit = defineEmits(['btnClick']);
   font-size: 1rem;
   font-weight: bold;
   min-height: 6rem;
-  min-width: 34.2rem;
+  min-width: 100%;
   letter-spacing: 0.1rem;
   position: relative;
 }
@@ -49,6 +51,10 @@ const emit = defineEmits(['btnClick']);
 .btn-black {
   background-color: $black;
   color: $white;
+}
+
+.slot-content {
+  text-transform: uppercase;
 }
 
 .icon-container {

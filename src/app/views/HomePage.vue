@@ -1,16 +1,7 @@
 <script setup lang="ts">
 import { IonContent, IonPage } from '@ionic/vue';
-import { ref } from 'vue';
 import PrimaryButton from '@/components/buttons/PrimaryButton.vue';
-import SecondaryButton from '@/components/buttons/SecondaryButton.vue';
-import ToggleButton from '@/components/buttons/ToggleButton.vue';
-import DisplayButton from '@/components/buttons/DisplayButton.vue';
 import WhiteButton from '@/components/buttons/WhiteButton.vue';
-import RadioButton from '@/components/buttons/RadioButton.vue';
-
-// TODO: Remove after demo
-const options = ref(['Yes', 'No']);
-const selectedOption = ref(options.value[0]);
 </script>
 
 <template>
@@ -25,61 +16,24 @@ const selectedOption = ref(options.value[0]);
           <WhiteButton message="SOLICITAR UNIDAD" />
         </section>
 
-        <section class="experience-container">
+        <section class="cursos-container">
           <div class="button-container">
             <div class="label">
               SOON
             </div>
-            <WhiteButton message="EXPERIENCIAS" />
+            <WhiteButton message="CURSOS" />
           </div>
         </section>
-
-        <!-- Display Button -->
-        <section class="shared-container">
-          <DisplayButton
-            message="VIAJE AEROPUERTO"
-            link="../airport"
-            class="airport-container display-btn"
-          />
-          <DisplayButton
-            message="ESPECIALES"
-            link="../specials"
-            class="specials-container display-btn"
-          />
-        </section>
-
-        <PrimaryButton>PRIMARY</PrimaryButton>
-        <PrimaryButton :show-notification="true">
-          PRIMARY WITH NOTIFICATION
-        </PrimaryButton>
-        <PrimaryButton :disable-button="true">
-          PRIMARY DISABLED
-        </PrimaryButton>
-        <PrimaryButton>
-          <div class="confirm">
-            <div class="text">
-              CONFIRMAR DESTINO
+        <section class="asistencia-container">
+          <div class="button-container">
+            <div class="label">
+              SOON
             </div>
-            <img
-              class="button-image"
-              src="https://biz-app-bucket.s3.us-east-2.amazonaws.com/iiz-green.png"
-            >
+            <WhiteButton message="ASISTENCIA" />
           </div>
-        </PrimaryButton>
+        </section>
 
-        <SecondaryButton>SECONDARY</SecondaryButton>
-
-        <ToggleButton />
-        <ToggleButton :checked="true" />
-
-        <h3>Selected Option: {{ selectedOption }}</h3>
-        <div v-for="option in options">
-          <RadioButton
-            :option="option"
-            :selected-option="selectedOption"
-            @changeSelected="(newOption) => (selectedOption = newOption)"
-          />
-        </div>
+        <PrimaryButton>Viajes Programados</PrimaryButton>
       </div>
     </IonContent>
   </IonPage>
@@ -90,34 +44,34 @@ const selectedOption = ref(options.value[0]);
 
 .container {
   @include flex-column;
+  justify-content: center;
   min-width: 34rem;
+  margin: 0 3rem;
   gap: 0.7rem;
+
+  .trip-container {
+    height: 31.6rem;
+    width: 100%;
+    @include background-cover(
+      'https://biiz-bucket.s3.us-east-2.amazonaws.com/especiales.png'
+    );
+    border-radius: 0.6rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    .label {
+      margin-bottom: 1.4rem;
+    }
+  }
 }
 
-// TODO: Remove after demo
-.confirm {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  .text {
-    margin-left: 30%;
-  }
-
-  .button-image {
-    margin-right: 3rem;
-  }
-}
-
-// Experiences
-
-.experience-container {
+@mixin wide-display($bg-name) {
   height: 13.2rem;
-  width: 34.2rem;
+  width: 100%;
   border-radius: 0.6rem;
   @include background-cover(
-    'https://biiz-bucket.s3.us-east-2.amazonaws.com/experiencias.png'
+    'https://biiz-bucket.s3.us-east-2.amazonaws.com/#{$bg-name}.png'
   );
 
   .button-container {
@@ -128,6 +82,14 @@ const selectedOption = ref(options.value[0]);
       align-self: flex-end;
     }
   }
+}
+
+.cursos-container {
+  @include wide-display('cursos-bg');
+}
+
+.asistencia-container {
+  @include wide-display('asistencias-bg');
 }
 
 .button-container {
@@ -149,37 +111,5 @@ const selectedOption = ref(options.value[0]);
   font-size: 0.8rem;
   font-weight: bold;
   border-radius: 0.3rem;
-}
-.trip-container {
-  height: 31.6rem;
-  width: 34.2rem;
-  @include background-cover(
-    'https://biiz-bucket.s3.us-east-2.amazonaws.com/unidad.png'
-  );
-  border-radius: 0.6rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-
-  .label {
-    margin-bottom: 1.4rem;
-  }
-}
-
-.shared-container {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.airport-container {
-  @include background-cover(
-    'https://biiz-bucket.s3.us-east-2.amazonaws.com/airport.png'
-  );
-}
-
-.specials-container {
-  @include background-cover(
-    'https://biiz-bucket.s3.us-east-2.amazonaws.com/especiales.png'
-  );
 }
 </style>

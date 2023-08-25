@@ -1,17 +1,21 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { ref, computed } from 'vue';
 import { useQuery } from '@vue/apollo-composable';
 import { weatherQuery } from '@/services/weather/weather.queries';
 import { getToken } from '@/core/helpers/token-helper';
-import { isAuthed } from '@/core/helpers/auth-helper';
-import { IonHeader, IonToolbar } from '@ionic/vue';
+import { isAuthed, findToken } from '@/core/helpers/auth-helper';
+import { IonHeader, IonToolbar, useIonRouter } from '@ionic/vue';
+import LeftArrow from '~icons/fluent/arrow-left-12-filled';
 
-const router = useRouter();
+findToken();
+
 const route = useRoute();
+const ionRouter = useIonRouter();
 
 const weatherImage = ref();
 const isProfileRoute = computed(() => route.path.includes('profile'));
+const isHomeRoute = computed(() => route.path.includes('home'));
 
 const { onResult } = useQuery(weatherQuery, null, {
   context: { headers: { Authorization: getToken() } },
@@ -30,11 +34,15 @@ function setWeatherImage(icon: string): string {
 }
 
 function goToProfile(): void {
-  router.push('/profile');
+  ionRouter.navigate('/profile', 'forward', 'push');
 }
 
 function goToHome(): void {
-  router.push('/driver/home');
+  ionRouter.navigate('/driver/home', 'forward', 'push');
+}
+
+function goToPreviousPage(): void {
+  ionRouter.back();
 }
 </script>
 
@@ -46,6 +54,15 @@ function goToHome(): void {
   >
     <IonToolbar>
       <div class="header">
+        <!-- Back Arrow -->
+        <div
+          v-if="!isHomeRoute"
+          class="back-arrow"
+          @click="goToPreviousPage()"
+        >
+          <LeftArrow class="material-icons-round icon" />
+        </div>
+        <!-- Header Container -->
         <section class="header-wrapper">
           <img
             v-if="!isProfileRoute"
@@ -61,7 +78,9 @@ function goToHome(): void {
             @click="goToHome()"
           >
 
+          <!-- Weather and Translate Icon -->
           <div class="d-flex">
+            <!-- Weather Icon -->
             <div class="icon-container">
               <Transition
                 name="fade"
@@ -82,6 +101,7 @@ function goToHome(): void {
               </Transition>
             </div>
 
+            <!-- Translate Icon -->
             <img
               class="translate"
               src="../assets/images/translate.svg"
@@ -107,6 +127,7 @@ function goToHome(): void {
   max-width: 4.5rem;
   min-height: 2.6rem;
   border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
 
   .icon {
     padding: 0.4rem;
@@ -127,6 +148,8 @@ function goToHome(): void {
   .header {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    margin: 1rem 3rem;
   }
 }
 

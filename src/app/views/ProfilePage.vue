@@ -4,8 +4,18 @@ import { IonPage, IonContent } from '@ionic/vue';
 
 <template>
   <IonPage>
-    <IonContent />
+    <IonContent>
+      <div class="profile-container">
+        <h1>WIP</h1>
+        <h2>Profile Page</h2>
+      </div>
+    </IonContent>
   </IonPage>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.profile-container {
+  min-width: 100%;
+  margin: 0 3rem;
+}
+</style>
