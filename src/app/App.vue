@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { IonApp, IonRouterOutlet, IonContent } from '@ionic/vue';
-import { Notivue, Notifications, NotivueSwipe } from 'notivue'
+import { Notivue, Notifications, NotivueSwipe } from 'notivue';
 import AppHeader from '@/components/AppHeader.vue';
 import { customTheme } from '@/theme/notivue';
 </script>
@@ -29,7 +29,7 @@ import { customTheme } from '@/theme/notivue';
 <style lang="scss">
 @import './styles';
 
-.toaster { 
+.toaster {
   .Notivue__notification {
     padding: 0.5rem;
     width: 36rem;

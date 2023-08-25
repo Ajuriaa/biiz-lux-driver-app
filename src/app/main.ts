@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import { notivue } from 'notivue'
+import { notivue } from 'notivue';
 
 /* Apollo Client for the whole App */
 import { DefaultApolloClient } from '@vue/apollo-composable';
@@ -39,9 +39,9 @@ app.use(notivue, {
   teleportTo: 'body',
   notifications: {
     global: {
-      duration: 3000
-    }
-  }
+      duration: 3000,
+    },
+  },
 });
 
 app.provide(DefaultApolloClient, apolloClient);

@@ -65,7 +65,10 @@ onDone(async ({ data }: any) => {
     await router.push(
       (query.returnUrl as string) || '' || `/${getRole()}/home`,
     );
-    promise.resolve({ title: '¡Éxito!', message: 'Sesion iniciada correctamente' })
+    promise.resolve({
+      title: '¡Éxito!',
+      message: 'Sesion iniciada correctamente',
+    });
   }
   loading.value = false;
 });

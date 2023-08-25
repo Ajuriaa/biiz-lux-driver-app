@@ -1,4 +1,4 @@
-import { pastelTheme } from 'notivue'
+import { pastelTheme } from 'notivue';
 
 export const customTheme = {
   ...pastelTheme,
@@ -9,5 +9,5 @@ export const customTheme = {
   '--nv-y-align': 'center',
   '--nv-icon-size': '2rem',
   '--nv-success-accent': '#00e741',
-  '--nv-error-accent': '#e3000b'
-}
+  '--nv-error-accent': '#e3000b',
+};
