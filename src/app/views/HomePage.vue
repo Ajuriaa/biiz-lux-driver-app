@@ -10,27 +10,26 @@ import WhiteButton from '@/components/buttons/WhiteButton.vue';
       <div class="container">
         <!-- White Buttons -->
         <section class="trip-container">
-          <div class="label">
-            7 MIN.
+          <div class="buttons">
+            <div class="label">
+              7 MIN.
+            </div>
+            <WhiteButton message="SOLICITAR UNIDAD" />
           </div>
-          <WhiteButton message="SOLICITAR UNIDAD" />
         </section>
 
         <section class="cursos-container">
-          <div class="button-container">
-            <div class="label">
-              SOON
-            </div>
-            <WhiteButton message="CURSOS" />
+          <div class="label">
+            SOON
           </div>
+          <WhiteButton message="CURSOS" />
         </section>
+
         <section class="asistencia-container">
-          <div class="button-container">
-            <div class="label">
-              SOON
-            </div>
-            <WhiteButton message="ASISTENCIA" />
+          <div class="label">
+            SOON
           </div>
+          <WhiteButton message="ASISTENCIA" />
         </section>
 
         <PrimaryButton>Viajes Programados</PrimaryButton>
@@ -44,58 +43,54 @@ import WhiteButton from '@/components/buttons/WhiteButton.vue';
 
 .container {
   @include flex-column;
-  justify-content: center;
-  min-width: 34rem;
-  margin: 0 3rem;
+  margin: 0 5%;
   gap: 0.7rem;
+  height: 90%;
+  justify-content: space-around;
 
   .trip-container {
-    height: 31.6rem;
+    height: 50%;
     width: 100%;
     @include background-cover(
-      'https://biiz-bucket.s3.us-east-2.amazonaws.com/especiales.png'
+      'https://biiz-bucket.s3.us-east-2.amazonaws.com/specials.png'
     );
     border-radius: 0.6rem;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
+    gap: 1rem;
+  }
 
-    .label {
-      margin-bottom: 1.4rem;
-    }
+  .buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
 }
 
 @mixin wide-display($bg-name) {
-  height: 13.2rem;
+  height: 20%;
   width: 100%;
   border-radius: 0.6rem;
   @include background-cover(
     'https://biiz-bucket.s3.us-east-2.amazonaws.com/#{$bg-name}.png'
   );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
 
-  .button-container {
-    flex-direction: column;
-    gap: 5rem;
-
-    .label {
-      align-self: flex-end;
-    }
+  .label {
+    align-self: flex-end;
   }
 }
 
 .cursos-container {
-  @include wide-display('cursos-bg');
+  @include wide-display('specials');
 }
 
 .asistencia-container {
-  @include wide-display('asistencias-bg');
-}
-
-.button-container {
-  display: flex;
-  gap: 0.5rem;
-  margin: 1.4rem;
+  @include wide-display('specials');
 }
 
 // For Display / White Button

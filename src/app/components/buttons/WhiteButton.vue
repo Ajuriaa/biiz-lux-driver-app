@@ -28,9 +28,6 @@ const props = defineProps<{
 .button-container {
   display: flex;
   flex-direction: column;
-  position: relative;
-  justify-content: center;
-  margin: 1rem 0.5rem 1.4rem 1.4rem;
   width: 13rem;
 }
 

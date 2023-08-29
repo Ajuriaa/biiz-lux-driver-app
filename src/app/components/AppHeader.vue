@@ -149,7 +149,7 @@ function goToPreviousPage(): void {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin: 1rem 3rem;
+    margin: 1rem 5%;
   }
 }
 
@@ -157,7 +157,7 @@ function goToPreviousPage(): void {
   display: flex;
   justify-content: space-between;
   background-color: $black;
-  min-width: 34rem;
+  min-width: 100%;
   max-height: 3.5rem;
   border-radius: 0.5rem 1rem 1rem 0.5rem;
 
