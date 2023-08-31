@@ -4,6 +4,7 @@ import { driverRoutes } from '@/router/drivers';
 import LoginPage from '@/views/LoginPage.vue';
 import SuccessPage from '@/views/SuccessPage.vue';
 import ProfilePage from '@/views/ProfilePage.vue';
+import MapsPage from '@/views/MapsPage.vue';
 import { findToken } from '@/core/helpers/auth-helper';
 import { getRole } from '@/core/helpers/role-helper';
 
@@ -28,6 +29,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/success',
     name: 'Success',
     component: SuccessPage,
+  },
+  {
+    path: '/maps',
+    name: 'Maps',
+    component: MapsPage,
   },
   ...driverRoutes,
 ];
