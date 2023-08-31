@@ -5,7 +5,7 @@ import { useQuery } from '@vue/apollo-composable';
 import { weatherQuery } from '@/services/weather/weather.queries';
 import { getToken } from '@/core/helpers/token-helper';
 import { isAuthed, findToken } from '@/core/helpers/auth-helper';
-import { IonHeader, IonToolbar, useIonRouter } from '@ionic/vue';
+import { IonToolbar, useIonRouter } from '@ionic/vue';
 import LeftArrow from '~icons/fluent/arrow-left-12-filled';
 
 findToken();
@@ -47,12 +47,11 @@ function goToPreviousPage(): void {
 </script>
 
 <template>
-  <IonHeader
+  <div
     v-if="isAuthed"
     class="container ion-no-border"
-    collapse="fade"
   >
-    <IonToolbar>
+    <IonToolbar color="translucent">
       <div class="header">
         <!-- Back Arrow -->
         <div
@@ -111,7 +110,7 @@ function goToPreviousPage(): void {
         </section>
       </div>
     </IonToolbar>
-  </IonHeader>
+  </div>
 </template>
 
 <style scoped lang="scss">
