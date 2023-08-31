@@ -8,9 +8,7 @@ import { customTheme } from '@/theme/notivue';
 <template>
   <IonApp>
     <AppHeader />
-    <IonContent>
-      <IonRouterOutlet />
-    </IonContent>
+    <IonRouterOutlet />
     <!-- Toaster Component -->
     <Notivue
       v-slot="item"
