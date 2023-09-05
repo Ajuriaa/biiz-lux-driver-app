@@ -43,7 +43,7 @@ const emit = defineEmits(['btnClick']);
   font-size: 1rem;
   font-weight: bold;
   min-height: 6rem;
-  min-width: 100%;
+  width: 100%;
   letter-spacing: 0.1rem;
   position: relative;
 }

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { IonContent, IonPage } from '@ionic/vue';
+import { IonContent, IonPage, useIonRouter } from '@ionic/vue';
 import PrimaryButton from '@/components/buttons/PrimaryButton.vue';
 import WhiteButton from '@/components/buttons/WhiteButton.vue';
+const ionRouter = useIonRouter();
 </script>
 
 <template>
@@ -9,7 +10,10 @@ import WhiteButton from '@/components/buttons/WhiteButton.vue';
     <IonContent>
       <div class="container">
         <!-- White Buttons -->
-        <section class="trip-container">
+        <section
+          class="trip-container"
+          @click="ionRouter.push('/maps');"
+        >
           <div class="buttons">
             <div class="label">
               7 MIN.
