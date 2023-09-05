@@ -4,9 +4,6 @@ import { IonPage } from '@ionic/vue';
 import { GoogleMap } from '@capacitor/google-maps';
 import { environment } from '../../environments/environments'; 
 import PrimaryButton from '@/components/buttons/PrimaryButton.vue';
-import { usePush } from 'notivue';
-
-const push = usePush();
 
 const mapRef = ref();
 let newMap: GoogleMap;
@@ -15,18 +12,19 @@ const tmpCoords = { lat: 14.060536, lng: -87.241214 };
 
 onMounted(async () => {
   newMap = await GoogleMap.create({
-    id: 'my-map', // Unique identifier for this map instance
-    element: mapRef.value, // reference to the capacitor-google-map element
-    apiKey: environment.mapsApiKey, // Your Google Maps API Key
+    id: 'my-map',
+    element: mapRef.value,
+    apiKey: environment.mapsApiKey,
     config: {
       center: tmpCoords,
-      zoom: 17, // The initial zoom level to be rendered by the map
+      zoom: 17,
       clickableIcons: false,
       disableDefaultUI: true,
       keyboardShortcuts: false,
       gestureHandling: "greedy"
     },
   });
+  
   // Add a marker to the map
   await newMap.addMarker({
     coordinate: tmpCoords
@@ -45,18 +43,16 @@ onUnmounted(async () => await newMap.destroy());
     />
     <div class="buttons">
       <div class="action-buttons">
-        <PrimaryButton>
-          Eventos
-        </PrimaryButton>
-        <PrimaryButton>
-          Programar
-        </PrimaryButton>
+        <PrimaryButton>Eventos</PrimaryButton>
+        <PrimaryButton>Programar</PrimaryButton>
       </div>
-      <!-- To be removed after PR review -->
-      <PrimaryButton @click="push.success('Destino confirmado')">
+      <PrimaryButton>
         <div class="confirm">
-          <div class="text">CONFIRMAR DESTINO</div>
-          <img class="button-image" src="https://biz-app-bucket.s3.us-east-2.amazonaws.com/iiz-green.png">
+          <span class="text">CONFIRMAR DESTINO</span>
+          <img 
+            class="button-image" 
+            src="https://biz-app-bucket.s3.us-east-2.amazonaws.com/iiz-green.png"
+          >
         </div>
       </PrimaryButton>
     </div>
