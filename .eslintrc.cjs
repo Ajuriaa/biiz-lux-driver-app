@@ -12,6 +12,7 @@ module.exports = {
     'no-console': 'warn',
     'vue/require-v-for-key': 'off',
     'vue/v-on-event-hyphenation': 'off',
+    'vue/attribute-hyphenation': 'off',
   },
   parserOptions: {
     ecmaVersion: 'latest',

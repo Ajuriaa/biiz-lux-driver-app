@@ -1,9 +1,9 @@
-name: VUE CI
+name: Vue 3 CI/CD
 on:
   pull_request_review:
     types: [submitted]
 jobs:
-  install-and-test:
+  eslint-check:
     if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
