@@ -20,7 +20,7 @@ const isHomeRoute = computed(() => route.path.includes('home'));
 const { onResult } = useQuery(weatherQuery, null, {
   context: { headers: { Authorization: getToken() } },
   notifyOnNetworkStatusChange: true,
-  fetchPolicy: 'cache-and-network',
+  fetchPolicy: 'cache-first',
 });
 
 onResult(({ data }): void => {
