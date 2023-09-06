@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IonApp, IonRouterOutlet, IonContent } from '@ionic/vue';
+import { IonApp, IonRouterOutlet } from '@ionic/vue';
 import { Notivue, Notifications, NotivueSwipe } from 'notivue';
 import AppHeader from '@/components/AppHeader.vue';
 import { customTheme } from '@/theme/notivue';
