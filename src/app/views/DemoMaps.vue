@@ -16,7 +16,7 @@ import PrimaryButton from '@/components/buttons/PrimaryButton.vue';
           <span class="text">CONFIRMAR DESTINO</span>
           <img 
             class="button-image" 
-            src="https://biz-app-bucket.s3.us-east-2.amazonaws.com/iiz-green.png"
+            src="https://biiz-bucket.s3.us-east-2.amazonaws.com/iiz-green.png"
           >
         </div>
       </PrimaryButton>
