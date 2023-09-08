@@ -134,7 +134,7 @@ onError(() => {
         >
           <img
             class="button-image"
-            src="https://biz-app-bucket.s3.us-east-2.amazonaws.com/iiz.png"
+            src="https://biiz-bucket.s3.us-east-2.amazonaws.com/iiz.png"
           >
         </div>
       </div>
@@ -147,7 +147,7 @@ onError(() => {
 
 .container {
   height: 100%;
-  background-image: url('https://biz-app-bucket.s3.us-east-2.amazonaws.com/login_prado.png');
+  background-image: url('https://biiz-bucket.s3.us-east-2.amazonaws.com/login_prado.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   justify-content: space-between;
