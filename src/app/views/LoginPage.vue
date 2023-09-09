@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { IonPage } from '@ionic/vue';
 import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/zod';
 import { z } from 'zod';
 import { useMutation } from '@vue/apollo-composable';
 import { loginQuery, setCookie } from '@/services/auth/auth.mutations';
-import { getRole } from '@/core/helpers/role-helper';
 import { usePush } from 'notivue';
 import type { PushPromiseReturn } from 'notivue';
 
@@ -35,7 +34,6 @@ const { handleSubmit, defineInputBinds } = useForm({
 const username = defineInputBinds('username');
 const password = defineInputBinds('password');
 
-const { query } = useRoute();
 const router = useRouter();
 const toast = usePush();
 
