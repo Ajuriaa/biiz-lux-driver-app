@@ -5,16 +5,14 @@ import PrimaryButton from '@/components/buttons/PrimaryButton.vue';
 </script>
 
 <template>
-  <IonPage>
-    <MapsBackground />
-    <div class="buttons">
-      <div class="action-buttons">
-        <PrimaryButton>Eventos</PrimaryButton>
-        <PrimaryButton>Programar</PrimaryButton>
-      </div>
-      <PrimaryButton showLogo>Confirmar Destino</PrimaryButton>
+  <MapsBackground />
+  <div class="buttons">
+    <div class="action-buttons">
+      <PrimaryButton>Eventos</PrimaryButton>
+      <PrimaryButton>Programar</PrimaryButton>
     </div>
-  </IonPage>
+    <PrimaryButton showLogo>Confirmar Destino</PrimaryButton>
+  </div>
 </template>
 
 <style scoped lang="scss">

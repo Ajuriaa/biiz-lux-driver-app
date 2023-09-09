@@ -9,12 +9,10 @@ useMaps(mapRef);
 </script>
 
 <template>
-  <IonPage>
-    <div
-      ref="mapRef"
-      class="maps-container"
-    />
-  </IonPage>
+  <div
+    ref="mapRef"
+    class="maps-container"
+  />
 </template>
 
 <style scoped lang="scss">

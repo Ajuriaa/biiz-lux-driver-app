@@ -62,3 +62,11 @@ ion-app {
 .ion-page > ion-content {
    top: 6rem;
 }
+
+ion-content {
+  --background: transparent;
+}
+
+body {
+  background: transparent;
+}
