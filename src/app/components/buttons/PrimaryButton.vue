@@ -6,8 +6,10 @@ const props = withDefaults(
     styleClass?: string;
     disableButton?: boolean;
     showNotification?: boolean;
+    showLogo?: boolean;
+    text?: string;
   }>(),
-  { styleClass: 'btn-black' },
+  { styleClass: 'btn-black', text: '' },
 );
 
 const emit = defineEmits(['btnClick']);
@@ -23,7 +25,20 @@ const emit = defineEmits(['btnClick']);
     <div class="button-content">
       <main class="slot-content">
         <slot />
+        <span
+          v-if="props.text"
+          class="text"
+        >
+          {{ props.text }}
+        </span>
       </main>
+      <div class="text-and-logo">
+        <img
+          v-if="props.showLogo"
+          class="button-image" 
+          src="https://biiz-bucket.s3.us-east-2.amazonaws.com/iiz-green.png"
+        >
+      </div>
       <div
         v-if="props.showNotification"
         class="icon-container"
@@ -36,6 +51,7 @@ const emit = defineEmits(['btnClick']);
 
 <style scoped lang="scss">
 @import '@/core/sass/index';
+@import '@/core/sass/global';
 
 .btn {
   border-radius: 0.5rem;
@@ -53,8 +69,20 @@ const emit = defineEmits(['btnClick']);
   color: $white;
 }
 
+.button-content {
+  position: relative;
+}
+
 .slot-content {
   text-transform: uppercase;
+}
+
+.text-and-logo {
+  .button-image {
+    position: absolute;
+    right: 2rem;
+    bottom: 0;
+  }
 }
 
 .icon-container {
