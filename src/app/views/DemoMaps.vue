@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { IonPage } from '@ionic/vue';
 import MapsBackground from '@/components/MapsBackground.vue';
 import PrimaryButton from '@/components/buttons/PrimaryButton.vue';
 </script>
@@ -11,15 +12,7 @@ import PrimaryButton from '@/components/buttons/PrimaryButton.vue';
         <PrimaryButton>Eventos</PrimaryButton>
         <PrimaryButton>Programar</PrimaryButton>
       </div>
-      <PrimaryButton>
-        <div class="confirm">
-          <span class="text">CONFIRMAR DESTINO</span>
-          <img 
-            class="button-image" 
-            src="https://biiz-bucket.s3.us-east-2.amazonaws.com/iiz-green.png"
-          >
-        </div>
-      </PrimaryButton>
+      <PrimaryButton showLogo>Confirmar Destino</PrimaryButton>
     </div>
   </IonPage>
 </template>
