@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.atlantisdev.biizdriver;
 
 import com.getcapacitor.BridgeActivity;
 
