@@ -11,16 +11,16 @@ export const driverRoutes: Array<RouteRecordRaw> = [
     beforeEnter: (to) => {
       // reject the navigation
       // when no token is found
-      if (!findToken()) {
-        return { name: 'Login', query: { returnUrl: to.path } };
-      }
+      // if (!findToken()) {
+      //   return { name: 'Login', query: { returnUrl: to.path } };
+      // }
 
-      // when the role is invalid
-      const currentRole = getRole();
-      const urlRole = to.meta.role as string;
-      const roleIsAllowed = currentRole.includes(urlRole);
+      // // when the role is invalid
+      // const currentRole = getRole();
+      // const urlRole = to.meta.role as string;
+      // const roleIsAllowed = currentRole.includes(urlRole);
 
-      if (!roleIsAllowed) return { path: '/not-allowed' };
+      // if (!roleIsAllowed) return { path: '/not-allowed' };
 
       return true;
     },
