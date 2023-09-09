@@ -2,6 +2,8 @@
 import { IonContent, IonPage, useIonRouter } from '@ionic/vue';
 import PrimaryButton from '@/components/buttons/PrimaryButton.vue';
 import WhiteButton from '@/components/buttons/WhiteButton.vue';
+import ClockIcon from '~icons/fluent/clock-28-filled';
+
 const ionRouter = useIonRouter();
 </script>
 
@@ -16,7 +18,8 @@ const ionRouter = useIonRouter();
         >
           <div class="buttons">
             <div class="label">
-              7 MIN.
+              <ClockIcon class="icon" />
+              <span>7 MIN.</span>
             </div>
             <WhiteButton message="SOLICITAR UNIDAD" />
           </div>
@@ -102,6 +105,12 @@ const ionRouter = useIonRouter();
   width: 6.6rem;
   height: 2rem;
   background-color: $green;
+
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+  }
 }
 
 .button,
