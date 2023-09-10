@@ -60,7 +60,9 @@ onDone(async ({ data }: any) => {
     const token = data.login.token;
     const role = data.login.role;
     setCookie(token, role);
-    await router.push(`driver/home`);
+
+    await router.push('/driver/home');
+
     promise.resolve({
       title: '¡Éxito!',
       message: 'Sesion iniciada correctamente',
