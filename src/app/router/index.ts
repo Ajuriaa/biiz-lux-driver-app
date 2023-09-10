@@ -5,17 +5,16 @@ import LoginPage from '@/views/LoginPage.vue';
 import SuccessPage from '@/views/SuccessPage.vue';
 import ProfilePage from '@/views/ProfilePage.vue';
 import DemoMaps from '@/views/DemoMaps.vue';
-import { findToken } from '@/core/helpers/auth-helper';
-import { getRole } from '@/core/helpers/role-helper';
+import { isAuthed, findToken } from '@/core/helpers/auth-helper';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Login',
     component: LoginPage,
-    beforeEnter: (to) => {
-      if (findToken()) {
-        const homePathname = `/${getRole()}/home`;
+    beforeEnter: () => {
+      if (isAuthed.value) {
+        const homePathname = `/driver/home`;
         return { path: homePathname };
       }
     },
@@ -41,6 +40,13 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to) => {
+  // Guard to check if the cookies still exist
+  if (!(isAuthed.value = findToken()) && to.name !== 'Login') {
+    return { name: 'Login' }
+  }
 });
 
 export default router;
