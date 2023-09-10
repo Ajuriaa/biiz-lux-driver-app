@@ -4,11 +4,9 @@ import { ref, computed } from 'vue';
 import { useQuery } from '@vue/apollo-composable';
 import { weatherQuery } from '@/services/weather/weather.queries';
 import { getToken } from '@/core/helpers/token-helper';
-import { isAuthed, findToken } from '@/core/helpers/auth-helper';
+import { isAuthed } from '@/core/helpers/auth-helper';
 import { IonToolbar, useIonRouter } from '@ionic/vue';
 import LeftArrow from '~icons/fluent/arrow-left-12-filled';
-
-findToken();
 
 const route = useRoute();
 const ionRouter = useIonRouter();
