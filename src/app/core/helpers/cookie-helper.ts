@@ -5,7 +5,9 @@ import { CapacitorCookies } from '@capacitor/core';
 
 export async function setCapacitorCookie(key: string, value: string) {
   const date = new Date();
-  date.setTime(date.getTime() + 30 * 24 * 60 * 60 * 1000);
+  // date.setTime(date.getTime() + 30 * 24 * 60 * 60 * 1000);
+  // 3 seconds to try
+  date.setTime(date.getTime() + 3000);
   
   await CapacitorCookies.setCookie({
     url: 'localhost',

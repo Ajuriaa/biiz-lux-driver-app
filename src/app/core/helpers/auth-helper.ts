@@ -1,14 +1,7 @@
 import { ref } from 'vue';
+import { useCookies } from '@vueuse/integrations/useCookies';
 
-export const isAuthed = ref(false);
+const cookies = useCookies();
 
-export function findToken(): boolean {
-  const cookies = document.cookie.split('; ');
-  for (const c of cookies) {
-    return c.indexOf('BZ-TOKEN=') === 0;
-  }
-  return false;
-}
-
-// Set the initial value
-isAuthed.value = findToken();
+export const token = cookies.get('BZ-TOKEN');
+export const isAuthed = ref(!!token);
