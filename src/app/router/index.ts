@@ -5,7 +5,8 @@ import LoginPage from '@/views/LoginPage.vue';
 import SuccessPage from '@/views/SuccessPage.vue';
 import ProfilePage from '@/views/ProfilePage.vue';
 import DemoMaps from '@/views/DemoMaps.vue';
-import { isAuthed, findToken } from '@/core/helpers/auth-helper';
+import { isAuthed } from '@/core/helpers/auth-helper';
+import { useCookies } from '@vueuse/integrations/useCookies';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -42,9 +43,12 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to) => {
+router.beforeEach((to) => {  
   // Guard to check if the cookies still exist
-  if (!(isAuthed.value = findToken()) && to.name !== 'Login') {
+  const cookies = useCookies();
+  isAuthed.value = !!cookies.get('BZ-TOKEN');  
+  
+  if (!isAuthed.value && to.name !== 'Login') {
     return { name: 'Login' }
   }
 });

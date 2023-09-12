@@ -59,7 +59,7 @@ onDone(async ({ data }: any) => {
   if (data) {
     const token = data.login.token;
     const role = data.login.role;
-    setCookie(token, role);
+    await setCookie(token, role);
 
     await router.push('/driver/home');
 
