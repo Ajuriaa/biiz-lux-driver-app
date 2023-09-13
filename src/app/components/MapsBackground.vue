@@ -5,7 +5,7 @@ import { useMaps } from '@/composables/useMaps';
 
 const mapRef = ref();
 
-useMaps(mapRef);
+const { map } = useMaps(mapRef);
 </script>
 
 <template>
