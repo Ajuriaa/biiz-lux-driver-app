@@ -83,17 +83,10 @@ onError(() => {
       <div class="login-header">
         <div class="translate-box">
           <div class="translate">
-            <img
-              class="icon"
-              src="../assets/images/translate.svg"
-              alt="translate"
-            >
+            <img class="icon" src="../assets/images/translate.svg" alt="translate">
           </div>
         </div>
-        <img
-          class="logo"
-          src="../assets/images/logo.svg"
-        >
+        <img class="logo" src="../assets/images/logo.svg">
         <p class="version">
           ALFA
         </p>
@@ -105,10 +98,7 @@ onError(() => {
             TERMINOS Y CONDICIONES
           </p>
         </div>
-        <form
-          class="form-field"
-          @submit.prevent="onSubmit()"
-        >
+        <form class="form-field" @submit.prevent="onSubmit()">
           <input
             v-bind="username"
             class="input"
@@ -126,14 +116,8 @@ onError(() => {
             required
           >
         </form>
-        <div
-          class="login"
-          @click="onSubmit()"
-        >
-          <img
-            class="button-image"
-            src="https://biiz-bucket.s3.us-east-2.amazonaws.com/iiz.png"
-          >
+        <div class="login" @click="onSubmit()">
+          <img class="button-image" src="https://biiz-bucket.s3.us-east-2.amazonaws.com/iiz.png">
         </div>
       </div>
     </div>

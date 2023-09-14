@@ -16,10 +16,7 @@ async function goToLink() {
 </script>
 
 <template>
-  <section
-    class="display-container"
-    @click="goToLink()"
-  >
+  <section class="display-container" @click="goToLink()">
     <div class="title">
       {{ title }}
     </div>

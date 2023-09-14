@@ -10,15 +10,9 @@ import { customTheme } from '@/theme/notivue';
     <AppHeader />
     <IonRouterOutlet />
     <!-- Toaster Component -->
-    <Notivue
-      v-slot="item"
-      class="toaster"
-    >
+    <Notivue v-slot="item" class="toaster">
       <NotivueSwipe :item="item">
-        <Notifications
-          :item="item"
-          :theme="customTheme"
-        />
+        <Notifications :item="item" :theme="customTheme" />
       </NotivueSwipe>
     </Notivue>
   </IonApp>

@@ -19,7 +19,7 @@ function confirm() {
         <PrimaryButton>Eventos</PrimaryButton>
         <PrimaryButton>Programar</PrimaryButton>
       </div>
-      <PrimaryButton @click="confirm" showLogo>
+      <PrimaryButton showLogo @click="confirm">
         Confirmar Destino
       </PrimaryButton>
     </div>
