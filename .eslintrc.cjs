@@ -13,14 +13,17 @@ module.exports = {
     'vue/require-v-for-key': 'off',
     'vue/v-on-event-hyphenation': 'off',
     'vue/attribute-hyphenation': 'off',
-    "vue/max-attributes-per-line": ["error", {
-      "singleline": {
-        "max": 4
-      },      
-      "multiline": {
-        "max": 1
-      }
-    }]
+    'vue/max-attributes-per-line': [
+      'error',
+      {
+        singleline: {
+          max: 4,
+        },
+        multiline: {
+          max: 1,
+        },
+      },
+    ],
   },
   parserOptions: {
     ecmaVersion: 'latest',
