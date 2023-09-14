@@ -13,9 +13,10 @@ interface Coords {
 
 export function useMaps(mapRef: Ref<HTMLDivElement>) {
   const map = ref<GoogleMap>();
+  const markerId = ref<string | undefined>();
 
   onMounted(async () => {
-    const { coords } = await Geolocation.getCurrentPosition();
+    const { coords } = await Geolocation.getCurrentPosition();    
 
     map.value = await GoogleMap.create({
       id: 'driver-map',
@@ -38,15 +39,17 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
     await addMarker(coords);
   });
 
-  async function setNewMarker(coords: Coords, markerId: string) {
-    map.value?.removeMarker(markerId);
+  async function setNewMarker(coords: Coords) {
+    if (markerId.value) {
+      await map.value?.removeMarker(markerId.value);
+    }    
     addMarker(coords);
   }
 
   async function addMarker(coords: Coords): Promise<void> {
     const ICON_SIZE = 60;
 
-    const markerId = await map.value?.addMarker({
+    markerId.value = await map.value?.addMarker({
       coordinate: {
         lat: coords.latitude,
         lng: coords.longitude
@@ -58,9 +61,9 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
       draggable: true,
     });
     
-    await map.value?.setOnMapClickListener(({ latitude, longitude }) => {
+    await map.value?.setOnMapClickListener(async ({ latitude, longitude }) => {
       const newCoords: Coords = { latitude, longitude };
-      if (markerId) setNewMarker(newCoords, markerId);
+      await setNewMarker(newCoords);
     });
   }
 
