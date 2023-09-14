@@ -3,22 +3,16 @@ import { onMounted, ref } from 'vue';
 import { IonPage } from '@ionic/vue';
 import { useMaps } from '@/composables/useMaps';
 
-const emit = defineEmits(['newCoords']);
 const mapRef = ref();
 
 const { createMap, setNewMarker } = useMaps(mapRef);
 
+// Use the onMounted hook so we know the map is in the DOM
 onMounted(async () => {
-  const { map, coords } = await createMap();
-
-  // To see if coords are working
-  // TODO: emits To be removed after demo
-  const { latitude, longitude } = coords;
-  emit('newCoords', { latitude, longitude })
+  const { map } = await createMap();
 
   await map.value?.setOnMapClickListener(async ({ latitude, longitude }) => {
     const newCoords = { latitude, longitude };
-    emit('newCoords', newCoords);
     await setNewMarker(newCoords);
   })
 })

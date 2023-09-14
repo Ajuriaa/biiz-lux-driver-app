@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { IonPage } from '@ionic/vue';
 import { usePush } from 'notivue';
 import MapsBackground from '@/components/MapsBackground.vue';
 import PrimaryButton from '@/components/buttons/PrimaryButton.vue';
 
-const coords = ref(0);
 const push = usePush();
 
 function confirm() {
@@ -15,9 +13,8 @@ function confirm() {
 
 <template>
   <IonPage>
-    <MapsBackground @newCoords="coords = $event" />
+    <MapsBackground />
     <div class="buttons">
-      <PrimaryButton>Coords: {{ coords }}</PrimaryButton>
       <div class="action-buttons">
         <PrimaryButton>Eventos</PrimaryButton>
         <PrimaryButton>Programar</PrimaryButton>

@@ -64,7 +64,7 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
     });
   }
 
-  // Clean up the map reference.
+  // Always make sure to clean up the map reference.
   onUnmounted(async () => await map.value?.destroy());
 
   return { createMap, setNewMarker };
