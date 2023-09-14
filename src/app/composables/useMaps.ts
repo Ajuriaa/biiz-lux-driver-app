@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted, Ref } from 'vue';
+import { ref, onUnmounted, Ref } from 'vue';
 import { GoogleMap } from '@capacitor/google-maps';
 import { environment } from '../../environments/environments';
 import { Geolocation } from '@capacitor/geolocation';
@@ -15,8 +15,8 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
   const map = ref<GoogleMap>();
   const markerId = ref<string | undefined>();
 
-  onMounted(async () => {
-    const { coords } = await Geolocation.getCurrentPosition();    
+  async function createMap() {
+    const { coords } = await Geolocation.getCurrentPosition();
 
     map.value = await GoogleMap.create({
       id: 'driver-map',
@@ -34,12 +34,14 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
         gestureHandling: 'greedy',
       },
     });
-
+    
     // Add a current position marker to the map
     await addMarker(coords);
-  });
 
-  async function setNewMarker(coords: Coords) {
+    return { map, coords };
+  }
+
+  async function setNewMarker(coords: Coords): Promise<void> {
     if (markerId.value) {
       await map.value?.removeMarker(markerId.value);
     }    
@@ -60,15 +62,10 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
       iconAnchor: { x: ICON_SIZE / 2, y: (ICON_SIZE / 2) + 3 },
       draggable: true,
     });
-    
-    await map.value?.setOnMapClickListener(async ({ latitude, longitude }) => {
-      const newCoords: Coords = { latitude, longitude };
-      await setNewMarker(newCoords);
-    });
   }
 
   // Clean up the map reference.
   onUnmounted(async () => await map.value?.destroy());
 
-  return { map };
+  return { createMap, setNewMarker };
 }
