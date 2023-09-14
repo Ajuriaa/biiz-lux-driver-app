@@ -14,11 +14,7 @@ function toggle() {
 </script>
 
 <template>
-  <div
-    class="toggle"
-    :class="{ checked: isChecked }"
-    @click="toggle()"
-  >
+  <div class="toggle" :class="{ checked: isChecked }" @click="toggle()">
     <div class="toggle-label">
       {{ props.label }}
     </div>

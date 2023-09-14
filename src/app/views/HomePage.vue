@@ -12,10 +12,7 @@ const ionRouter = useIonRouter();
     <IonContent>
       <div class="container">
         <!-- White Buttons -->
-        <section
-          class="trip-container"
-          @click="ionRouter.push('/maps');"
-        >
+        <section class="trip-container" @click="ionRouter.push('/maps')">
           <div class="buttons">
             <div class="label">
               <ClockIcon class="icon" />

@@ -25,24 +25,14 @@ const emit = defineEmits(['btnClick']);
     <div class="button-content">
       <main class="slot-content">
         <slot />
-        <span
-          v-if="props.text"
-          class="text"
-        >
+        <span v-if="props.text" class="text">
           {{ props.text }}
         </span>
       </main>
       <div class="text-and-logo">
-        <img
-          v-if="props.showLogo"
-          class="button-image" 
-          src="https://biiz-bucket.s3.us-east-2.amazonaws.com/iiz-green.png"
-        >
+        <img v-if="props.showLogo" class="button-image" src="https://biiz-bucket.s3.us-east-2.amazonaws.com/iiz-green.png">
       </div>
-      <div
-        v-if="props.showNotification"
-        class="icon-container"
-      >
+      <div v-if="props.showNotification" class="icon-container">
         <NotificationsIcon class="material-icons-round icon" />
       </div>
     </div>
