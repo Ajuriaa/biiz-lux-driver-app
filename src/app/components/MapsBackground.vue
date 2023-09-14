@@ -1,11 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { IonPage } from '@ionic/vue';
 import { useMaps } from '@/composables/useMaps';
 
 const mapRef = ref();
 
-useMaps(mapRef);
+const { createMap, setNewMarker } = useMaps(mapRef);
+
+// Use the onMounted hook so we know the map is in the DOM
+onMounted(async () => {
+  const { map } = await createMap();
+
+  await map.value?.setOnMapClickListener(async ({ latitude, longitude }) => {
+    const newCoords = { latitude, longitude };
+    await setNewMarker(newCoords);
+  })
+})
+
 </script>
 
 <template>
