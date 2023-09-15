@@ -32,7 +32,7 @@ function setWeatherImage(icon: string): string {
 }
 
 function goToProfile(): void {
-  ionRouter.navigate('/profile', 'forward', 'push');
+  ionRouter.navigate('/driver/profile', 'forward', 'push');
 }
 
 function goToHome(): void {
@@ -45,18 +45,11 @@ function goToPreviousPage(): void {
 </script>
 
 <template>
-  <div
-    v-if="isAuthed"
-    class="container ion-no-border"
-  >
+  <div v-if="isAuthed" class="container ion-no-border">
     <IonToolbar color="translucent">
       <div class="header">
         <!-- Back Arrow -->
-        <div
-          v-if="!isHomeRoute"
-          class="back-arrow"
-          @click="goToPreviousPage()"
-        >
+        <div v-if="!isHomeRoute" class="back-arrow" @click="goToPreviousPage()">
           <LeftArrow class="material-icons-round icon" />
         </div>
         <!-- Header Container -->
@@ -79,10 +72,7 @@ function goToPreviousPage(): void {
           <div class="d-flex">
             <!-- Weather Icon -->
             <div class="icon-container">
-              <Transition
-                name="fade"
-                mode="out-in"
-              >
+              <Transition name="fade" mode="out-in">
                 <img
                   v-if="!weatherImage"
                   class="weather-base"
@@ -99,11 +89,7 @@ function goToPreviousPage(): void {
             </div>
 
             <!-- Translate Icon -->
-            <img
-              class="translate"
-              src="../assets/images/translate.svg"
-              alt="translate"
-            >
+            <img class="translate" src="../assets/images/translate.svg" alt="translate">
           </div>
         </section>
       </div>
