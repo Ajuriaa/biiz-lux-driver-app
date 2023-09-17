@@ -3,8 +3,6 @@ import { RouteRecordRaw } from 'vue-router';
 import { driverRoutes } from '@/router/drivers';
 import LoginPage from '@/views/LoginPage.vue';
 import SuccessPage from '@/views/SuccessPage.vue';
-import ProfilePage from '@/views/ProfilePage.vue';
-import DemoMaps from '@/views/DemoMaps.vue';
 import { isAuthed } from '@/core/helpers/auth-helper';
 import { useCookies } from '@vueuse/integrations/useCookies';
 
@@ -21,19 +19,9 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: '/profile',
-    name: 'Profile',
-    component: ProfilePage,
-  },
-  {
     path: '/success',
     name: 'Success',
     component: SuccessPage,
-  },
-  {
-    path: '/maps',
-    name: 'Maps',
-    component: DemoMaps,
   },
   ...driverRoutes,
 ];

@@ -5,6 +5,10 @@ import WhiteButton from '@/components/buttons/WhiteButton.vue';
 import ClockIcon from '~icons/fluent/clock-28-filled';
 
 const ionRouter = useIonRouter();
+
+function goToMaps() {
+  ionRouter.navigate('/driver/maps', 'forward')
+}
 </script>
 
 <template>
@@ -12,7 +16,7 @@ const ionRouter = useIonRouter();
     <IonContent>
       <div class="container">
         <!-- White Buttons -->
-        <section class="trip-container" @click="ionRouter.push('/maps')">
+        <section class="trip-container" @click="goToMaps()">
           <div class="buttons">
             <div class="label">
               <ClockIcon class="icon" />
