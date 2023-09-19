@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { IonContent, IonPage, useIonRouter } from '@ionic/vue';
+import { IonContent, IonPage } from '@ionic/vue';
 import PrimaryButton from '@/components/buttons/PrimaryButton.vue';
 import WhiteButton from '@/components/buttons/WhiteButton.vue';
 import ClockIcon from '~icons/fluent/clock-28-filled';
+import { useRouter } from 'vue-router';
 
-const ionRouter = useIonRouter();
+const router = useRouter();
 
 function goToMaps() {
-  ionRouter.navigate('/driver/maps', 'forward')
+  router.push('/maps');
 }
 </script>
 

@@ -61,7 +61,7 @@ onDone(async ({ data }: any) => {
     const role = data.login.role;
     await setCookie(token, role);
 
-    await router.push('/driver/home');
+    await router.push('/home');
 
     promise.resolve({
       title: '¡Éxito!',

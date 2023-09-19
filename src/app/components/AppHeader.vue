@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { ref, computed } from 'vue';
 import { useQuery } from '@vue/apollo-composable';
 import { weatherQuery } from '@/services/weather/weather.queries';
@@ -10,6 +10,7 @@ import LeftArrow from '~icons/fluent/arrow-left-12-filled';
 
 const route = useRoute();
 const ionRouter = useIonRouter();
+const router = useRouter();
 
 const weatherImage = ref();
 const isProfileRoute = computed(() => route.path.includes('profile'));
@@ -32,15 +33,17 @@ function setWeatherImage(icon: string): string {
 }
 
 function goToProfile(): void {
-  ionRouter.navigate('/driver/profile', 'forward', 'push');
+  // ionRouter.navigate('/profile', 'forward', 'push');
+  router.push('/profile');
 }
 
 function goToHome(): void {
-  ionRouter.navigate('/driver/home', 'forward', 'push');
+  // ionRouter.navigate('/home', 'forward', 'push');
+  router.push('/home')
 }
 
 function goToPreviousPage(): void {
-  ionRouter.back();
+  router.back();
 }
 </script>
 
