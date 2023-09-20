@@ -1,10 +1,11 @@
-import { ref, onUnmounted, Ref } from 'vue';
-import { GoogleMap } from '@capacitor/google-maps';
+import { ref, Ref } from 'vue';
 import { environment } from '../../environments/environments';
 import { Geolocation } from '@capacitor/geolocation';
+import { Loader } from '@googlemaps/js-api-loader'
 
 const DEFAULT_MAP_ZOOM = 18;
 const MARKER_IMAGE = 'https://biiz-bucket.s3.us-east-2.amazonaws.com/marker.png';
+const MAP_ID = 'f8e6a2472dfc90b0';
 
 interface Coords {
   latitude: number
@@ -12,60 +13,56 @@ interface Coords {
 }
 
 export function useMaps(mapRef: Ref<HTMLDivElement>) {
-  const map = ref<GoogleMap>();
-  const markerId = ref<string | undefined>();
+  const map = ref<google.maps.Map>();
+  let mapMarker: google.maps.Marker | null;
 
   async function createMap() {
     const { coords } = await Geolocation.getCurrentPosition();
 
-    map.value = await GoogleMap.create({
-      id: 'driver-map',
-      element: mapRef.value,
-      apiKey: environment.mapsApiKey,
-      config: {
-        center: {
-          lat: coords.latitude,
-          lng: coords.longitude
-        },
-        zoom: DEFAULT_MAP_ZOOM,
-        clickableIcons: false,
-        disableDefaultUI: true,
-        keyboardShortcuts: false,
-        gestureHandling: 'greedy',
+    const loader = new Loader({ apiKey: environment.mapsApiKey });
+
+    const { Map } = await loader.importLibrary('maps');
+
+    map.value = new Map(mapRef.value, {
+      mapId: MAP_ID,
+      center: {
+        lat: coords.latitude,
+        lng: coords.longitude
       },
+      zoom: DEFAULT_MAP_ZOOM,
+      clickableIcons: false,
+      disableDefaultUI: true,
+      keyboardShortcuts: false,
+      gestureHandling: 'greedy',
     });
     
     // Add a current position marker to the map
-    await addMarker(coords);
+    addMarker(coords);
 
     return { map, coords };
   }
 
-  async function setNewMarker(coords: Coords): Promise<void> {
-    if (markerId.value) {
-      await map.value?.removeMarker(markerId.value);
-    }    
-    addMarker(coords);
-  }
+  function addMarker(coords: Coords) {
+    const ICON_SIZE = 70;
 
-  async function addMarker(coords: Coords): Promise<void> {
-    const ICON_SIZE = 60;
+    // Clean the previous marker
+    if (mapMarker) mapMarker?.setMap(null);
 
-    markerId.value = await map.value?.addMarker({
-      coordinate: {
+    mapMarker = new google.maps.Marker({
+      map: map.value,
+      position: {
         lat: coords.latitude,
         lng: coords.longitude
       },
-      iconUrl: MARKER_IMAGE,
-      iconSize: { height: ICON_SIZE, width: ICON_SIZE },
-      iconOrigin: { x: 0, y: 0 },
-      iconAnchor: { x: ICON_SIZE / 2, y: (ICON_SIZE / 2) + 3 },
+      icon: {
+        url: MARKER_IMAGE,
+        size: new google.maps.Size(ICON_SIZE, ICON_SIZE),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(ICON_SIZE / 2.5, (ICON_SIZE / 2) + 3)
+      },
       draggable: true,
     });
   }
 
-  // Always make sure to clean up the map reference.
-  onUnmounted(async () => await map.value?.destroy());
-
-  return { createMap, setNewMarker };
+  return { createMap, addMarker };
 }
