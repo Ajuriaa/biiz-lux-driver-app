@@ -3,28 +3,28 @@ import { onMounted, ref } from 'vue';
 import { IonPage } from '@ionic/vue';
 import { useMaps } from '@/composables/useMaps';
 
+interface latLng {
+  latLng: { lat: () => number; lng: () => number };
+}
+
 const mapRef = ref();
 
-const { createMap, setNewMarker } = useMaps(mapRef);
+const { createMap, addMarker } = useMaps(mapRef);
 
 // Use the onMounted hook so we know the map is in the DOM
 onMounted(async () => {
   const { map } = await createMap();
 
-  await map.value?.setOnMapClickListener(async ({ latitude, longitude }) => {
-    const newCoords = { latitude, longitude };
-    await setNewMarker(newCoords);
-  })
-})
-
+  map.value?.addListener('click', ({ latLng: { lat, lng } }: latLng) => {
+    const newCoords = { latitude: lat(), longitude: lng() };
+    addMarker(newCoords);
+  });
+});
 </script>
 
 <template>
   <IonPage>
-    <div
-      ref="mapRef"
-      class="maps-container"
-    />
+    <div ref="mapRef" class="maps-container" />
   </IonPage>
 </template>
 
