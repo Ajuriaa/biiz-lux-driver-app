@@ -11,6 +11,8 @@ import { useWebsocket } from "@/composables/useWebsocket";
 import { createTripMutation } from "@/services/trip/trip.mutations";
 import { useMutation } from "@vue/apollo-composable";
 import { useCookies } from "@vueuse/integrations/useCookies";
+import PrimaryButton from './components/buttons/PrimaryButton.vue';
+import { isTraveling } from '@/services/trip/trip.data';
 
 interface ITrip {
   passengerId: number;
@@ -82,6 +84,8 @@ async function closeModal() {
     data: JSON.stringify(newTripData.value)
   });
 
+  isTraveling.value = true;
+
   ws.send(payload);
 
   await router.push("/travel");
@@ -92,6 +96,9 @@ async function closeModal() {
   <IonApp>
     <AppHeader />
     <IonRouterOutlet />
+    <PrimaryButton @click="isTraveling = !isTraveling">
+      Send {{ isTraveling }}
+    </PrimaryButton>
     <!-- Toaster Component -->
     <Notivue v-slot="item" class="toaster">
       <NotivueSwipe :item="item">
