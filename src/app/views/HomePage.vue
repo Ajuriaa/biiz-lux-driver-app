@@ -23,7 +23,7 @@ function goToMaps() {
               <ClockIcon class="icon" />
               <span>7 MIN.</span>
             </div>
-            <WhiteButton message="SOLICITAR UNIDAD" />
+            <WhiteButton message="IR AL VIAJE" />
           </div>
         </section>
 

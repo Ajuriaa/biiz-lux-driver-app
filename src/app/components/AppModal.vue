@@ -49,7 +49,7 @@ defineEmits(['close'])
 }
 
 .modal-container {
-  width: 37rem;
+  width: 80%;
   margin: auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -63,7 +63,7 @@ defineEmits(['close'])
   margin-top: 0;
   color: #42b983;
   font-weight: 800;
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 .modal-body {
@@ -73,15 +73,6 @@ defineEmits(['close'])
 .modal-default-button {
   float: right;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 
 .modal-enter-from {
   opacity: 0;

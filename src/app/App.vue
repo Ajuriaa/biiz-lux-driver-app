@@ -13,10 +13,6 @@ function closeModal() {
   showModal.value = false;
   router.push("/maps");
 }
-
-setTimeout(() => {
-  showModal.value = true;
-}, 3000);
 </script>
 
 <template>
