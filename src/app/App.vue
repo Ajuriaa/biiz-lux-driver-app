@@ -6,17 +6,21 @@ import { customTheme } from '@/theme/notivue';
 import AppModal from "@/components/AppModal.vue";
 import { useRouter } from "vue-router";
 import { showModal } from "@/services/modal";
+import {onMounted} from "vue";
+import {useWebsocket} from "@/composables/useWebsocket";
 
 const router = useRouter();
+
+const { ws } = useWebsocket();
 
 function closeModal() {
   showModal.value = false;
   router.push("/travel");
 }
 
-setTimeout(() => {
-  showModal.value = true;
-}, 1000);
+onMounted(() => {
+
+});
 </script>
 
 <template>

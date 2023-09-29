@@ -4,6 +4,7 @@ import PrimaryButton from '@/components/buttons/PrimaryButton.vue';
 import WhiteButton from '@/components/buttons/WhiteButton.vue';
 import ClockIcon from '~icons/fluent/clock-28-filled';
 import { useRouter } from 'vue-router';
+import { hasNewTrip } from "@/services/trip";
 
 const router = useRouter();
 
@@ -41,7 +42,7 @@ function goToMaps() {
           <WhiteButton message="ASISTENCIA" />
         </section>
 
-        <PrimaryButton>Viajes Programados</PrimaryButton>
+        <PrimaryButton @click="hasNewTrip = true">Viajes Programados</PrimaryButton>
       </div>
     </IonContent>
   </IonPage>

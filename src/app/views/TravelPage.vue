@@ -4,11 +4,11 @@ import { IonPage } from '@ionic/vue';
 import { useMaps } from '@/composables/useMaps';
 import PrimaryButton from "@/components/buttons/PrimaryButton.vue";
 import { usePush } from "notivue";
-
+import { travelData } from "@/services/trip";
 
 const mapRef = ref();
 
-const { createMap, renderRoute } = useMaps(mapRef);
+const { createMap, renderRoute, renderPassengerRoute } = useMaps(mapRef);
 
 const push = usePush();
 
@@ -19,14 +19,31 @@ function confirm() {
 // Use the onMounted hook, so we know the map is in the DOM
 onMounted(async () => {
   const { myCoords } = await createMap();
-  renderRoute({lat: 14.105114, lng: -87.233244}, { lat: myCoords.latitude, lng: myCoords.longitude })
+
+  const passengerRoute = travelData.startCoords;
+  const finalRoute = travelData.endCoords;
+
+  console.log(travelData);
+
+  renderRoute(passengerRoute, { lat: myCoords.lat, lng: myCoords.lng })
+  renderPassengerRoute( passengerRoute, finalRoute);
 });
 </script>
 
 <template>
   <IonPage>
     <div ref="mapRef" class="maps-container" />
+    <div class="estimated">
+      <span class="time">17:45</span>
+    </div>
     <div class="buttons">
+      <div class="action-buttons">
+        <div class="pick-passenger">Recoger Pasajero</div>
+        <div class="locations">
+          <div class="location from">Lomas del Guijarro</div>
+          <div class="location to">Las Colinas</div>
+        </div>
+      </div>
       <PrimaryButton showLogo @click="confirm">
         Confirmar Destino
       </PrimaryButton>
@@ -35,9 +52,23 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
+@import '@/core/sass/colors';
+
 .maps-container {
   width: 100%;
   height: 100%;
+}
+
+.estimated {
+  position: absolute;
+  top: 10rem;
+  right: 2rem;
+  background-color: $black;
+  padding: 1.5rem 3rem;
+  border-radius: 4px;
+  color: $white;
+  font-size: 2rem;
+  font-weight: 900;
 }
 
 .buttons {
@@ -49,11 +80,39 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-transform: uppercase;
 
   .action-buttons {
     display: flex;
     gap: 0.5rem;
     width: 100%;
+    flex-direction: column;
+
+
+    .pick-passenger {
+      background-color: $green;
+      padding: 1.5rem;
+      text-align: center;
+      border-radius: 4px;
+    }
+    .locations {
+      display: flex;
+
+      .location {
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+      }
+      
+      .from {
+        background-color: $white;
+      }
+
+      .to {
+        background-color: $black;
+        color: $white;
+      }
+    }
   }
 }
 

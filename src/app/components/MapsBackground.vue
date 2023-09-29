@@ -11,7 +11,7 @@ const { createMap, addMarker } = useMaps(mapRef);
 // Use the onMounted hook, so we know the map is in the DOM
 onMounted(async () => {
   const { myCoords } = await createMap();
-  addMarker({ lat: myCoords.latitude, lng: myCoords.longitude }, MarkerUrl.driver);
+  addMarker({ lat: myCoords.lat, lng: myCoords.lng }, MarkerUrl.driver);
 });
 </script>
 

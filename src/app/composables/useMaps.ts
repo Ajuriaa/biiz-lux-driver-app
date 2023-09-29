@@ -18,17 +18,25 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
   let geocoder: google.maps.Geocoder;
   let directionsService: google.maps.DirectionsService;
   let directionsRenderer: google.maps.DirectionsRenderer;
+  let passengerDirectionsService: google.maps.DirectionsService;
+  let passengerDirectionsRenderer: google.maps.DirectionsRenderer;
 
   const DEFAULT_MARKER_SIZE = 50;
   const DRIVER_MARKER_SIZE = 40;
 
   const directionOptions: google.maps.DirectionsRendererOptions = {
-    polylineOptions: { strokeColor: '#00E741' },
+    polylineOptions: { strokeColor: '#1A1A1A' },
     suppressMarkers: true
   };
 
+  const passengerDirectionOptions: google.maps.DirectionsRendererOptions = {
+    polylineOptions: { strokeColor: '#00E741' },
+    suppressMarkers: true
+  }
+
   async function createMap() {
-    const { coords } = await Geolocation.getCurrentPosition();
+    // const { coords } = await Geolocation.getCurrentPosition();
+    const coords = { lat: 14.098533, lng: -87.226023 };
 
     const loader = new Loader({ apiKey: environment.mapsApiKey });
 
@@ -37,8 +45,8 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
     map = new Map(mapRef.value, {
       mapId: MAP_ID,
       center: {
-        lat: coords.latitude,
-        lng: coords.longitude
+        lat: coords.lat,
+        lng: coords.lng
       },
       zoom: DEFAULT_MAP_ZOOM,
       clickableIcons: false,
@@ -49,6 +57,8 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
 
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer(directionOptions);
+    passengerDirectionsService = new google.maps.DirectionsService();
+    passengerDirectionsRenderer = new google.maps.DirectionsRenderer(passengerDirectionOptions);
     geocoder = new google.maps.Geocoder();
 
     return { myCoords: coords };
@@ -139,5 +149,28 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
     );
   }
 
-  return { createMap, addMarker, getCoordinateFromPlace, getPlaceFromCoordinate, renderRoute };
+  function renderPassengerRoute(origin: ICoordinate, destination: ICoordinate) {
+    passengerDirectionsRenderer.setMap(map);
+
+    addMarker(origin, MarkerUrl.passenger);
+    addMarker(destination, MarkerUrl.passenger);
+
+    passengerDirectionsService.route(
+        {
+          origin: origin,
+          destination: destination,
+          travelMode: google.maps.TravelMode.DRIVING
+        },
+        (response, status) => {
+          console.log(response)
+          if (status === 'OK') {
+            passengerDirectionsRenderer.setDirections(response);
+          } else {
+            console.log('Directions request failed due to ' + status);
+          }
+        }
+    );
+  }
+
+  return { createMap, addMarker, getCoordinateFromPlace, getPlaceFromCoordinate, renderRoute, renderPassengerRoute };
 }
