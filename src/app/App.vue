@@ -12,18 +12,18 @@ import { createTripMutation } from "@/services/trip/trip.mutations";
 import { useMutation } from "@vue/apollo-composable";
 import { useCookies } from "@vueuse/integrations/useCookies";
 import PrimaryButton from './components/buttons/PrimaryButton.vue';
-import { isTraveling } from '@/services/trip/trip.data';
+import { isArriving } from '@/services/trip/trip.data';
 
-interface ITrip {
-  passengerId: number;
-  vehicleId: number;
-  tripAttributes: ITripAttributes
-}
+// interface ITrip {
+//   passengerId: number;
+//   vehicleId: number;
+//   tripAttributes: ITripAttributes
+// }
 
-interface ICoordinate {
-  lat: string
-  lng: string
-}
+// interface ICoordinate {
+//   lat: string
+//   lng: string
+// }
 
 const newTripData = ref({
   tripId: 0,
@@ -32,16 +32,16 @@ const newTripData = ref({
   action: 'confirm_travel',
 })
 
-type Status = 'active' | 'completed' | 'cancelled';
+// type Status = 'active' | 'completed' | 'cancelled';
 
-interface ITripAttributes {
-  startLocation: ICoordinate;
-  endLocation: ICoordinate;
-  startTime: string;
-  distance: number;
-  fare: string;
-  status: Status;
-}
+// interface ITripAttributes {
+//   startLocation: ICoordinate;
+//   endLocation: ICoordinate;
+//   startTime: string;
+//   distance: number;
+//   fare: string;
+//   status: Status;
+// }
 
 const router = useRouter();
 
@@ -84,7 +84,7 @@ async function closeModal() {
     data: JSON.stringify(newTripData.value)
   });
 
-  isTraveling.value = true;
+  isArriving.value = true;
 
   ws.send(payload);
 
@@ -96,8 +96,8 @@ async function closeModal() {
   <IonApp>
     <AppHeader />
     <IonRouterOutlet />
-    <PrimaryButton @click="isTraveling = !isTraveling">
-      Send {{ isTraveling }}
+    <PrimaryButton @click="isArriving = !isArriving">
+      Send {{ isArriving }}
     </PrimaryButton>
     <!-- Toaster Component -->
     <Notivue v-slot="item" class="toaster">

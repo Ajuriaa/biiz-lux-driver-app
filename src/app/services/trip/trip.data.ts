@@ -16,7 +16,7 @@ export const travelData = reactive({
     passengerId: 0
 });
 
-export const isTraveling = ref(false);
+export const isArriving = ref(false);
 
 watch(hasNewTrip, (value) => {
     if (value) showModal.value = true;
