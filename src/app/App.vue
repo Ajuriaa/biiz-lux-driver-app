@@ -6,21 +6,86 @@ import { customTheme } from '@/theme/notivue';
 import AppModal from "@/components/AppModal.vue";
 import { useRouter } from "vue-router";
 import { showModal } from "@/services/modal";
-import {onMounted} from "vue";
-import {useWebsocket} from "@/composables/useWebsocket";
+import { ref } from "vue";
+import { useWebsocket } from "@/composables/useWebsocket";
+import { createTripMutation } from "@/services/trip/trip.mutations";
+import { useMutation } from "@vue/apollo-composable";
+import { useCookies } from "@vueuse/integrations/useCookies";
+
+interface ITrip {
+  passengerId: number;
+  vehicleId: number;
+  tripAttributes: ITripAttributes
+}
+
+interface ICoordinate {
+  lat: string
+  lng: string
+}
+
+const newTripData = ref({
+  tripId: 0,
+  passengerId: 0,
+  title: 'confirm_travel',
+  action: 'confirm_travel',
+})
+
+type Status = 'active' | 'completed' | 'cancelled';
+
+interface ITripAttributes {
+  startLocation: ICoordinate;
+  endLocation: ICoordinate;
+  startTime: string;
+  distance: number;
+  fare: string;
+  status: Status;
+}
 
 const router = useRouter();
 
-useWebsocket();
+const { ws } = useWebsocket();
+const cookies = useCookies();
 
-function closeModal() {
-  showModal.value = false;
-  router.push("/travel");
-}
-
-onMounted(() => {
-
+const { mutate: newTrip } = useMutation(createTripMutation, {
+  variables: {
+    passengerId: 2,
+    vehicleId: 2,
+    tripAttributes: {
+      startLocation: { lat: 14.0818, lng: -87.20681 },
+      endLocation: { lat: 14.098533, lng: -87.226023 },
+      startTime: "2021-10-10T17:00:00.000Z",
+      fare: '78',
+      distance: 7,
+      status: 'active'
+    }
+  },
+  context: {
+    headers: {
+      'Authorization': `Bearer ${cookies.get('BZ-TOKEN')}`
+    }
+  }
 });
+
+async function closeModal() {
+  showModal.value = false;
+
+  const res = await newTrip();
+
+  newTripData.value.tripId = res?.data.createTrip.id;
+  newTripData.value.passengerId = res?.data.createTrip.passenger.user.id;
+
+  const chanelId = JSON.stringify({ channel: 'DriverCoordinatesChannel' });
+
+  const payload = JSON.stringify({
+    command: 'message',
+    identifier: chanelId,
+    data: JSON.stringify(newTripData.value)
+  });
+
+  ws.send(payload);
+
+  await router.push("/travel");
+}
 </script>
 
 <template>
