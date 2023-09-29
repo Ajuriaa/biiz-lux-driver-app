@@ -1,10 +1,10 @@
-import { ref, Ref } from 'vue';
+import { Ref } from 'vue';
 import { environment } from '../../environments/environments';
 import { Geolocation } from '@capacitor/geolocation';
 import { Loader } from '@googlemaps/js-api-loader'
+import { MarkerUrl } from "@/core/enums/marker";
 
 const DEFAULT_MAP_ZOOM = 18;
-const MARKER_IMAGE = 'https://biiz-bucket.s3.us-east-2.amazonaws.com/marker.png';
 const MAP_ID = 'f8e6a2472dfc90b0';
 
 interface ICoordinate {
@@ -13,9 +13,19 @@ interface ICoordinate {
 }
 
 export function useMaps(mapRef: Ref<HTMLDivElement>) {
-  const map = ref<google.maps.Map>();
+  let map: google.maps.Map;
   let mapMarker: google.maps.Marker | null;
   let geocoder: google.maps.Geocoder;
+  let directionsService: google.maps.DirectionsService;
+  let directionsRenderer: google.maps.DirectionsRenderer;
+
+  const DEFAULT_MARKER_SIZE = 50;
+  const DRIVER_MARKER_SIZE = 40;
+
+  const directionOptions: google.maps.DirectionsRendererOptions = {
+    polylineOptions: { strokeColor: '#00E741' },
+    suppressMarkers: true
+  };
 
   async function createMap() {
     const { coords } = await Geolocation.getCurrentPosition();
@@ -24,7 +34,7 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
 
     const { Map } = await loader.importLibrary('maps');
 
-    map.value = new Map(mapRef.value, {
+    map = new Map(mapRef.value, {
       mapId: MAP_ID,
       center: {
         lat: coords.latitude,
@@ -37,32 +47,33 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
       gestureHandling: 'greedy',
     });
 
+    directionsService = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer(directionOptions);
     geocoder = new google.maps.Geocoder();
-    
-    // Add a current position marker to the map
-    addMarker({ lat: coords.latitude, lng: coords.longitude });
 
-    return { map, coords };
+    return { myCoords: coords };
   }
 
-  function addMarker(coords: ICoordinate) {
-    const ICON_SIZE = 70;
-
-    // Clean the previous marker
-    if (mapMarker) mapMarker?.setMap(null);
+  function addMarker(coords: ICoordinate, markerUrl: MarkerUrl) {
+    const iconType = markerUrl === MarkerUrl.driver ? {
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(DRIVER_MARKER_SIZE/2 , DRIVER_MARKER_SIZE / 4 ),
+      url: MarkerUrl.driver,
+      scaledSize: new google.maps.Size(DRIVER_MARKER_SIZE , DEFAULT_MARKER_SIZE/2)
+    } : {
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(DEFAULT_MARKER_SIZE/2.5 , ( DEFAULT_MARKER_SIZE / 2 ) + 3),
+      url: MarkerUrl.passenger,
+      scaledSize: new google.maps.Size(DEFAULT_MARKER_SIZE, DEFAULT_MARKER_SIZE)
+    };
 
     mapMarker = new google.maps.Marker({
-      map: map.value,
+      map: map,
       position: {
         lat: coords.lat,
         lng: coords.lng
       },
-      icon: {
-        url: MARKER_IMAGE,
-        size: new google.maps.Size(ICON_SIZE, ICON_SIZE),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(ICON_SIZE / 2.5, (ICON_SIZE / 2) + 3)
-      },
+      icon: iconType,
     });
   }
 
@@ -106,5 +117,27 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
     });
   }
 
-  return { createMap, addMarker, getCoordinateFromPlace, getPlaceFromCoordinate };
+  function renderRoute(origin: ICoordinate, destination: ICoordinate) {
+    directionsRenderer.setMap(map);
+    addMarker(origin, MarkerUrl.passenger);
+    addMarker(destination, MarkerUrl.driver);
+
+    directionsService.route(
+      {
+        origin: origin,
+        destination: destination,
+        travelMode: google.maps.TravelMode.DRIVING
+      },
+      (response, status) => {
+        console.log(response)
+        if (status === 'OK') {
+          directionsRenderer.setDirections(response);
+        } else {
+          console.log('Directions request failed due to ' + status);
+        }
+      }
+    );
+  }
+
+  return { createMap, addMarker, getCoordinateFromPlace, getPlaceFromCoordinate, renderRoute };
 }

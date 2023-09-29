@@ -11,8 +11,12 @@ const router = useRouter();
 
 function closeModal() {
   showModal.value = false;
-  router.push("/maps");
+  router.push("/travel");
 }
+
+setTimeout(() => {
+  showModal.value = true;
+}, 1000);
 </script>
 
 <template>

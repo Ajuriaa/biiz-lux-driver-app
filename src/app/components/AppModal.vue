@@ -1,9 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import PrimaryButton from "@/components/buttons/PrimaryButton.vue";
 
-defineProps({
-  show: Boolean
-})
+defineProps<{
+  show: boolean;
+}>();
 
 defineEmits(['close'])
 </script>
