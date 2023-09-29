@@ -1,6 +1,6 @@
 import { environment } from '../../environments/environments';
 import { ref, onUnmounted } from 'vue';
-import { travelData, hasNewTrip } from '@/services/trip';
+import { travelData, hasNewTrip } from '@/services/trip/trip.data';
 
 const driverId = 1;
 const chanelId = JSON.stringify({ channel: 'DriverCoordinatesChannel' });

@@ -4,7 +4,7 @@ import { IonPage } from '@ionic/vue';
 import { useMaps } from '@/composables/useMaps';
 import PrimaryButton from "@/components/buttons/PrimaryButton.vue";
 import { usePush } from "notivue";
-import { travelData } from "@/services/trip";
+import { travelData } from "@/services/trip/trip.data";
 
 const mapRef = ref();
 
