@@ -42,7 +42,9 @@ function goToMaps() {
           <WhiteButton message="ASISTENCIA" />
         </section>
 
-        <PrimaryButton @click="hasNewTrip = true">Viajes Programados</PrimaryButton>
+        <PrimaryButton @click="hasNewTrip = true">
+          Viajes Programados
+        </PrimaryButton>
       </div>
     </IonContent>
   </IonPage>

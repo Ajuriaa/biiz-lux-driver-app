@@ -23,8 +23,6 @@ onMounted(async () => {
   const passengerRoute = travelData.startCoords;
   const finalRoute = travelData.endCoords;
 
-  console.log(travelData);
-
   renderRoute(passengerRoute, { lat: myCoords.lat, lng: myCoords.lng })
   renderPassengerRoute( passengerRoute, finalRoute);
 });
@@ -38,10 +36,16 @@ onMounted(async () => {
     </div>
     <div class="buttons">
       <div class="action-buttons">
-        <div class="pick-passenger">Recoger Pasajero</div>
+        <div class="pick-passenger">
+          Recoger Pasajero
+        </div>
         <div class="locations">
-          <div class="location from">Lomas del Guijarro</div>
-          <div class="location to">Las Colinas</div>
+          <div class="location from">
+            Lomas del Guijarro
+          </div>
+          <div class="location to">
+            Las Colinas
+          </div>
         </div>
       </div>
       <PrimaryButton showLogo @click="confirm">

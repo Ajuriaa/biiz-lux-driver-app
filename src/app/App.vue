@@ -11,7 +11,7 @@ import {useWebsocket} from "@/composables/useWebsocket";
 
 const router = useRouter();
 
-const { ws } = useWebsocket();
+useWebsocket();
 
 function closeModal() {
   showModal.value = false;
