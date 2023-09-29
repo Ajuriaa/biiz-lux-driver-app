@@ -165,6 +165,7 @@ function goToPreviousPage(): void {
 
   .profile {
     margin: 0 3rem 0 1rem;
+    transform: scale(0.7);
   }
 
   .weather {

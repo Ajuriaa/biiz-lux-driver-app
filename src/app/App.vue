@@ -3,6 +3,20 @@ import { IonApp, IonRouterOutlet } from '@ionic/vue';
 import { Notivue, Notifications, NotivueSwipe } from 'notivue';
 import AppHeader from '@/components/AppHeader.vue';
 import { customTheme } from '@/theme/notivue';
+import AppModal from "@/components/AppModal.vue";
+import { useRouter } from "vue-router";
+import { showModal } from "@/services/modal";
+
+const router = useRouter();
+
+function closeModal() {
+  showModal.value = false;
+  router.push("/maps");
+}
+
+setTimeout(() => {
+  showModal.value = true;
+}, 3000);
 </script>
 
 <template>
@@ -15,6 +29,17 @@ import { customTheme } from '@/theme/notivue';
         <Notifications :item="item" :theme="customTheme" />
       </NotivueSwipe>
     </Notivue>
+    <Teleport to="body">
+      <!-- use the modal component, pass in the prop -->
+      <AppModal :show="showModal" @close="closeModal()">
+        <template #header>
+          <h3>Nuevo Viaje!</h3>
+        </template>
+        <template #body>
+          <h4>Deseas aceptarlo?</h4>
+        </template>
+      </AppModal>
+    </Teleport>
   </IonApp>
 </template>
 
