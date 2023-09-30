@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { IonPage } from '@ionic/vue';
-import { usePush } from 'notivue';
+// import { usePush } from 'notivue';
 import MapsBackground from '@/components/MapsBackground.vue';
 import PrimaryButton from '@/components/buttons/PrimaryButton.vue';
 
-const push = usePush();
+// const push = usePush();
 
-function confirm() {
-  push.success({ title: 'Exito!', message: 'Destino Confirmado!' })
-}
+// function confirm() {
+//   push.success({ title: 'Exito!', message: 'Destino Confirmado!' })
+// }
 </script>
 
 <template>
@@ -19,9 +19,6 @@ function confirm() {
         <PrimaryButton>Eventos</PrimaryButton>
         <PrimaryButton>Programar</PrimaryButton>
       </div>
-      <PrimaryButton showLogo @click="confirm">
-        Confirmar Destino
-      </PrimaryButton>
     </div>
   </IonPage>
 </template>
