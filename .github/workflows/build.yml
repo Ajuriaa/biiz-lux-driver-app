@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Setup Bun
+      - name: Setup Bun 1
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
