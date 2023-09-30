@@ -13,7 +13,7 @@ interface ICoordinate {
 }
 
 export function useMaps(mapRef: Ref<HTMLDivElement>) {
-  const map = ref<google.maps.Map>();
+  const map = ref<google.maps.Map | null>(null);
   let mapMarker: google.maps.Marker | null;
   let geocoder: google.maps.Geocoder;
   let directionsService: google.maps.DirectionsService;
