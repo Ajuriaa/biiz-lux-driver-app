@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { IonPage } from '@ionic/vue';
 import { useMaps } from '@/composables/useMaps';
 import PrimaryButton from "@/components/buttons/PrimaryButton.vue";
-import { usePush } from "notivue";
+// import { usePush } from "notivue";
 import { travelData } from "@/services/trip/trip.data";
 import ChatIcon from '~icons/fluent/chat-multiple-32-filled'
 import CheckIcon from '~icons/fluent/checkmark-circle-12-filled'
@@ -19,7 +19,7 @@ const show = ref();
 
 const { createMap, renderRoute, renderPassengerRoute } = useMaps(mapRef);
 
-const push = usePush();
+// const push = usePush();
 
 const globalMap = ref();
 const router = useRouter();
@@ -37,17 +37,17 @@ function confirm() {
   globalMap.value?.setZoom(14);
 }
 
-function mockCoords() {
-  travelData.startCoords = {
-    lat: 14.098955,
-    lng:  -87.214987
-  }
+// function mockCoords() {
+//   travelData.startCoords = {
+//     lat: 14.098955,
+//     lng:  -87.214987
+//   }
 
-  travelData.endCoords = {
-    lat: 14.095599, 
-    lng: -87.211015
-  }
-}
+//   travelData.endCoords = {
+//     lat: 14.095599, 
+//     lng: -87.211015
+//   }
+// }
 
 const { ws } = useWebsocket()
 
@@ -60,7 +60,7 @@ onMounted(async () => {
   const passengerRoute = travelData.startCoords;
   const finalRoute = travelData.endCoords;
 
-  console.log(travelData);
+  // console.log(travelData);
 
   renderRoute(passengerRoute, { lat: myCoords.lat, lng: myCoords.lng })
   renderPassengerRoute( passengerRoute, finalRoute);

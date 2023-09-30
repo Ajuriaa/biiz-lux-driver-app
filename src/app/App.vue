@@ -11,7 +11,7 @@ import { useWebsocket } from "@/composables/useWebsocket";
 import { createTripMutation } from "@/services/trip/trip.mutations";
 import { useMutation } from "@vue/apollo-composable";
 import { useCookies } from "@vueuse/integrations/useCookies";
-import { isDrivingToPassenger, isTraveling, travelData } from '@/services/trip/trip.data';
+import { isDrivingToPassenger, travelData } from '@/services/trip/trip.data';
 
 // interface ITrip {
 //   passengerId: number;
@@ -75,7 +75,7 @@ async function closeModal() {
   const res = await newTrip();
   isDrivingToPassenger.value = true;
 
-  console.log({res});
+  // console.log({res});
   
 
   newTripData.value.tripId = res?.data.createTrip.id;
