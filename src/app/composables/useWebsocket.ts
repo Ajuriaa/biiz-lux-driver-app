@@ -1,17 +1,16 @@
 import { environment } from '../../environments/environments';
 import { ref, onUnmounted } from 'vue';
 import { travelData, hasNewTrip, isDrivingToPassenger } from '@/services/trip/trip.data';
+import { Geolocation } from '@capacitor/geolocation';
 
 const driverId = 1;
 const chanelId = JSON.stringify({ channel: 'DriverCoordinatesChannel' });
-const iLat = ref(14.098533)
-const iLng = ref(-87.226023)
 
 export function useWebsocket() {
   const ws = new WebSocket(environment.wsUrl);
   const wsStatus = ref(ws.readyState);
 
-  const coords = ref({ title: 'COORD', lat: 14.098533, lng: -87.226023, driver: driverId });
+  const coords = ref({ title: 'COORD', lat: 0, lng: 0, driver: driverId });
 
   ws.addEventListener('open', () => {
     wsStatus.value = ws.readyState;
@@ -23,20 +22,18 @@ export function useWebsocket() {
     );
   });
 
-  ws.addEventListener('message', (event) => {
+  ws.addEventListener('message', async (event) => {
     const data = JSON.parse(event.data);
     
     // Everytime it pings and if its traveling
     if (data.type === 'ping' && isDrivingToPassenger.value) {      
-      // const { coords } = await Geolocation.getCurrentPosition();
-      // iLat.value += 0.0010;
-      // iLng.value += 0.0010;
+      const { coords } = await Geolocation.getCurrentPosition();
 
       const info = JSON.stringify({
         action: 'driver_coords',
         driverCoords: {
-          lat: iLat.value,
-          lng: iLng.value,
+          lat: coords.latitude,
+          lng: coords.longitude,
           passengerId: 2
         }
       });
@@ -52,7 +49,10 @@ export function useWebsocket() {
 
     if (data.message === 'sendCoordinates') {
       // Pa despues mi dog
-      // const { coords } = await Geolocation.getCurrentPosition();
+      const { coords: liveCoords } = await Geolocation.getCurrentPosition();
+
+      coords.value.lat = liveCoords.latitude;
+      coords.value.lng = liveCoords.longitude;
 
       const info = JSON.stringify({
         action: 'send_coordinates',

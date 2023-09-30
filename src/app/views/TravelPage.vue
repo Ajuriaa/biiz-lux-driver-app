@@ -62,7 +62,7 @@ onMounted(async () => {
 
   // console.log(travelData);
 
-  renderRoute(passengerRoute, { lat: myCoords.lat, lng: myCoords.lng })
+  renderRoute(passengerRoute, { lat: myCoords.latitude, lng: myCoords.longitude })
   renderPassengerRoute( passengerRoute, finalRoute);
 });
 
