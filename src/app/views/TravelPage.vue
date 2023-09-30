@@ -8,6 +8,7 @@ import { travelData } from "@/services/trip/trip.data";
 import ChatIcon from '~icons/fluent/chat-multiple-32-filled'
 import CheckIcon from '~icons/fluent/checkmark-circle-12-filled'
 import CloseIcon from '~icons/fluent/dismiss-12-filled'
+import { useRouter } from 'vue-router';
 
 const mapRef = ref();
 const confirmed = ref();
@@ -18,6 +19,7 @@ const { createMap, renderRoute, renderPassengerRoute } = useMaps(mapRef);
 const push = usePush();
 
 const globalMap = ref();
+const router = useRouter();
 
 function confirm() {
   confirmed.value = true;
@@ -58,8 +60,8 @@ onMounted(async () => {
   renderPassengerRoute( passengerRoute, finalRoute);
 });
 
-function finishTravel() {
-
+async function finishTravel() {
+  await router.push('/finished-trip')
 }
 </script>
 
