@@ -85,7 +85,7 @@ const router = useRouter();
       height: 6rem;
       width: 6rem;
       position: absolute;
-      top: 31%;
+      top: 21rem;
     }
 
     .qr {      

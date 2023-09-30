@@ -201,7 +201,6 @@ const sendArrive = () => {
   }
 
   .time {
-    margin-top: 1.5rem;
     margin-right: 1rem;
   }
 }
@@ -246,10 +245,6 @@ const sendArrive = () => {
       display: flex;
       align-items: center;
       gap: 1rem;
-
-      .text {
-        transform: translateY(0.5rem);
-      }
     }
   }
 
