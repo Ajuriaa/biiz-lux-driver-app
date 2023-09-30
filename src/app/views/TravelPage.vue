@@ -6,9 +6,12 @@ import PrimaryButton from "@/components/buttons/PrimaryButton.vue";
 import { usePush } from "notivue";
 import { travelData } from "@/services/trip/trip.data";
 import ChatIcon from '~icons/fluent/chat-multiple-32-filled'
+import CheckIcon from '~icons/fluent/checkmark-circle-12-filled'
+import CloseIcon from '~icons/fluent/dismiss-12-filled'
 
 const mapRef = ref();
 const confirmed = ref();
+const show = ref();
 
 const { createMap, renderRoute, renderPassengerRoute } = useMaps(mapRef);
 
@@ -18,6 +21,14 @@ const globalMap = ref();
 
 function confirm() {
   confirmed.value = true;
+  
+  setTimeout(() => {
+    show.value = true;
+  }, 600);
+
+  setTimeout(() => {
+    show.value = false;
+  }, 2000);
   globalMap.value?.setZoom(14);
 }
 
@@ -55,11 +66,24 @@ function finishTravel() {
 <template>
   <IonPage>
     <div ref="mapRef" class="maps-container" />
-    <div class="estimated">
-      <span class="time">17:45</span>
-    </div>
+    <Transition name="slide-fade">
+      <div v-if="!confirmed" class="estimated">
+        <span class="time">17:45</span>
+      </div>
+    </Transition>
     <Transition name="slide-up" mode="out-in">
       <div v-if="confirmed" class="travel-buttons">
+        <Transition name="slide-fade">
+          <div v-if="show" class="confirmed-alert">
+            <div class="info">
+              <CheckIcon class="confirm icon" />
+              <span class="text">Viaje Iniciado</span>
+            </div>
+            <div class="cancel" @click="show = false">
+              <CloseIcon class="icon" />
+            </div>
+          </div>
+        </Transition>
         <div class="time-container">
           <div class="time-btn start-travel-time">
             7:00
@@ -129,11 +153,52 @@ function finishTravel() {
   font-weight: 900;
 }
 
+
+
+.icon {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.cancel {
+  height: 100%;
+  width: 5rem;
+
+  .icon {
+    width: 100%;
+    height: 100%;
+    padding: 1.5rem;
+  }
+}
+
 .travel-buttons {
   position: absolute;
   bottom: 2rem;
   padding: 0 1.5rem;
   width: 100%;
+
+  .confirmed-alert {
+    background-color: $green;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 1.5rem;
+    
+    .info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .text {
+        transform: translateY(0.5rem);
+      }
+    }
+  }
 
   .travel-info {
     display: flex;
@@ -297,5 +362,19 @@ function finishTravel() {
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(-30px);
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
 }
 </style>
