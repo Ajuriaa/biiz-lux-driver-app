@@ -28,9 +28,12 @@ export function useWebsocket() {
     
     // Everytime it pings and if its traveling
     if (data.type === 'ping' && isArriving.value) {
+      console.log('sending', iLat.value.toFixed(4), iLng.value.toFixed(4));
+      
       // const { coords } = await Geolocation.getCurrentPosition();
-      iLat.value += 0.010
-      iLng.value += 0.010
+      iLat.value += 0.010;
+      iLng.value += 0.010;
+
       const info = JSON.stringify({
         action: 'driver_coords',
         driverCoords: {
@@ -85,4 +88,10 @@ export function useWebsocket() {
   onUnmounted(() => close());
 
   return { ws };
+}
+
+
+// TODO: Pa dos meses
+export function send() {
+
 }

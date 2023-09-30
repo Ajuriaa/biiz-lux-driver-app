@@ -1,4 +1,4 @@
-import {reactive, ref, watch} from 'vue';
+import { ref, reactive, watch } from 'vue';
 import { showModal } from "@/services/modal";
 
 export const hasNewTrip = ref(false);
@@ -17,6 +17,7 @@ export const travelData = reactive({
 });
 
 export const isArriving = ref(false);
+export const isTraveling = ref(false);
 
 watch(hasNewTrip, (value) => {
     if (value) showModal.value = true;
