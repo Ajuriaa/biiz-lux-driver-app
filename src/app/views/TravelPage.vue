@@ -9,6 +9,9 @@ import ChatIcon from '~icons/fluent/chat-multiple-32-filled'
 import CheckIcon from '~icons/fluent/checkmark-circle-12-filled'
 import CloseIcon from '~icons/fluent/dismiss-12-filled'
 import { useRouter } from 'vue-router';
+import { useWebsocket } from '@/composables/useWebsocket';
+import { isDrivingToPassenger, isTraveling } from '@/services/trip/trip.data';
+const chanelId = JSON.stringify({ channel: 'DriverCoordinatesChannel' });
 
 const mapRef = ref();
 const confirmed = ref();
@@ -46,22 +49,56 @@ function mockCoords() {
   }
 }
 
+const { ws } = useWebsocket()
+
 // Use the onMounted hook, so we know the map is in the DOM
 onMounted(async () => {
   const { map, myCoords } = await createMap();
 
   globalMap.value = map.value;
-  mockCoords();
 
   const passengerRoute = travelData.startCoords;
   const finalRoute = travelData.endCoords;
+
+  console.log(travelData);
 
   renderRoute(passengerRoute, { lat: myCoords.lat, lng: myCoords.lng })
   renderPassengerRoute( passengerRoute, finalRoute);
 });
 
 async function finishTravel() {
+  const info = JSON.stringify({
+    action: 'finish_trip',
+    passengerId: travelData.passengerId
+  });
+
+  const payload = JSON.stringify({
+    command: 'message',
+    identifier: chanelId,
+    data: info,
+  });
+
+  ws.send(payload);
   await router.push('/finished-trip')
+}
+
+const sendArrive = () => {
+  isTraveling.value = true;
+  isDrivingToPassenger.value = false;
+
+  // To send an action to the server
+  const info = JSON.stringify({
+    action: 'arrived',
+    passengerId: travelData.passengerId
+  });
+
+  const payload = JSON.stringify({
+    command: 'message',
+    identifier: chanelId,
+    data: info,
+  });
+
+  ws.send(payload);
 }
 </script>
 
@@ -104,8 +141,8 @@ async function finishTravel() {
             <div class="chat-icon">
               <ChatIcon class="icon" />
             </div>
-            <div class="report">
-              Reportar
+            <div class="report" @click="sendArrive">
+              Ya llegue moy
             </div>
           </div>
         </div>

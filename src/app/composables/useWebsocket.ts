@@ -1,6 +1,6 @@
 import { environment } from '../../environments/environments';
 import { ref, onUnmounted } from 'vue';
-import { travelData, hasNewTrip, isArriving } from '@/services/trip/trip.data';
+import { travelData, hasNewTrip, isDrivingToPassenger } from '@/services/trip/trip.data';
 
 const driverId = 1;
 const chanelId = JSON.stringify({ channel: 'DriverCoordinatesChannel' });
@@ -27,12 +27,10 @@ export function useWebsocket() {
     const data = JSON.parse(event.data);
     
     // Everytime it pings and if its traveling
-    if (data.type === 'ping' && isArriving.value) {
-      console.log('sending', iLat.value.toFixed(4), iLng.value.toFixed(4));
-      
+    if (data.type === 'ping' && isDrivingToPassenger.value) {      
       // const { coords } = await Geolocation.getCurrentPosition();
-      iLat.value += 0.0010;
-      iLng.value += 0.0010;
+      // iLat.value += 0.0010;
+      // iLng.value += 0.0010;
 
       const info = JSON.stringify({
         action: 'driver_coords',

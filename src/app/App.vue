@@ -11,8 +11,7 @@ import { useWebsocket } from "@/composables/useWebsocket";
 import { createTripMutation } from "@/services/trip/trip.mutations";
 import { useMutation } from "@vue/apollo-composable";
 import { useCookies } from "@vueuse/integrations/useCookies";
-import PrimaryButton from './components/buttons/PrimaryButton.vue';
-import { isArriving, isTraveling } from '@/services/trip/trip.data';
+import { isDrivingToPassenger, isTraveling, travelData } from '@/services/trip/trip.data';
 
 // interface ITrip {
 //   passengerId: number;
@@ -48,15 +47,15 @@ const router = useRouter();
 const { ws } = useWebsocket();
 const cookies = useCookies();
 
-const { mutate: newTrip } = useMutation(createTripMutation, {
+const { mutate: newTrip } = useMutation(createTripMutation, () => ({
   variables: {
     passengerId: 2,
     vehicleId: 2,
     tripAttributes: {
-      startLocation: { lat: 14.0818, lng: -87.20681 },
-      endLocation: { lat: 14.098533, lng: -87.226023 },
+      startLocation: travelData.startCoords,
+      endLocation: travelData.endCoords,
       startTime: "2021-10-10T17:00:00.000Z",
-      fare: '78',
+      fare: '155',
       distance: 7,
       status: 'active'
     }
@@ -66,7 +65,7 @@ const { mutate: newTrip } = useMutation(createTripMutation, {
       'Authorization': `Bearer ${cookies.get('BZ-TOKEN')}`
     }
   }
-});
+}));
 
 const chanelId = JSON.stringify({ channel: 'DriverCoordinatesChannel' });
 
@@ -74,10 +73,13 @@ async function closeModal() {
   showModal.value = false;
 
   const res = await newTrip();
+  isDrivingToPassenger.value = true;
+
+  console.log({res});
+  
 
   newTripData.value.tripId = res?.data.createTrip.id;
   newTripData.value.passengerId = res?.data.createTrip.passenger.user.id;
-
 
   const payload = JSON.stringify({
     command: 'message',
@@ -85,37 +87,12 @@ async function closeModal() {
     data: JSON.stringify(newTripData.value)
   });
 
-  isArriving.value = true;
-
   ws.send(payload);
 
   await router.push("/travel");
 }
 
-// Possibly buggy
-const travel = () => {
-  isTraveling.value = true;
-  isArriving.value = false;
 
-  // To send an action to the server
-  const info = JSON.stringify({
-    action: 'arrived',
-    passengerId: 2
-  });
-
-  const payload = JSON.stringify({
-    command: 'message',
-    identifier: chanelId,
-    data: info,
-  });
-
-  ws.send(payload);
-}
-
-const acceptTrip = () => {
-  isArriving.value = true;
-  isTraveling.value = false;
-}
 </script>
 
 <template>

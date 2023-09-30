@@ -16,7 +16,7 @@ export const travelData = reactive({
     passengerId: 0
 });
 
-export const isArriving = ref(false);
+export const isDrivingToPassenger = ref(false);
 export const isTraveling = ref(false);
 
 watch(hasNewTrip, (value) => {
