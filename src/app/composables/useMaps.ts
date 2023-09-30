@@ -1,4 +1,4 @@
-import { Ref } from 'vue';
+import { ref, Ref } from 'vue';
 import { environment } from '../../environments/environments';
 import { Geolocation } from '@capacitor/geolocation';
 import { Loader } from '@googlemaps/js-api-loader'
@@ -13,7 +13,7 @@ interface ICoordinate {
 }
 
 export function useMaps(mapRef: Ref<HTMLDivElement>) {
-  let map: google.maps.Map;
+  const map = ref<google.maps.Map>();
   let mapMarker: google.maps.Marker | null;
   let geocoder: google.maps.Geocoder;
   let directionsService: google.maps.DirectionsService;
@@ -42,7 +42,7 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
 
     const { Map } = await loader.importLibrary('maps');
 
-    map = new Map(mapRef.value, {
+    map.value = new Map(mapRef.value, {
       mapId: MAP_ID,
       center: {
         lat: coords.lat,
@@ -61,7 +61,7 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
     passengerDirectionsRenderer = new google.maps.DirectionsRenderer(passengerDirectionOptions);
     geocoder = new google.maps.Geocoder();
 
-    return { myCoords: coords };
+    return { map, myCoords: coords };
   }
 
   function addMarker(coords: ICoordinate, markerUrl: MarkerUrl) {
@@ -78,7 +78,7 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
     };
 
     mapMarker = new google.maps.Marker({
-      map: map,
+      map: map.value,
       position: {
         lat: coords.lat,
         lng: coords.lng
@@ -128,7 +128,7 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
   }
 
   function renderRoute(origin: ICoordinate, destination: ICoordinate) {
-    directionsRenderer.setMap(map);
+    directionsRenderer.setMap(map.value);
     addMarker(origin, MarkerUrl.passenger);
     addMarker(destination, MarkerUrl.driver);
 
@@ -150,7 +150,7 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
   }
 
   function renderPassengerRoute(origin: ICoordinate, destination: ICoordinate) {
-    passengerDirectionsRenderer.setMap(map);
+    passengerDirectionsRenderer.setMap(map.value);
 
     addMarker(origin, MarkerUrl.passenger);
     addMarker(destination, MarkerUrl.passenger);
