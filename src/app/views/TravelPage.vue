@@ -68,6 +68,7 @@ function finishTravel() {
     <div ref="mapRef" class="maps-container" />
     <Transition name="slide-fade">
       <div v-if="!confirmed" class="estimated">
+        <img class="arrive-flag" src="https://biiz-bucket.s3.us-east-2.amazonaws.com/arrive-flag.png">
         <span class="time">17:45</span>
       </div>
     </Transition>
@@ -146,11 +147,24 @@ function finishTravel() {
   top: 10rem;
   right: 2rem;
   background-color: $black;
-  padding: 1.5rem 3rem;
-  border-radius: 4px;
+  border-radius: 8px;
   color: $white;
   font-size: 2rem;
   font-weight: 900;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+
+  .arrive-flag {
+    width: 5rem;
+    height: 5rem;
+    margin-top: 0.5rem;
+  }
+
+  .time {
+    margin-top: 1.5rem;
+    margin-right: 1rem;
+  }
 }
 
 

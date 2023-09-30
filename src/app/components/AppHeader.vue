@@ -33,7 +33,7 @@ function setWeatherImage(icon: string): string {
 
 function goToProfile(): void {
   // ionRouter.navigate('/profile', 'forward', 'push');
-  router.push('/profile');
+  router.push('/travel');
 }
 
 function goToHome(): void {

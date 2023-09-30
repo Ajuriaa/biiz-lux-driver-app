@@ -122,12 +122,13 @@ const acceptTrip = () => {
   <IonApp>
     <AppHeader />
     <IonRouterOutlet />
-    <PrimaryButton @click="travel">
+    <!-- <PrimaryButton @click="travel">
       Traveling {{ isTraveling }}
     </PrimaryButton>
     <PrimaryButton @click="acceptTrip">
       Arriving {{ isArriving }}
     </PrimaryButton> 
+     -->
     <!-- Toaster Component -->
     <Notivue v-slot="item" class="toaster">
       <NotivueSwipe :item="item">
