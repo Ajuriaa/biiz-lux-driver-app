@@ -10,8 +10,8 @@ import { ref } from "vue";
 import { useWebsocket } from "@/composables/useWebsocket";
 import { createTripMutation } from "@/services/trip/trip.mutations";
 import { useMutation } from "@vue/apollo-composable";
-import { useCookies } from "@vueuse/integrations/useCookies";
 import { isDrivingToPassenger, travelData } from '@/services/trip/trip.data';
+import { getToken } from './core/helpers/token-helper';
 
 const newTripData = ref({
   tripId: 0,
@@ -23,7 +23,6 @@ const newTripData = ref({
 const router = useRouter();
 
 const { ws } = useWebsocket();
-const cookies = useCookies();
 
 const { mutate: newTrip } = useMutation(createTripMutation, () => ({
   variables: {
@@ -40,7 +39,8 @@ const { mutate: newTrip } = useMutation(createTripMutation, () => ({
   },
   context: {
     headers: {
-      'Authorization': `Bearer ${cookies.get('BZ-TOKEN')}`
+      // Change 1: Replace with getToken
+      'Authorization': getToken()
     }
   }
 }));

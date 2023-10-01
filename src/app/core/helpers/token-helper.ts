@@ -1,12 +1,11 @@
+import { useCookies } from "@vueuse/integrations/useCookies";
+
 export function getToken(): string {
-  const cookies = document.cookie.split('; ');
-  const name = 'BZ-TOKEN=';
+  const cookies = useCookies();
 
-  for (const c of cookies) {
-    if (c.indexOf(name) === 0) {
-      return 'Bearer ' + c.substring(name.length, c.length);
-    }
-  }
+  const authCookie = cookies.get('BZ-TOKEN');
 
-  return '';
+  if (!authCookie) return '';
+
+  return `Bearer ${authCookie}`;
 }
