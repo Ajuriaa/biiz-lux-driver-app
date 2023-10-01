@@ -13,34 +13,12 @@ import { useMutation } from "@vue/apollo-composable";
 import { useCookies } from "@vueuse/integrations/useCookies";
 import { isDrivingToPassenger, travelData } from '@/services/trip/trip.data';
 
-// interface ITrip {
-//   passengerId: number;
-//   vehicleId: number;
-//   tripAttributes: ITripAttributes
-// }
-
-// interface ICoordinate {
-//   lat: string
-//   lng: string
-// }
-
 const newTripData = ref({
   tripId: 0,
   passengerId: 0,
   title: 'confirm_travel',
   action: 'confirm_travel',
 })
-
-// type Status = 'active' | 'completed' | 'cancelled';
-
-// interface ITripAttributes {
-//   startLocation: ICoordinate;
-//   endLocation: ICoordinate;
-//   startTime: string;
-//   distance: number;
-//   fare: string;
-//   status: Status;
-// }
 
 const router = useRouter();
 
@@ -73,14 +51,14 @@ async function closeModal() {
   showModal.value = false;
 
   const res = await newTrip();
+
   isDrivingToPassenger.value = true;
 
-  // console.log({res});
-  
-
+  // Set the new trip info from the response received from creating the trip
   newTripData.value.tripId = res?.data.createTrip.id;
   newTripData.value.passengerId = res?.data.createTrip.passenger.user.id;
 
+  // Send the new Trip data
   const payload = JSON.stringify({
     command: 'message',
     identifier: chanelId,
