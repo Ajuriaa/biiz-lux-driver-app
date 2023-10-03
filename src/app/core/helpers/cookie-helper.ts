@@ -8,7 +8,7 @@ export async function setCapacitorCookie(key: string, value: string) {
   date.setTime(date.getTime() + 30 * 24 * 60 * 60 * 1000);
   
   await CapacitorCookies.setCookie({
-    url: 'localhost',
+    url: '192.168.0.7',
     path: '/',
     key,
     value,
