@@ -11,7 +11,6 @@ import CloseIcon from '~icons/fluent/dismiss-12-filled'
 import { useRouter } from 'vue-router';
 import { useWebsocket } from '@/composables/useWebsocket';
 import { isDrivingToPassenger, isTraveling } from '@/services/trip/trip.data';
-const chanelId = JSON.stringify({ channel: 'DriverCoordinatesChannel' });
 
 const mapRef = ref();
 const confirmed = ref();
@@ -49,7 +48,7 @@ function confirm() {
 //   }
 // }
 
-const { send } = useWebsocket()
+const { performAction } = useWebsocket()
 
 // Use the onMounted hook, so we know the map is in the DOM
 onMounted(async () => {
@@ -67,38 +66,16 @@ onMounted(async () => {
 });
 
 async function finishTravel() {
-  const info = JSON.stringify({
-    action: 'finish_trip',
-    passengerId: travelData.passengerId
-  });
+  performAction({ action: 'finish_trip', data: { passengerId: travelData.passengerId } })
 
-  const payload = JSON.stringify({
-    command: 'message',
-    identifier: chanelId,
-    data: info,
-  });
-
-  send(payload);
-  await router.push('/finished-trip')
+  await router.push('/finished-trip');
 }
 
 const sendArrive = () => {
   isTraveling.value = true;
   isDrivingToPassenger.value = false;
 
-  // To send an action to the server
-  const info = JSON.stringify({
-    action: 'arrived',
-    passengerId: travelData.passengerId
-  });
-
-  const payload = JSON.stringify({
-    command: 'message',
-    identifier: chanelId,
-    data: info,
-  });
-
-  send(payload);
+  performAction({ action: 'arrived', data: { passengerId: travelData.passengerId } })
 }
 </script>
 

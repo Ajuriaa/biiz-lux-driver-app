@@ -22,7 +22,7 @@ const newTripData = ref({
 
 const router = useRouter();
 
-const { send } = useWebsocket();
+const { sendMessage } = useWebsocket();
 
 const { mutate: newTrip } = useMutation(createTripMutation, () => ({
   variables: {
@@ -45,8 +45,6 @@ const { mutate: newTrip } = useMutation(createTripMutation, () => ({
   }
 }));
 
-const chanelId = JSON.stringify({ channel: 'DriverCoordinatesChannel' });
-
 async function closeModal() {
   showModal.value = false;
 
@@ -59,13 +57,7 @@ async function closeModal() {
   newTripData.value.passengerId = res?.data.createTrip.passenger.user.id;
 
   // Send the new Trip data
-  const payload = JSON.stringify({
-    command: 'message',
-    identifier: chanelId,
-    data: JSON.stringify(newTripData.value)
-  });
-
-  send(payload);
+  sendMessage({ data: newTripData.value })
 
   await router.push("/travel");
 }
