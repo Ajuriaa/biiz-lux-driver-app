@@ -49,7 +49,7 @@ function confirm() {
 //   }
 // }
 
-const { ws } = useWebsocket()
+const { send } = useWebsocket()
 
 // Use the onMounted hook, so we know the map is in the DOM
 onMounted(async () => {
@@ -78,7 +78,7 @@ async function finishTravel() {
     data: info,
   });
 
-  ws.send(payload);
+  send(payload);
   await router.push('/finished-trip')
 }
 
@@ -98,7 +98,7 @@ const sendArrive = () => {
     data: info,
   });
 
-  ws.send(payload);
+  send(payload);
 }
 </script>
 

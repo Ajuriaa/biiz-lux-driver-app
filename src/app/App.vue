@@ -22,7 +22,7 @@ const newTripData = ref({
 
 const router = useRouter();
 
-const { ws } = useWebsocket();
+const { send } = useWebsocket();
 
 const { mutate: newTrip } = useMutation(createTripMutation, () => ({
   variables: {
@@ -65,7 +65,7 @@ async function closeModal() {
     data: JSON.stringify(newTripData.value)
   });
 
-  ws.send(payload);
+  send(payload);
 
   await router.push("/travel");
 }
