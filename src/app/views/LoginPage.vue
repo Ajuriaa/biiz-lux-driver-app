@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IonPage } from '@ionic/vue';
+import { IonContent, IonPage } from '@ionic/vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useForm } from 'vee-validate';
@@ -61,7 +61,7 @@ onDone(async ({ data }: any) => {
     const role = data.login.role;
     await setCookie(token, role);
 
-    await router.push('/home');
+    await router.replace('/home');
 
     promise.resolve({
       title: '¡Éxito!',
@@ -79,48 +79,50 @@ onError(() => {
 
 <template>
   <IonPage>
-    <div class="container">
-      <div class="login-header">
-        <div class="translate-box">
-          <div class="translate">
-            <img class="icon" src="../assets/images/translate.svg" alt="translate">
+    <IonContent>
+      <div class="container">
+        <div class="login-header">
+          <div class="translate-box">
+            <div class="translate">
+              <img class="icon" src="../assets/images/translate.svg" alt="translate">
+            </div>
           </div>
-        </div>
-        <img class="logo" src="../assets/images/logo.svg">
-        <p class="version">
-          ALFA
-        </p>
-      </div>
-      <div class="login-footer">
-        <div class="terms">
-          <div class="green" />
-          <p class="text">
-            TERMINOS Y CONDICIONES
+          <img class="logo" src="../assets/images/logo.svg">
+          <p class="version">
+            ALFA
           </p>
         </div>
-        <form class="form-field" @submit.prevent="onSubmit()">
-          <input
-            v-bind="username"
-            class="input"
-            placeholder="Ingresa tu email"
-            maxlength="50"
-            minlength="1"
-            required
-          >
-          <input
-            v-bind="password"
-            class="input"
-            placeholder="Ingresa tu contraseña"
-            maxlength="50"
-            minlength="1"
-            required
-          >
-        </form>
-        <div class="login" @click="onSubmit()">
-          <img class="button-image" src="https://biiz-bucket.s3.us-east-2.amazonaws.com/iiz.png">
+        <div class="login-footer">
+          <div class="terms">
+            <div class="green" />
+            <p class="text">
+              TERMINOS Y CONDICIONES
+            </p>
+          </div>
+          <form class="form-field" @submit.prevent="onSubmit()">
+            <input
+              v-bind="username"
+              class="input"
+              placeholder="Ingresa tu email"
+              maxlength="50"
+              minlength="1"
+              required
+            >
+            <input
+              v-bind="password"
+              class="input"
+              placeholder="Ingresa tu contraseña"
+              maxlength="50"
+              minlength="1"
+              required
+            >
+          </form>
+          <div class="login" @click="onSubmit()">
+            <img class="button-image" src="https://biiz-bucket.s3.us-east-2.amazonaws.com/iiz.png">
+          </div>
         </div>
       </div>
-    </div>
+    </IonContent>
   </IonPage>
 </template>
 
@@ -220,7 +222,7 @@ onError(() => {
 }
 
 .version {
-  padding: 0.5rem 2.4rem;
+  padding: 1.5rem 3rem;
   font-size: 1rem;
   font-weight: bold;
   border-radius: 0.4rem;

@@ -1,71 +1,62 @@
 import { environment } from '../../environments/environments';
 import { ref, onUnmounted } from 'vue';
 import { travelData, hasNewTrip, isDrivingToPassenger } from '@/services/trip/trip.data';
+import { Geolocation } from '@capacitor/geolocation';
+import { useWebSocket } from '@vueuse/core';
 
+// Helper functions
+const str = (data: any) => JSON.stringify(data);
+const parse = (data: any) => JSON.parse(data);
+
+// TODO: Replace hardcoded driverId with the real one
 const driverId = 1;
-const chanelId = JSON.stringify({ channel: 'DriverCoordinatesChannel' });
-const iLat = ref(14.098533)
-const iLng = ref(-87.226023)
+const channelIds = { driver: "DriverCoordinatesChannel" };
 
 export function useWebsocket() {
-  const ws = new WebSocket(environment.wsUrl);
-  const wsStatus = ref(ws.readyState);
+  const coords = ref({ title: 'COORD', lat: 0, lng: 0, driver: driverId });
 
-  const coords = ref({ title: 'COORD', lat: 14.098533, lng: -87.226023, driver: driverId });
-
-  ws.addEventListener('open', () => {
-    wsStatus.value = ws.readyState;
-    ws.send(
-      JSON.stringify({
-        command: 'subscribe',
-        identifier: chanelId,
-      }),
-    );
+  const { ws, status, send, close } = useWebSocket(environment.wsUrl, {
+    onConnected: () => {
+      // Subscribe to the channel
+      send(str({ command: 'subscribe', identifier: str({ channel: channelIds.driver }) }));
+    }
   });
 
-  ws.addEventListener('message', (event) => {
-    const data = JSON.parse(event.data);
+  function sendMessage({ data, channelId = channelIds.driver }: { data: any; channelId?: string; }) {
+    send(str({ command: 'message', identifier: str({ channel: channelId }), data: str(data) }));
+  }
+  
+  function performAction({ action, identifier = channelIds.driver, data = {} }: { action: string, identifier?: string, data?: any }) {
+    // The action gets sent through the data object    
+    sendMessage({ data: { action, ...data }, channelId: identifier });
+  }
+
+  async function handleMessage(event: MessageEvent) {
+    const data = parse(event.data);
     
     // Everytime it pings and if its traveling
-    if (data.type === 'ping' && isDrivingToPassenger.value) {      
-      // const { coords } = await Geolocation.getCurrentPosition();
-      // iLat.value += 0.0010;
-      // iLng.value += 0.0010;
+    if (data.type === 'ping' && isDrivingToPassenger.value) {
+      const { coords } = await Geolocation.getCurrentPosition();
 
-      const info = JSON.stringify({
+      performAction({
         action: 'driver_coords',
-        driverCoords: {
-          lat: iLat.value,
-          lng: iLng.value,
-          passengerId: 2
-        }
+        data: {
+          driverCoords: {
+            lat: coords.latitude,
+            lng: coords.longitude,
+            passengerId: 2,
+          },
+        },
       });
-    
-      const payload = JSON.stringify({
-        command: 'message',
-        identifier: JSON.stringify({ channel: 'DriverCoordinatesChannel' }),
-        data: info,
-      });
-    
-      ws.send(payload);
     }
 
     if (data.message === 'sendCoordinates') {
-      // Pa despues mi dog
-      // const { coords } = await Geolocation.getCurrentPosition();
+      const { coords: liveCoords } = await Geolocation.getCurrentPosition();      
 
-      const info = JSON.stringify({
-        action: 'send_coordinates',
-        coords: coords.value,
-      });
+      coords.value.lat = liveCoords.latitude;
+      coords.value.lng = liveCoords.longitude;
 
-      const payload = JSON.stringify({
-        command: 'message',
-        identifier: chanelId,
-        data: info,
-      });
-
-      ws.send(payload);
+      performAction({ action: 'send_coordinates', data: { coords: coords.value } });
     }
 
     if (data.message && data.message.driver_id === driverId) {
@@ -75,21 +66,14 @@ export function useWebsocket() {
       travelData.fare = data.message.fare;
       travelData.passengerId = data.message.passenger_id;
     }
+  }
+
+  ws.value?.addEventListener('message', handleMessage);
+
+  onUnmounted(() => {
+    ws.value?.removeEventListener('message', handleMessage);
+    close();
   });
 
-  const close = () => {
-    ws.close();
-    wsStatus.value = ws.readyState;
-  };
-
-  // Close the websocket
-  onUnmounted(() => close());
-
-  return { ws };
-}
-
-
-// TODO: Pa dos meses
-export function send() {
-
+  return { ws, status, send, sendMessage, performAction };
 }

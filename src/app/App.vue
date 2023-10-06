@@ -10,19 +10,8 @@ import { ref } from "vue";
 import { useWebsocket } from "@/composables/useWebsocket";
 import { createTripMutation } from "@/services/trip/trip.mutations";
 import { useMutation } from "@vue/apollo-composable";
-import { useCookies } from "@vueuse/integrations/useCookies";
 import { isDrivingToPassenger, travelData } from '@/services/trip/trip.data';
-
-// interface ITrip {
-//   passengerId: number;
-//   vehicleId: number;
-//   tripAttributes: ITripAttributes
-// }
-
-// interface ICoordinate {
-//   lat: string
-//   lng: string
-// }
+import { getToken } from './core/helpers/token-helper';
 
 const newTripData = ref({
   tripId: 0,
@@ -31,21 +20,9 @@ const newTripData = ref({
   action: 'confirm_travel',
 })
 
-// type Status = 'active' | 'completed' | 'cancelled';
-
-// interface ITripAttributes {
-//   startLocation: ICoordinate;
-//   endLocation: ICoordinate;
-//   startTime: string;
-//   distance: number;
-//   fare: string;
-//   status: Status;
-// }
-
 const router = useRouter();
 
-const { ws } = useWebsocket();
-const cookies = useCookies();
+const { sendMessage } = useWebsocket();
 
 const { mutate: newTrip } = useMutation(createTripMutation, () => ({
   variables: {
@@ -62,32 +39,25 @@ const { mutate: newTrip } = useMutation(createTripMutation, () => ({
   },
   context: {
     headers: {
-      'Authorization': `Bearer ${cookies.get('BZ-TOKEN')}`
+      // Change 1: Replace with getToken
+      'Authorization': getToken()
     }
   }
 }));
-
-const chanelId = JSON.stringify({ channel: 'DriverCoordinatesChannel' });
 
 async function closeModal() {
   showModal.value = false;
 
   const res = await newTrip();
+
   isDrivingToPassenger.value = true;
 
-  // console.log({res});
-  
-
+  // Set the new trip info from the response received from creating the trip
   newTripData.value.tripId = res?.data.createTrip.id;
   newTripData.value.passengerId = res?.data.createTrip.passenger.user.id;
 
-  const payload = JSON.stringify({
-    command: 'message',
-    identifier: chanelId,
-    data: JSON.stringify(newTripData.value)
-  });
-
-  ws.send(payload);
+  // Send the new Trip data
+  sendMessage({ data: newTripData.value })
 
   await router.push("/travel");
 }

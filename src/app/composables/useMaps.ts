@@ -35,8 +35,8 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
   }
 
   async function createMap() {
-    // const { coords } = await Geolocation.getCurrentPosition();
-    const coords = { lat: 14.098533, lng: -87.226023 };
+    const { coords } = await Geolocation.getCurrentPosition();
+    // const coords = { lat: 14.098533, lng: -87.226023 };
 
     const loader = new Loader({ apiKey: environment.mapsApiKey });
 
@@ -45,8 +45,8 @@ export function useMaps(mapRef: Ref<HTMLDivElement>) {
     map.value = new Map(mapRef.value, {
       mapId: MAP_ID,
       center: {
-        lat: coords.lat,
-        lng: coords.lng
+        lat: coords.latitude,
+        lng: coords.longitude
       },
       zoom: DEFAULT_MAP_ZOOM,
       clickableIcons: false,
