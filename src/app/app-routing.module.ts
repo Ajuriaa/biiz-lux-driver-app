@@ -1,10 +1,42 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './auth';
+import { ProfileComponent } from './shared/profile/components';
+import { CustomerServiceComponent } from './shared/customer-service/';
+import { FaqComponent } from './shared/faq';
+import { HomeComponent } from './containers';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', title: 'Login!', component: LoginComponent },
+  {
+    path: 'home',
+    title: 'Inicio',
+    component: HomeComponent
+  },
+  {
+    path: 'profile',
+    title: 'Perfil',
+    component: ProfileComponent
+  },
+  {
+    path: 'customer-service',
+    title: 'Servicio al cliente',
+    component: CustomerServiceComponent
+  },
+  {
+    path: 'faq',
+    title: 'Preguntas frecuentes',
+    component: FaqComponent
+  }
+
+  // Errors routes
+  // { path: 'error', title: 'Error', component: NotFoundErrorComponent },
+  // { path: 'not-allowed',  title: 'No permitido', component: NotAllowedErrorComponent },
+  // { path: '**', redirectTo: 'error' }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

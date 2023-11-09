@@ -1,0 +1,7 @@
+{
+  "name": "BIIZ-DRIVER",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

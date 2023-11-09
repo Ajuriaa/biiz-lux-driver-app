@@ -1,1 +1,82 @@
-/* You can add global styles to this file, and also import other style files */
+@import './app/core/sass/global';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('./assets/fonts/GothamBold.ttf') format('truetype'),
+       url('./assets/fonts/Gotham-Bold.otf') format('opentype');
+}
+
+:root{
+  --ion-font-family: 'Gotham';
+}
+
+:root,
+html {
+  font-size: 62.5%;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Gotham', sans-serif;
+  letter-spacing: 0.05rem;
+}
+
+* {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// Simple reusable classes
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.d-flex { display: flex; }
+
+.pointer { cursor: pointer; }
+
+.inter {
+  font-family: 'Inter', sans-serif;
+}
+
+.display-btn {
+  border-radius: 0.5rem;
+  background-size: cover;
+}
+
+.green-radio {
+  appearance: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: setColor(firm-gray, 100);
+  outline: none;
+  margin-right: 0.7rem;
+}
+
+.green-radio:checked {
+  background-color: $green;
+  background-image: url('assets/images/check.svg');
+  background-size: 90% 90%;
+}
+
+.loading {
+  display: flex;
+  position: absolute;
+  z-index: 3;
+  backdrop-filter: blur(2rem);
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}

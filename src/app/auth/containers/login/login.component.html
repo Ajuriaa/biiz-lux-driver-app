@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="login-header">
+    <div class="translate-box" >
+      <div class="translate">
+      <img class="icon" src="assets/images/translate.svg" alt="translate">
+      </div>
+    </div>
+    <img class="logo" src="assets/images/logo.svg">
+    <p class="driver-label">DRIVER</p>
+    <p class="version">ALFA</p>
+  </div>
+  <div class="login-footer">
+    <div class="terms">
+      <div class="green"></div>
+      <p class="text">TERMINOS Y CONDICIONES</p>
+    </div>
+    <form [formGroup]="loginForm" class="form-field">
+      <input
+        class="input"
+        placeholder="Ingresa tu email"
+        formControlName="email"
+        maxlength="50"
+        minlength="1"
+        required
+      >
+      <input
+        class="input"
+        placeholder="Ingresa tu contraseña"
+        formControlName="password"
+        maxlength="50"
+        minlength="1"
+        required
+      >
+    </form>
+    <div class="login" (click)="onSubmit()">
+      <img class="button-image" src="https://biiz-bucket.s3.us-east-2.amazonaws.com/iiz.png">
+    </div>
+  </div>
+</div>
