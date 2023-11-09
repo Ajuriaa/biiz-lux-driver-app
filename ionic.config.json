@@ -1,7 +1,0 @@
-{
-  "name": "BIIZ Driver",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "vue-vite"
-}
