@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,13 +8,14 @@ import { GraphqlService } from '../services/graphql.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth';
-import { HomeComponent } from './containers';
+import { HomeComponent, TripComponent } from './containers';
 import { ButtonsModule, HeaderModule } from './shared';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    TripComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +28,8 @@ import { ButtonsModule, HeaderModule } from './shared';
     HeaderModule,
     IonicModule.forRoot()
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
   constructor(graphqlService: GraphqlService) {

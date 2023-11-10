@@ -4,26 +4,19 @@
     <section class="trip-container" routerLink="/trip">
       <div class="label">
         <ion-icon name="time" class="icon"></ion-icon>
-        {{ this.time }}
+        7 MIN.
       </div>
       <app-white-button message="SOLICITAR UNIDAD"></app-white-button>
     </section>
     <section class="experience-container" [routerLink]="['../experiences']">
-      <app-white-button message="EVENTOS"></app-white-button>
+      <p class="soon-label">SOON</p>
+      <app-white-button message="CURSOS" class="btn"></app-white-button>
     </section>
-    <section class="shared-container">
-      <app-display-button
-        message ="VIAJE AEROPUERTO"
-        link="../airport"
-        class="airport-container"
-      ></app-display-button>
-      <app-display-button
-        message="ESPECIALES"
-        link="../specials"
-        class="specials-container"
-      ></app-display-button>
+    <section class="experience-container" [routerLink]="['../experiences']">
+      <p class="soon-label">SOON</p>
+      <app-white-button message="ASISTENCIA" class="btn"></app-white-button>
     </section>
 
-    <app-primary-button class="button" (btnClick)="test()">MIS VIAJES</app-primary-button>
+    <app-primary-button class="button" (btnClick)="test()">VIAJES PROGRAMADOS</app-primary-button>
   </div>
 </ion-content>

@@ -4,7 +4,7 @@ import { LoginComponent } from './auth';
 import { ProfileComponent } from './shared/profile/components';
 import { CustomerServiceComponent } from './shared/customer-service/';
 import { FaqComponent } from './shared/faq';
-import { HomeComponent } from './containers';
+import { HomeComponent, TripComponent } from './containers';
 
 const routes: Routes = [
   { path: '', title: 'Login!', component: LoginComponent },
@@ -12,6 +12,11 @@ const routes: Routes = [
     path: 'home',
     title: 'Inicio',
     component: HomeComponent
+  },
+  {
+    path: 'trip',
+    title: 'Viaje',
+    component: TripComponent
   },
   {
     path: 'profile',
