@@ -8,14 +8,16 @@ import { GraphqlService } from '../services/graphql.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth';
-import { HomeComponent, TripComponent } from './containers';
+import { HomeComponent, PickUpComponent, TripComponent } from './containers';
 import { ButtonsModule, HeaderModule } from './shared';
+import { ModalMutations } from './shared/services';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    TripComponent
+    TripComponent,
+    PickUpComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { ButtonsModule, HeaderModule } from './shared';
     IonicModule.forRoot()
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [ModalMutations]
 })
 export class AppModule {
   constructor(graphqlService: GraphqlService) {

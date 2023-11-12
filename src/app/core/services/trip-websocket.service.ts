@@ -48,16 +48,6 @@ export class TripWebsocketService {
         const coords = {lat: message.driverCoords.lat, lng: message.driverCoords.lng};
         this.sharedData.setDriverCoord(coords);
       }
-
-      if(message.title === 'driverArrived'){
-        // data = {title: 'driverArrived'}
-        this.sharedData.setDriverArrived(true);
-      }
-
-      if(message.title === 'tripFinished'){
-        // data = {title: 'tripFinished'}
-        this.sharedData.setFinishTrip(true);
-      }
     };
 
     this.socket.onclose = (event) => {

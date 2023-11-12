@@ -1,0 +1,95 @@
+@import 'src/app/core/sass/global';
+
+.header {
+  z-index: 2;
+}
+
+.container, .map {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.map {
+  position: absolute;
+}
+
+.button-container {
+  @include flex-column;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+  transition: margin-bottom 1.5s ease-in-out;
+
+  .confirm {
+    width: 90%;
+  }
+
+  .text {
+    margin: 0;
+  }
+}
+
+.button-image {
+  position: absolute;
+  right: 2rem;
+}
+
+.info-container {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 90%;
+
+  .green {
+    @include flex-center;
+    border-radius: 0.5rem;
+    background-color: $green;
+    height: 3.5rem;
+    width: 100%;
+  }
+
+  .short {
+    width: 25%;
+  }
+}
+
+.shared-info {
+  display: flex;
+  height: 2.5rem;
+  gap: 0.5rem;
+  width: 100%;
+
+  .white, .black {
+    width: 50%;
+    @include flex-center;
+  }
+
+  .white {
+    background-color: $white;
+  }
+
+  .black {
+    background-color: $black;
+    color: $white;
+  }
+}
+
+.first-row {
+  display: flex;
+  justify-content: space-between;
+
+  .reject {
+    color: $white;
+    background-color: $red;
+    @include flex-center;
+    border-radius: 0.5rem;
+    width: 10rem;
+  }
+}

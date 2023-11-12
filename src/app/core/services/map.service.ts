@@ -9,7 +9,6 @@ import { SharedDataService } from './shared-data.service';
 })
 export class MapService {
   public GoogleAutocomplete: google.maps.places.AutocompleteService;
-  public directionsRenderer!: google.maps.DirectionsRenderer;
   public directionsService: google.maps.DirectionsService;
   public geocoder: google.maps.Geocoder;
 
@@ -66,9 +65,9 @@ export class MapService {
     });
   }
 
-  public renderRoute(start: ICoordinate, end: ICoordinate, map: google.maps.Map, isTracking = false): google.maps.DirectionsRenderer {
+  public renderRoute(start: ICoordinate, end: ICoordinate, map: google.maps.Map, isTracking = false, green = true): google.maps.DirectionsRenderer {
     const directionOptions: google.maps.DirectionsRendererOptions = {
-      polylineOptions: { strokeColor: '#00E741' },
+      polylineOptions: { strokeColor: green ? '#00E741' : '#000000' },
       suppressMarkers: true,
       preserveViewport: isTracking
     };
@@ -77,15 +76,16 @@ export class MapService {
       destination: end,
       travelMode: google.maps.TravelMode['DRIVING']
     };
-    this.directionsRenderer = new google.maps.DirectionsRenderer(directionOptions);
-    this.directionsRenderer.setMap(map);
+    const directionRenderer = new google.maps.DirectionsRenderer(directionOptions);
+    directionRenderer.setMap(map);
     this.directionsService.route(request, (result, status) => {
-      if (status == 'OK') {
-        return this.directionsRenderer.setDirections(result);
+      if (status == 'OK' && result) {
+        this.sharedDataService.setTripDistance(result.routes[0].legs[0].distance?.value || 0);
+        return directionRenderer.setDirections(result);
       }
     });
 
-    return this.directionsRenderer;
+    return directionRenderer;
   }
 
   public markDrivers(passengerCoordinates: ICoordinate, driversCoordinates: ICoordinate[], map: google.maps.Map): void {

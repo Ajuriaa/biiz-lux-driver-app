@@ -9,20 +9,15 @@ import { getClosestDriver } from 'src/app/core/helpers';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public directionsService: google.maps.DirectionsService;
-  public time = '-- mins';
-
   constructor(
     private sharedDataService: SharedDataService,
     private websocket: GlobalWebsocketService,
     ) {
       this.websocket.connectWebSocket();
-      this.directionsService = new google.maps.DirectionsService();
     }
 
   async ngOnInit(): Promise<void> {
     await this.checkGeolocationPermissions();
-    this.websocket.getDriverCoordinates();
     setTimeout(() => this.getDriverTime(), 4000);
   }
 
@@ -62,13 +57,5 @@ export class HomeComponent implements OnInit {
         trafficModel: google.maps.TrafficModel.PESSIMISTIC
       }
     };
-
-    this.directionsService.route(request, (result, status) => {
-      if (status == 'OK' && result) {
-        this.time = result?.routes[0]?.legs[0]?.duration_in_traffic?.text || '10 mins';
-      } else {
-        this.time = '99 mins';
-      }
-    });
   }
 }

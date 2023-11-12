@@ -1,46 +1,67 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environments';
-import { IDriver, ITripInfo } from '../interfaces';
 import { CookieHelper } from '../helpers';
 import { SharedDataService } from './shared-data.service';
 import { WebsocketChannels } from '../enums';
 import { TripWebsocketService } from './trip-websocket.service';
 import { Subject } from 'rxjs';
+import { ModalController } from '@ionic/angular';
+import { ModalComponent } from 'src/app/shared/modal';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class GlobalWebsocketService {
-  private drivers: IDriver[] = [];
   private socket!: WebSocket;
   public messageSubject = new Subject<string>();
 
   constructor(
     private sharedData: SharedDataService,
     private tripSocket: TripWebsocketService,
+    private modalCtrl: ModalController,
+    private _router: Router
   ) {}
 
-  public getDriverCoordinates() {
-    const id = JSON.stringify({channel: 'AvailableDriversChannel'});
-    const data = JSON.stringify({action: 'ask_for_available_drivers'});
-    const payload = JSON.stringify({
-      command: 'message',
-      identifier: id,
-      data: data
+  async openModal(info: any) {
+    const modal = await this.modalCtrl.create({
+      component: ModalComponent,
+      componentProps: {
+        tripInfo: info
+      }
     });
-    this.socket.send(payload);
-  }
+    modal.present();
 
-  public startTrip(travelInfo: ITripInfo) {
+    const { data, role } = await modal.onWillDismiss();
     const id = JSON.stringify({channel: 'AvailableDriversChannel'});
-    const data = JSON.stringify({action: 'send_data', info: travelInfo});
-    const payload = JSON.stringify({
-      command: 'message',
-      identifier: id,
-      data: data
-    });
-    this.socket.send(payload);
+
+    if(role === 'rejected'){
+      const response = {title: 'driverResponse', passengerId: info.passenger_id, answer: 'rejected', tripId: 0};
+      const wsData = JSON.stringify({action: 'send_data', info: response});
+      const payload = JSON.stringify({
+        command: 'message',
+        identifier: id,
+        data: wsData
+      });
+      this.socket.send(payload);
+    }
+
+    if(role === 'accepted'){
+      debugger;
+      this._router.navigate(['pickup', data]);
+      const response = {title: 'driverResponse', passengerId: info.passenger_id, answer: 'accepted', tripId: data};
+      const wsData = JSON.stringify({action: 'send_data', info: response});
+      const payload = JSON.stringify({
+        command: 'message',
+        identifier: id,
+        data: wsData
+      });
+      this.socket.send(payload);
+
+      this.tripSocket.connectWebSocket(data);
+      this.unsubscribe();
+    }
   }
 
   public unsubscribe(): void {
@@ -52,11 +73,21 @@ export class GlobalWebsocketService {
     this.socket.send(payload);
   }
 
+  public sendCoordinates(coordsInfo: any) {
+    const id = JSON.stringify({channel: 'AvailableDriversChannel'});
+    const data = JSON.stringify({action: 'send_data', info: coordsInfo});
+    const payload = JSON.stringify({
+      command: 'message',
+      identifier: id,
+      data: data
+    });
+    this.socket.send(payload);
+  }
+
   public connectWebSocket() {
     this.socket = new WebSocket(environment.wsUrl);
 
     this.socket.onopen = () => {
-      this.drivers = [];
       const id = JSON.stringify({channel: WebsocketChannels.GLOBAL});
       const payload = JSON.stringify({
         command: 'subscribe',
@@ -68,29 +99,21 @@ export class GlobalWebsocketService {
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       const message = data.message;
-      console.log(message);
 
-      if(message.title === 'driverCoordinates'){
+      if(message === 'sendCoordinates'){
         // data = {title: 'driverCoordinates', driver: driverId, lat: 1, lng: 1}
-        const coords = {lat: message.lat, lng: message.lng};
-        const newDriver = {id: message.driverId, coordinates: coords};
-
-        if (!this.drivers.some((driver) => driver.id === newDriver.id)) {
-          this.drivers.push(newDriver);
-        }
-
-        this.sharedData.setDriverCoordinates(this.drivers);
+        const data = {title: 'driverCoordinates', driver: +this._getPassengerId(), lat: this.sharedData.getCoordinates().lat, lng: this.sharedData.getCoordinates().lng };
+        this.sendCoordinates(data);
+        console.log(data);
       }
 
-      if(message.title === 'driverResponse' && message.passengerId === this._getPassengerId()){
-        // data = {title: 'driverResponse', passengerId: 1, answer: 'accepted'/'rejected', tripId: 0/TripId }
-        if (message.answer === 'accepted') {
-          const currentTrip = { passengerId: message.passengerId, tripId: message.tripId };
-          this.sharedData.setCurrentTrip(currentTrip);
-          this.tripSocket.connectWebSocket(currentTrip.tripId);
-          this.unsubscribe();
-        }
-        this.messageSubject.next(message.answer);
+      //{"title"=>"driverRequest", "driver_id"=>1, "start_coords"=>{"lat"=>14.060391, "lng"=>-87.241083}, "end_coords"=>{"lat"=>14.0955772, "lng"=>-87.19031799999999}, "passenger_id"=>1, "fare"=>144, "start_location" => "location"}
+      if(message.title === 'driverRequest' && message.driver_id === +this._getPassengerId()){
+        // {title: 'driverResponse', passengerId: 1, answer: 'accepted'/'rejected', tripId: 0/TripId }
+        this.openModal(message);
+        // const data = {title: 'driverResponse', driver: +this._getPassengerId(), lat: this.sharedData.getCoordinates().lat, lng: this.sharedData.getCoordinates().lng };
+        // this.sendCoordinates(data);
+        // console.log(data);
       }
     };
 

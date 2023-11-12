@@ -21,3 +21,14 @@ export interface ITrip {
   startTime: string;
   fare: string;
 }
+
+export interface ITripInfo {
+  startLocation: ICoordinate;
+  endLocation: ICoordinate;
+  startAddress: string;
+  endAddress: string;
+  startTime: string;
+  distance: number;
+  fare: string;
+  status: string;
+}

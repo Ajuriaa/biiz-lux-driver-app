@@ -4,7 +4,8 @@ import { LoginComponent } from './auth';
 import { ProfileComponent } from './shared/profile/components';
 import { CustomerServiceComponent } from './shared/customer-service/';
 import { FaqComponent } from './shared/faq';
-import { HomeComponent, TripComponent } from './containers';
+import { HomeComponent, PickUpComponent, TripComponent } from './containers';
+import { ModalComponent } from './shared/modal';
 
 const routes: Routes = [
   { path: '', title: 'Login!', component: LoginComponent },
@@ -32,6 +33,11 @@ const routes: Routes = [
     path: 'faq',
     title: 'Preguntas frecuentes',
     component: FaqComponent
+  },
+  {
+    path: 'pickup/:id',
+    title: 'pickup',
+    component: PickUpComponent
   }
 
   // Errors routes

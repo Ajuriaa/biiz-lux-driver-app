@@ -16,17 +16,23 @@ export class SharedDataService {
   private closeDrivers : IDriver[] = [{id : 0, coordinates : DEFAULT_COORDS}];
   private marker = new google.maps.Marker();
   private destinationMarker = new google.maps.Marker();
-  private currentTrip: ICurrentTrip = {passengerId: '0', tripId: '0'};
   private driverCoords: ICoordinate = DEFAULT_COORDS;
-  private driverArrived = false;
-  private tripFinished = false;
+  private tripDistance = 0;
 
   public async setDefaultCoordinates(): Promise<ICoordinate> {
-    const coords = await Geolocation.getCurrentPosition({
-      enableHighAccuracy: true
-    });
-    this.coordinates= { lat: coords.coords.latitude, lng: coords.coords.longitude };
+    // const coords = await Geolocation.getCurrentPosition({
+    //   enableHighAccuracy: true
+    // });
+    this.coordinates= { lat: 14.08028328277766, lng: -87.20765003957904 };
     return this.coordinates;
+  }
+
+  public getTripDistance(): number {
+    return this.tripDistance/1000;
+  }
+
+  public setTripDistance(distance: number): void {
+    this.tripDistance += distance;
   }
 
   public getCoordinates() {
@@ -36,10 +42,6 @@ export class SharedDataService {
   public setDriverCoordinates(drivers: IDriver[]) {
     this.closeDrivers = drivers;
     this.closeDriversCoordinates = this.closeDrivers.map(driver => driver.coordinates);
-  }
-
-  public getDrivers() {
-    return this.closeDrivers;
   }
 
   public setCurrentMarker(marker: google.maps.Marker) {
@@ -62,14 +64,6 @@ export class SharedDataService {
     return this.closeDriversCoordinates;
   }
 
-  public setCurrentTrip(trip: ICurrentTrip) {
-    this.currentTrip = trip;
-  }
-
-  public getCurrentTrip(): ICurrentTrip {
-    return this.currentTrip;
-  }
-
   public setDriverCoord(coords: ICoordinate): void {
     this.driverCoords = coords;
   }
@@ -78,31 +72,12 @@ export class SharedDataService {
     return this.driverCoords;
   }
 
-  public setDriverArrived(arrived: boolean): void {
-    this.driverArrived = arrived;
-  }
-
-  public getDriverArrived(): boolean {
-    return this.driverArrived;
-  }
-
-  public setFinishTrip(arrived: boolean): void {
-    this.tripFinished = arrived;
-  }
-
-  public getFinishTrip(): boolean {
-    return this.tripFinished;
-  }
-
   public resetData(): void {
-  this.coordinates = DEFAULT_COORDS;
-  this.closeDriversCoordinates = [];
-  this.closeDrivers = [{id : 0, coordinates : DEFAULT_COORDS}];
-  this.marker = new google.maps.Marker();
-  this.destinationMarker = new google.maps.Marker();
-  this.currentTrip = {passengerId: '0', tripId: '0'};
-  this.driverCoords = DEFAULT_COORDS;
-  this.driverArrived = false;
-  this.tripFinished = false;
+    this.coordinates = DEFAULT_COORDS;
+    this.closeDriversCoordinates = [];
+    this.closeDrivers = [{id : 0, coordinates : DEFAULT_COORDS}];
+    this.marker = new google.maps.Marker();
+    this.destinationMarker = new google.maps.Marker();
+    this.driverCoords = DEFAULT_COORDS;
   }
 }
