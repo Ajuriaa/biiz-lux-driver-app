@@ -35,7 +35,7 @@
     "@capacitor/keyboard": "5.0.6",
     "@capacitor/status-bar": "5.0.6",
     "@ionic/angular": "^7.2.1",
-    "@ionic/cli": "^7.1.1",
+    "@ionic/cli": "^7.1.5",
     "@types/google.maps": "^3.54.1",
     "apollo-angular": "5.0.0",
     "graphql": "16.6.0",

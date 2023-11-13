@@ -22,11 +22,11 @@ export class MapService {
     this.geocoder = new google.maps.Geocoder();
   }
 
-  public generateDefaultMap(coords: ICoordinate, mapRef: ElementRef) {
+  public generateDefaultMap(coords: ICoordinate, mapRef: ElementRef, zoom = 17): google.maps.Map {
     const mapOptions: google.maps.MapOptions = {
       mapId: 'f8e6a2472dfc90b0',
       center: coords,
-      zoom: 17,
+      zoom: zoom,
       clickableIcons: false,
       disableDefaultUI: true,
       keyboardShortcuts: false,

@@ -48,7 +48,6 @@ export class GlobalWebsocketService {
     }
 
     if(role === 'accepted'){
-      debugger;
       this._router.navigate(['pickup', data]);
       const response = {title: 'driverResponse', passengerId: info.passenger_id, answer: 'accepted', tripId: data};
       const wsData = JSON.stringify({action: 'send_data', info: response});
@@ -104,16 +103,10 @@ export class GlobalWebsocketService {
         // data = {title: 'driverCoordinates', driver: driverId, lat: 1, lng: 1}
         const data = {title: 'driverCoordinates', driver: +this._getPassengerId(), lat: this.sharedData.getCoordinates().lat, lng: this.sharedData.getCoordinates().lng };
         this.sendCoordinates(data);
-        console.log(data);
       }
 
-      //{"title"=>"driverRequest", "driver_id"=>1, "start_coords"=>{"lat"=>14.060391, "lng"=>-87.241083}, "end_coords"=>{"lat"=>14.0955772, "lng"=>-87.19031799999999}, "passenger_id"=>1, "fare"=>144, "start_location" => "location"}
       if(message.title === 'driverRequest' && message.driver_id === +this._getPassengerId()){
-        // {title: 'driverResponse', passengerId: 1, answer: 'accepted'/'rejected', tripId: 0/TripId }
         this.openModal(message);
-        // const data = {title: 'driverResponse', driver: +this._getPassengerId(), lat: this.sharedData.getCoordinates().lat, lng: this.sharedData.getCoordinates().lng };
-        // this.sendCoordinates(data);
-        // console.log(data);
       }
     };
 

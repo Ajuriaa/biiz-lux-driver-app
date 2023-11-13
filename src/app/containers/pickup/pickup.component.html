@@ -1,4 +1,40 @@
-<app-shared-header></app-shared-header>
-<ion-content>
-  <p>test</p>
-</ion-content>
+<app-shared-loading class="loading" *ngIf="loading"></app-shared-loading>
+
+<div class="container">
+  <div class="map" #map></div>
+  <app-shared-header class="header"></app-shared-header>
+  <div class="button-container">
+    <div class="notification" (click)="notifyArrival()">
+      <ion-icon class="noticon" name="notifications"></ion-icon>
+      <p>NOTIFICAR LLEGADA</p>
+    </div>
+    <div class="time-wrapper">
+      <p class="black-label"> 7:00 </p>
+      <p class="green-label"> 17:45 </p>
+    </div>
+    <section class="info-wrapper">
+      <div class="left-column">
+        <img class="image" src="https://biiz-bucket.s3.us-east-2.amazonaws.com/profile-image.png"/>
+        <p class="name"> {{ passenger.shortName }} </p>
+      </div>
+      <div class="right-column">
+        <span class="icon">
+          <ion-icon name="chatbox"></ion-icon>
+        </span>
+        <p class="black-btn"> REPORTAR </p>
+      </div>
+    </section>
+  </div>
+</div>
+
+<ion-modal id="notify-modal" [isOpen]="isModalOpen">
+  <ng-template>
+    <div class="modal-wrapper">
+      <p>NOTIFICAR LLEGADA?</p>
+      <div class="button-wrapper">
+        <p class="cancel" (click)="cancel()">CANCELAR</p>
+        <p class="accept" (click)="accept()">ACEPTAR</p>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { WeatherQueries } from 'src/app/shared/services';
 
 const DEFAULT_WEATHER_IMAGE = 'assets/images/weather.svg';
-const TRANSPARENT_HEADER_ROUTES = ['trip', 'customer-service', 'awaiting-trip', 'traveling', 'test'];
+const TRANSPARENT_HEADER_ROUTES = ['trip', 'customer-service', 'pickup', 'traveling'];
 @Component({
   selector: 'app-shared-header',
   templateUrl: './header.component.html',
@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.whiteHeader = !this.allowedRoutes.includes(this._route.snapshot.url.join('/'));
+    this.whiteHeader = !this.allowedRoutes.includes(this._route.snapshot.url[0].path);
     this._weatherQuery.getWeatherData().subscribe(({ data }) => {
       if (data) {
         this.weatherImage = this._setWeatherImage(data.weather.weather[0].icon);

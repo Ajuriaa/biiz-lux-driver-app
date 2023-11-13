@@ -1,1 +1,148 @@
 @import 'src/app/core/sass/global';
+
+.header {
+  z-index: 2;
+}
+
+.name {
+  text-transform: uppercase;
+}
+
+.container, .map {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.map {
+  position: absolute;
+}
+
+.button-container {
+  z-index: 2;
+  @include flex-column;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+  font-size: 1.5rem;
+  height: 30%;
+
+}
+
+.notification {
+  width: 90%;
+  @include flex-center;
+  height: 25%;
+  gap: 1rem;
+  border-radius: 0.5rem;
+  background-color: $green;
+
+  .noticon {
+    font-size: 2rem;
+  }
+}
+
+.time-wrapper {
+  @include flex-center;
+  width: 90%;
+  gap: 0.5rem;
+
+  .black-label, .green-label {
+    @include flex-center;
+    height: 3rem;
+    width: 50%;
+    border-radius: 0.5rem;
+  }
+
+  .black-label {
+    background-color: $black;
+    color: $white;
+  }
+
+  .green-label {
+    background-color: $green;
+  }
+}
+
+.info-wrapper {
+  @include flex-center;
+  gap: 0.5rem;
+  width: 90%;
+  height: 75%;
+
+  .left-column, .right-column {
+    width: 50%;
+    height: 100%;
+  }
+
+  .left-column {
+    background-color: $white;
+    @include flex-column;
+    justify-content: center;
+    font-size: 1.1rem;
+    gap: 1.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .right-column {
+    @include flex-column;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+}
+
+.icon {
+  @include flex-center;
+  height: 70%;
+  width: 100%;
+  font-size: 3.5rem;
+  background-color: $white;
+  border-radius: 0.5rem;
+}
+
+.black-btn {
+  @include flex-center;
+  height: 30%;
+  border-radius: 0.5rem;
+  background-color: $black;
+  color: $white;
+  width: 100%;
+}
+
+.modal-wrapper {
+  @include flex-center;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 2rem;
+  gap: 2rem;
+  height: 15rem;
+  width: 30rem;
+
+  .button-wrapper {
+    font-size: 1.5rem;
+    @include flex-center;
+    gap: 2rem;
+    width: 90%;
+  }
+}
+
+.cancel, .accept {
+  @include flex-center;
+  height: 3rem;
+  width: 50%;
+  border-radius: 0.5rem;
+}
+
+.cancel {
+  background-color: $black;
+  color: $white;
+}
+
+.accept {
+  background-color: $green;
+}

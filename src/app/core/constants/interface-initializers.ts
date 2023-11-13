@@ -13,7 +13,8 @@ export const VEHICLE: IVehicle = {
 };
 
 export const USERABLE: IUserable = {
-  addresses: []
+  addresses: [],
+  shortName: ''
 };
 
 export const USER: IUser = {
@@ -44,7 +45,10 @@ export const TRIP: ITrip = {
   vehicle: VEHICLE,
   startLocation: DEFAULT_COORDS,
   endLocation: DEFAULT_COORDS,
+  startAddress: '',
+  endAddress: '',
   startTime: '',
+  endTime: '',
   fare: '',
 };
 

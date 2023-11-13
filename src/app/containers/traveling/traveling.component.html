@@ -1,0 +1,14 @@
+<app-shared-loading class="loading" *ngIf="loading"></app-shared-loading>
+
+<div class="container">
+  <div class="map" #map></div>
+  <app-shared-header class="header"></app-shared-header>
+  <div class="button-container">
+    <app-primary-button (btnClick)="finishTrip()" class="btn">TERMINAR VIAJE</app-primary-button>
+    <p class="fare-label"> {{ trip.fare }} LPS </p>
+    <div class="green-label">
+      <ion-icon class="icon" name="location-sharp"></ion-icon>
+      <p class="timer">17:49</p>
+    </div>
+  </div>
+</div>

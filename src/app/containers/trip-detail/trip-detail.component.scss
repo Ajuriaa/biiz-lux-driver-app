@@ -1,0 +1,105 @@
+@import 'src/app/core/sass/global';
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .info-wrapper {
+    height: 100%;
+    margin-bottom: 2rem;
+    @include flex-column;
+  }
+
+  .section {
+    @include flex-column;
+    justify-content: flex-start;
+    position: relative;
+    height: 100%;
+    width: 90%;
+    gap: 1rem;
+    border-radius: 0.5rem;
+    background-color: setColor(firm-gray, 100);
+  }
+}
+
+.display {
+  margin-top: 2rem;
+  width: 85%;
+  height: 30%;
+  @include flex-column;
+  background-color: $white;
+  justify-content: center;
+  border-radius: 0.5rem;
+
+  .label {
+    font-size: 1.3rem;
+  }
+}
+
+.trip-info {
+  background-color: $white;
+  @include flex-column;
+  width: 85%;
+  height: 30%;
+  border-radius: 0.5rem;
+
+  .red-label {
+    width: 100%;
+    margin: 1rem 2rem 2rem 0;
+    display: flex;
+    justify-content: flex-end;
+    color: $red;
+  }
+
+}
+
+.address-wrapper {
+  display: flex;
+  align-items: flex-start;
+  width: 90%;
+  height: 100%;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+
+  .time, .address {
+    margin: 0;
+  }
+}
+
+.time-container {
+  width: 20%;
+  height: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+
+.image {
+  height: 60%;
+}
+
+.address-container {
+  width: 70%;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 1.2rem;
+}
+
+.logo-wrapper {
+  @include flex-center;
+  height: 30%;
+
+  .logo {
+    height: 4rem;
+  }
+}
+
+.btn {
+  margin-top: 0.5rem;
+  width: 90%;
+}

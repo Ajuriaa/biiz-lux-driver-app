@@ -4,7 +4,7 @@ import { LoginComponent } from './auth';
 import { ProfileComponent } from './shared/profile/components';
 import { CustomerServiceComponent } from './shared/customer-service/';
 import { FaqComponent } from './shared/faq';
-import { HomeComponent, PickUpComponent, TripComponent } from './containers';
+import { HomeComponent, PickUpComponent, TravelingComponent, TripComponent, TripDetailComponent } from './containers';
 import { ModalComponent } from './shared/modal';
 
 const routes: Routes = [
@@ -38,6 +38,16 @@ const routes: Routes = [
     path: 'pickup/:id',
     title: 'pickup',
     component: PickUpComponent
+  },
+  {
+    path: 'traveling/:id',
+    title: 'traveling',
+    component: TravelingComponent
+  },
+  {
+    path: 'trip-detail/:id',
+    title: 'trip-detail',
+    component: TripDetailComponent
   }
 
   // Errors routes

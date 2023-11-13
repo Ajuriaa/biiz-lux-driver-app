@@ -8,16 +8,19 @@ import { GraphqlService } from '../services/graphql.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth';
-import { HomeComponent, PickUpComponent, TripComponent } from './containers';
+import { HomeComponent, PickUpComponent, TravelingComponent, TripComponent, TripDetailComponent } from './containers';
 import { ButtonsModule, HeaderModule } from './shared';
 import { ModalMutations } from './shared/services';
+import { TripMutations } from './services';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     TripComponent,
-    PickUpComponent
+    PickUpComponent,
+    TravelingComponent,
+    TripDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,10 @@ import { ModalMutations } from './shared/services';
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ModalMutations]
+  providers: [
+    ModalMutations,
+    TripMutations
+  ]
 })
 export class AppModule {
   constructor(graphqlService: GraphqlService) {

@@ -79,7 +79,6 @@ export class ModalComponent implements OnInit, OnDestroy{
   }
 
   public async startTrip(): Promise<boolean> {
-    console.log(this.sharedDataService.getTripDistance())
     const passengerId = this.tripInfo.passenger_id;
     const vehicleId = 2;
     const trip: ITripInfo = {
