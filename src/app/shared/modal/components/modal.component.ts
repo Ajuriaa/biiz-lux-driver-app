@@ -4,8 +4,8 @@ import { IDriver } from 'src/app/core/interfaces';
 import { DEFAULT_COORDS } from 'src/app/core/constants';
 import { MarkerUrl } from 'src/app/core/enums';
 import { ModalController } from '@ionic/angular';
-import { ModalMutations } from '../../services';
 import { ITripInfo } from 'src/app/interfaces';
+import { ModalMutations } from '../../services';
 
 const IMAGE_URL = 'https://biiz-bucket.s3.us-east-2.amazonaws.com/iiz-green.png';
 const MOCK = {

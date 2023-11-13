@@ -3,10 +3,6 @@ import { Geolocation } from '@capacitor/geolocation';
 import { ICoordinate, IDriver } from '../interfaces';
 import { DEFAULT_COORDS } from '../constants';
 
-interface ICurrentTrip {
-  passengerId: string;
-  tripId: string;
-}
 @Injectable({
   providedIn: 'root',
 })
@@ -20,10 +16,10 @@ export class SharedDataService {
   private tripDistance = 0;
 
   public async setDefaultCoordinates(): Promise<ICoordinate> {
-    // const coords = await Geolocation.getCurrentPosition({
-    //   enableHighAccuracy: true
-    // });
-    this.coordinates= { lat: 14.08028328277766, lng: -87.20765003957904 };
+    const coords = await Geolocation.getCurrentPosition({
+      enableHighAccuracy: true
+    });
+    this.coordinates= { lat: coords.coords.latitude, lng: coords.coords.longitude };
     return this.coordinates;
   }
 

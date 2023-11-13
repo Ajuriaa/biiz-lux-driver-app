@@ -4,9 +4,9 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { HeaderModule } from '../header/header.module';
 import { ButtonsModule } from '../buttons/buttons.module';
-import { ModalComponent } from './components/modal.component';
 import { LoadingModule } from '../loading/loading.module';
 import { ModalMutations } from '../services';
+import { ModalComponent } from './components/modal.component';
 
 @NgModule({
   declarations: [ModalComponent],

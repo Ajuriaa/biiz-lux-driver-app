@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environments';
-import { SharedDataService } from './shared-data.service';
 import { WebsocketChannels } from '../enums';
+import { SharedDataService } from './shared-data.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TripWebsocketService {
   private socket!: WebSocket;
-  private tripId: string = '';
+  private tripId = '';
   private tracking = true;
 
   constructor(

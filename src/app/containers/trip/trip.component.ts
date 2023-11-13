@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MapService, SharedDataService, GlobalWebsocketService } from 'src/app/core/services';
+import { MapService, SharedDataService } from 'src/app/core/services';
 import { IDriver } from 'src/app/core/interfaces';
 import { DEFAULT_COORDS } from 'src/app/core/constants';
 import { MarkerUrl } from 'src/app/core/enums';

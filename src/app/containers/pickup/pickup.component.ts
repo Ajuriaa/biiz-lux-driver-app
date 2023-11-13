@@ -1,21 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Geolocation } from '@capacitor/geolocation';
 import { DEFAULT_COORDS, TRIP, USERABLE } from 'src/app/core/constants';
 import { MarkerUrl } from 'src/app/core/enums';
-import { IDriver } from 'src/app/core/interfaces';
 import { SharedDataService, GlobalWebsocketService, MapService, TripWebsocketService } from 'src/app/core/services';
 import { ITrip, IUserable } from 'src/app/interfaces';
 import { TripQueries } from 'src/app/services';
-import { OverlayEventDetail } from '@ionic/core/components';
 import { IonModal } from '@ionic/angular';
-import { map } from 'rxjs';
 @Component({
   selector: 'app-pickup',
   templateUrl: './pickup.component.html',
   styleUrls: ['./pickup.component.scss']
 })
-export class PickUpComponent {
+export class PickUpComponent implements OnInit, OnDestroy {
   public loading = true;
   public map!: google.maps.Map;
   public trip: ITrip = TRIP;

@@ -5,7 +5,6 @@ import { ProfileComponent } from './shared/profile/components';
 import { CustomerServiceComponent } from './shared/customer-service/';
 import { FaqComponent } from './shared/faq';
 import { HomeComponent, PickUpComponent, TravelingComponent, TripComponent, TripDetailComponent } from './containers';
-import { ModalComponent } from './shared/modal';
 
 const routes: Routes = [
   { path: '', title: 'Login!', component: LoginComponent },

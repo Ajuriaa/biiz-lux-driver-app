@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environments';
-import { CookieHelper } from '../helpers';
-import { SharedDataService } from './shared-data.service';
-import { WebsocketChannels } from '../enums';
-import { TripWebsocketService } from './trip-websocket.service';
 import { Subject } from 'rxjs';
 import { ModalController } from '@ionic/angular';
 import { ModalComponent } from 'src/app/shared/modal';
 import { Router } from '@angular/router';
+import { WebsocketChannels } from '../enums';
+import { CookieHelper } from '../helpers';
+import { TripWebsocketService } from './trip-websocket.service';
+import { SharedDataService } from './shared-data.service';
 
 @Injectable({
   providedIn: 'root',
