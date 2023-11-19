@@ -39,10 +39,6 @@ export class PickUpComponent implements OnInit, OnDestroy {
     this.currentCoordinates = await this.sharedDataService.setDefaultCoordinates();
     this.map = this.mapService.generateDefaultMap(this.currentCoordinates, this.mapRef, 10);
     this.tripId = this._route.snapshot.url.join('/').split('/').pop() || '';
-    // TODO REMOVE THIS WHEN ACTIVELY TRACKING
-    setTimeout(() => this.tripSocket.connectWebSocket(this.tripId.toString()), 2000);
-    setTimeout(() => this.globalSocket.unsubscribe(), 2000);
-    // REMOVE THE LINE ABOVE
     this.tripQuery.getTrip(+this.tripId).subscribe(({ data }) => {
       if (data) {
         this.trip = data.trip;
@@ -54,6 +50,7 @@ export class PickUpComponent implements OnInit, OnDestroy {
 
     this.interval = setInterval(() => {
       this.updateMarker();
+      this.tripSocket.sendCoordinates();
     }, 1000);
   }
 

@@ -60,7 +60,7 @@ export class TripWebsocketService {
       trip_id: this.tripId
     });
     // data = {title: 'driverCoords', driverCoords = {lat: 1, lng: 2}}
-    const response = {title: 'driverCoords', driverCoords: { lat: 14.08028328277766, lng: -87.20765003957904 }};
+    const response = {title: 'driverCoords', driverCoords: { lat: this.sharedData.getCoordinates().lat, lng: this.sharedData.getCoordinates().lng }};
     const wsData = JSON.stringify({action: 'send_data', info: response, trip_id: this.tripId});
     const payload = JSON.stringify({
       command: 'message',

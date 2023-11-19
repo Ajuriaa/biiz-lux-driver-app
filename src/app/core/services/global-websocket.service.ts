@@ -49,7 +49,7 @@ export class GlobalWebsocketService {
 
     if(role === 'accepted'){
       this._router.navigate(['pickup', data]);
-      const response = {title: 'driverResponse', passengerId: info.passenger_id, answer: 'accepted', tripId: data};
+      const response = {title: 'driverResponse', passengerId: info.passenger_id, answer: 'accepted', tripId: data, driverCoords: this.sharedData.getCoordinates()};
       const wsData = JSON.stringify({action: 'send_data', info: response});
       const payload = JSON.stringify({
         command: 'message',
