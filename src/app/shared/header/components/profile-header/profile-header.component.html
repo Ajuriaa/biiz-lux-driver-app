@@ -1,0 +1,13 @@
+<div class="profile-wrapper">
+  <div class="profile-photo">
+    <ng-container *ngIf="showEditIcon">
+      <span class="material-icons-outlined icon">
+        edit
+      </span>
+    </ng-container>
+    <img class="image" [src]="imgSrc" alt="Profile Image">
+  </div>
+  <div class='profile-name'>
+    <p class="name">{{ profileName }}</p>
+  </div>
+</div>

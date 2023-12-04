@@ -1,0 +1,36 @@
+<div class="container">
+  <app-shared-header></app-shared-header>
+  <div class="info-wrapper">
+    <section class="section">
+      <div class="display">
+        <p class="label">TU VIAJE HA FINALIZADO</p>
+        <img class="qr" src="https://biiz-bucket.s3.us-east-2.amazonaws.com/qr-finshed.png"/>
+        <p>SIN INCIDENTES</p>
+      </div>
+      <div class="trip-info">
+        <p class="red-label ">REPORTAR</p>
+        <div class="address-wrapper">
+          <div class="time-container inter">
+            <p class="time"> {{ startTime }} </p>
+            <p class="time"> {{ endTime }} </p>
+          </div>
+          <img class="image" src="assets/images/location-arrows.svg">
+          <div class="address-container">
+            <p class="address"> {{ trip.startAddress }} </p>
+            <p class="address"> {{ trip.endAddress }} </p>
+          </div>
+        </div>
+      </div>
+      <div class="logo-wrapper">
+        <img class="logo" src="https://biiz-bucket.s3.us-east-2.amazonaws.com/atlantis-logo-white.png">
+      </div>
+    </section>
+    <app-primary-button
+      class="btn"
+      [showNotification]="true"
+      (btnClick)="goHome()"
+    >
+      REGRESAR A INICIO
+    </app-primary-button>
+  </div>
+</div>

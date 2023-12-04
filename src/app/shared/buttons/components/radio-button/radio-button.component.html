@@ -1,0 +1,11 @@
+<div class="radio-label">
+  <input
+    type="radio"
+    [id]="value"
+    [value]="value"
+    [checked]="value === selectedValue"
+    (change)="changeSelectedOption()"
+    class="green-radio"
+  />
+  <label [for]="value">{{ value }}</label>
+</div>

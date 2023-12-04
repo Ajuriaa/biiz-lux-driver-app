@@ -1,0 +1,42 @@
+@import 'src/app/core/sass/global';
+
+.header {
+  z-index: 2;
+}
+
+.container, .map {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.map {
+  position: absolute;
+}
+
+.button-container {
+  @include flex-column;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+  transition: margin-bottom 1.5s ease-in-out;
+
+  .confirm {
+    width: 90%;
+  }
+
+  .text {
+    margin: 0;
+  }
+}
+
+.button-image {
+  position: absolute;
+  right: 2rem;
+}
+

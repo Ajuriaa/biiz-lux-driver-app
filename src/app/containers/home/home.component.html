@@ -1,0 +1,22 @@
+<app-shared-header></app-shared-header>
+<ion-content>
+  <div class="container">
+    <section class="trip-container" routerLink="/trip">
+      <div class="label">
+        <ion-icon name="time" class="icon"></ion-icon>
+        7 MIN.
+      </div>
+      <app-white-button message="SOLICITAR UNIDAD"></app-white-button>
+    </section>
+    <section class="experience-container" [routerLink]="['../experiences']">
+      <p class="soon-label">SOON</p>
+      <app-white-button message="CURSOS" class="btn"></app-white-button>
+    </section>
+    <section class="experience-container" [routerLink]="['../experiences']">
+      <p class="soon-label">SOON</p>
+      <app-white-button message="ASISTENCIA" class="btn"></app-white-button>
+    </section>
+
+    <app-primary-button class="button">VIAJES PROGRAMADOS</app-primary-button>
+  </div>
+</ion-content>

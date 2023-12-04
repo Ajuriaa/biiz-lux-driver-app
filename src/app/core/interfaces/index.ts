@@ -1,1 +1,1 @@
-export * from './coords.interface';
+export * from './coordinates.interface';

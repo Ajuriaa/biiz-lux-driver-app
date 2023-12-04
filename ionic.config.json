@@ -1,7 +1,7 @@
 {
-  "name": "BIIZ Driver",
+  "name": "BIIZ-DRIVER",
   "integrations": {
     "capacitor": {}
   },
-  "type": "vue-vite"
+  "type": "angular"
 }

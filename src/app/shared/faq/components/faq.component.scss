@@ -1,0 +1,39 @@
+@import 'src/app/core/sass/global';
+
+.container {
+  @include flex-column;
+  height: 80%;
+  gap: 0.15rem;
+  color: setColor(firm-gray, 300);
+
+  .option-wrapper {
+    width: 80%;
+    height: 40%;
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: row;
+}
+
+.title {
+  margin: 3rem 0;
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.text {
+  padding-bottom: 2rem;
+  margin-top: 1.6rem;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 0.1rem solid #aeaeae7a;
+
+  .icon {
+    margin-top: 0.5rem;
+    color: setColor(firm-gray, 200);
+    font-size: 1.3rem;
+  }
+}
