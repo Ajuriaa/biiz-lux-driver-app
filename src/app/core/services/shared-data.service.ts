@@ -16,11 +16,11 @@ export class SharedDataService {
   private tripDistance = 0;
 
   public async setDefaultCoordinates(): Promise<ICoordinate> {
-    // const coords = await Geolocation.getCurrentPosition({
-    //   enableHighAccuracy: true
-    // });
-    // this.coordinates= { lat: coords.coords.latitude, lng: coords.coords.longitude };
-    this.coordinates = {lat: 14.064957415542802, lng:-87.21898546322454};
+    const coords = await Geolocation.getCurrentPosition({
+      enableHighAccuracy: true
+    });
+    this.coordinates = { lat: coords.coords.latitude, lng: coords.coords.longitude };
+    //this.coordinates = {lat: 14.052999856536433, lng: -87.25379627124354};
     return this.coordinates;
   }
 

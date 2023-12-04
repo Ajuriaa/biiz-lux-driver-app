@@ -67,7 +67,21 @@ export class TripWebsocketService {
       identifier: id,
       data: wsData
     });
-    console.log('enviando: ', response);
+    this.socket.send(payload);
+  }
+
+  public sendDriverStatus(status: string): void {
+    const id = JSON.stringify({
+      channel: WebsocketChannels.TRIP,
+      trip_id: this.tripId
+    });
+    const response = {title: 'driverStatus', status: status};
+    const wsData = JSON.stringify({action: 'send_data', info: response, trip_id: this.tripId});
+    const payload = JSON.stringify({
+      command: 'message',
+      identifier: id,
+      data: wsData
+    });
     this.socket.send(payload);
   }
 
@@ -92,6 +106,11 @@ export class TripWebsocketService {
 
       if(this.tracking && data.type === 'ping') {
         this.sendCoordinates();
+      }
+
+      if(data.message.title === 'tripStatus') {
+        const status = this.tracking ? 'awaiting' : 'traveling';
+        this.sendDriverStatus(status);
       }
     };
 

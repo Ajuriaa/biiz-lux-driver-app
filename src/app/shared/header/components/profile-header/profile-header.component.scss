@@ -8,6 +8,10 @@
   .profile-photo {
     position: absolute;
     margin-bottom: 3.8rem;
+
+    .image {
+      max-width: 6rem;
+    }
   }
 }
 
