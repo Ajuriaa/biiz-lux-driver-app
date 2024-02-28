@@ -4,7 +4,7 @@ import { DEFAULT_COORDS, TRIP, USERABLE } from 'src/app/core/constants';
 import { MarkerUrl } from 'src/app/core/enums';
 import { SharedDataService, GlobalWebsocketService, MapService, TripWebsocketService } from 'src/app/core/services';
 import { ITrip, IUserable } from 'src/app/interfaces';
-import { TripQueries } from 'src/app/services';
+import { TripMutations, TripQueries } from 'src/app/services';
 import { IonModal } from '@ionic/angular';
 @Component({
   selector: 'app-pickup',
@@ -31,6 +31,7 @@ export class PickUpComponent implements OnInit, OnDestroy {
     private tripQuery: TripQueries,
     private tripSocket: TripWebsocketService,
     private globalSocket: GlobalWebsocketService,
+    private _tripMutation: TripMutations,
     private _router: Router,
     private _route: ActivatedRoute
   ) {}
@@ -73,6 +74,7 @@ export class PickUpComponent implements OnInit, OnDestroy {
     this.isModalOpen = false;
     setTimeout(() => {
       this._router.navigate(['traveling', this.tripId]);
+      this._tripMutation.updateTripStatus(+this.tripId, 'enroute');
       this.tripSocket.notifyArrival();
     }, 300);
   }

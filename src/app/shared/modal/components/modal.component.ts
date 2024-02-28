@@ -88,7 +88,7 @@ export class ModalComponent implements OnInit, OnDestroy{
       endAddress: this.tripInfo.destination_location,
       startTime: this.tripInfo.start_time,
       distance: this.sharedDataService.getTripDistance(),
-      status: 'active',
+      status: 'pending',
       fare: this.tripInfo.fare,
     };
 
